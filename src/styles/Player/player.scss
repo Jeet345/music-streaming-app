@@ -1,0 +1,166 @@
+$primary: #689f38;
+
+.player-container {
+    height: 70px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 20px;
+    background-color: #23232c;
+    border-top: 1px solid rgb(73, 73, 73);
+    audio {
+        position: absolute;
+        top: 0px;
+        background-color: red;
+    }
+    .left-controls {
+        width: 150px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 10px;
+        button {
+            flex: 1;
+            background-color: transparent;
+            border: none;
+            display: grid;
+            color: white;
+            place-items: center;
+            font-size: 2rem;
+            transition: 0.2s;
+            cursor: pointer;
+            &:hover {
+                color: #bababa;
+            }
+        }
+        .pause-btn,
+        .play-btn {
+            font-size: 3.1rem;
+        }
+    }
+    .progress-box {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        padding-right: 20px;
+        grid-gap: 15px;
+        align-items: center;
+        .progress-bar {
+            width: 100%;
+            position: relative;
+            .progress-range {
+                appearance: none;
+                width: 100%;
+                height: 5px;
+                background: #3e3e46;
+                border-radius: 10px;
+                display: block;
+                position: relative;
+                cursor: pointer;
+                &::-webkit-slider-thumb {
+                    appearance: none;
+                    width: 15px;
+                    position: relative;
+                    z-index: 3;
+                    height: 15px;
+                    border-radius: 100%;
+                    background: white;
+                }
+            }
+            .range-fill {
+                position: absolute;
+                width: 0%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                z-index: 2;
+                background-color: $primary;
+                border-radius: 10px;
+            }
+        }
+        .elapsed-time,
+        .track-time {
+            color: white;
+            font-weight: normal;
+            color: rgb(180, 180, 180);
+        }
+    }
+    .right-controls {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        button {
+            background: none;
+            border: none;
+            display: grid;
+            place-items: center;
+            color: white;
+            font-size: 1.4rem;
+            padding: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            &:hover {
+                color: rgb(185, 185, 185);
+            }
+        }
+        .active {
+            color: $primary !important;
+        }
+    }
+    .music-controls {
+        display: flex;
+        align-items: center;
+        button {
+            padding: 6px;
+            display: grid;
+            cursor: pointer;
+            place-items: center;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+        }
+
+        .volume-slider {
+            width: 100px;
+            position: relative;
+            .slider {
+                appearance: none;
+                width: 100%;
+                height: 5px;
+                background: #3e3e46;
+                border-radius: 10px;
+                display: block;
+                cursor: pointer;
+                &::-webkit-slider-thumb {
+                    appearance: none;
+                    width: 10px;
+                    height: 10px;
+                    position: relative;
+                    z-index: 3;
+                    border-radius: 100%;
+                    background: white;
+                    // display: none;
+                }
+                &:hover {
+                    &::-webkit-slider-thumb {
+                        display: block;
+                    }
+                }
+            }
+            .range-fill {
+                position: absolute;
+                width: 30%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                z-index: 2;
+                background-color: $primary;
+                border-radius: 10px;
+                border-top-right-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
+        }
+    }
+}

@@ -1,0 +1,165 @@
+.appContainer {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: #f1f1f1;
+  overflow: hidden;
+}
+
+.appContainer .left-side-nav {
+  width: 18%;
+  padding: 18px;
+  overflow-y: scroll;
+  background-color: #23232c;
+}
+
+.appContainer .left-side-nav .logo {
+  color: white;
+  text-align: center;
+  padding: 20px 0px;
+}
+
+.appContainer .left-side-nav .search-filed {
+  width: 100%;
+  background-color: #353543;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 15px;
+  border: 1px solid rgba(92, 92, 92, 0.842);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.appContainer .left-side-nav .search-filed input {
+  width: 100%;
+  padding: 11px 13px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.appContainer .left-side-nav .search-filed button {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  color: white;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.appContainer .left-side-nav .link-box {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.appContainer .left-side-nav .link-box .title {
+  padding: 12px 11px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  text-transform: uppercase;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  font-size: 14px;
+  font-weight: 300;
+  border-radius: 3px;
+}
+
+.appContainer .left-side-nav .link-box .title .icon {
+  font-size: 1.4rem;
+  display: block;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.appContainer .left-side-nav .link-box ul li {
+  list-style: none;
+}
+
+.appContainer .left-side-nav .link-box ul li .link {
+  padding: 10px 11px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 300;
+  border-radius: 3px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.appContainer .left-side-nav .link-box ul li .link .icon {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.appContainer .left-side-nav .link-box ul li .link:hover {
+  background-color: #2c2c34;
+}
+
+.appContainer .left-side-nav .divider {
+  width: 100%;
+  height: 1px;
+  margin: 20px 0px;
+  background-color: #494949;
+}
+
+.appContainer .left-side-nav .login-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 10px;
+  padding: 0px 11px;
+}
+
+.appContainer .left-side-nav .login-box .btn {
+  display: block;
+  padding: 11px 15px;
+  font-weight: 500;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+
+.appContainer .left-side-nav .login-box .login-btn {
+  background-color: #689f38;
+}
+
+.appContainer .left-side-nav .login-box .register-btn {
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.appContainer .left-side-nav .login-box .register-btn:hover {
+  background-color: #2c2c34;
+}
+/*# sourceMappingURL=App.css.map */
