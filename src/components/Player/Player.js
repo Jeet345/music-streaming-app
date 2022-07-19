@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../styles/Player/player.css";
 import Volume from "./Volume";
 
+import { BiLoaderAlt } from "react-icons/bi";
+
 import {
    MdSkipNext,
    MdPlayArrow,
@@ -20,6 +22,8 @@ function Player() {
    const [source, setSource] = useState(
       "https://pagalworld.com.se/files/download/id/2836"
    );
+   const [isLoop, setIsLoop] = useState(false);
+   const [isLoaded, setIsLoaded] = useState(false);
 
    useEffect(() => {
       audioPlayer.current.load();
@@ -32,10 +36,12 @@ function Player() {
    const progressFill = useRef();
 
    useEffect(() => {
-      const currentSec = Math.floor(audioPlayer.current.currentTime);
-      if (currentSec != 0 && currentTime == duration) {
-         cancelAnimationFrame(whilePlaying);
-         togglePlayPause();
+      if (!isLoop) {
+         const currentSec = Math.floor(audioPlayer.current.currentTime);
+         if (currentSec != 0 && currentTime == duration) {
+            cancelAnimationFrame(whilePlaying);
+            togglePlayPause();
+         }
       }
    }, [currentTime]);
 
@@ -44,6 +50,7 @@ function Player() {
       const seconds = Math.floor(audioPlayer.current.duration);
       progressBar.current.max = seconds;
       setDuration(seconds);
+      setIsLoaded(true);
    };
 
    // formate seconds in form of (00:00)
@@ -74,7 +81,7 @@ function Player() {
       setCurrentTime(progressBar.current.value);
       progressFill.current.style.setProperty(
          "width",
-         `${(progressBar.current.value / duration) * 100}%`
+         `${(progressBar.current.value / audioPlayer.current.duration) * 100}%`
       );
    };
 
@@ -84,23 +91,43 @@ function Player() {
       setCurrentTime(progressBar.current.value);
       progressFill.current.style.setProperty(
          "width",
-         `${(progressBar.current.value / duration) * 100}%`
+         `${(progressBar.current.value / audioPlayer.current.duration) * 100}%`
       );
    };
 
    const changeAudio = (src) => {
-      console.log("changed");
-      audioPlayer.current.pause();
+      setIsLoaded(false);
+
       setSource(src);
 
       audioPlayer.current.load();
-      audioPlayer.current.play();
+
+      if (!isPlaying) {
+         togglePlayPause();
+      } else {
+         audioPlayer.current.play();
+      }
+
       console.log(duration);
+   };
+
+   const loopAudio = () => {
+      setIsLoop(!isLoop);
+      if (isLoop) {
+         audioPlayer.current.loop = false;
+      } else {
+         audioPlayer.current.loop = true;
+      }
    };
 
    return (
       <div className="player-container">
-         <audio controls ref={audioPlayer} onLoadedMetadata={onLoadedMetadata}>
+         <audio
+            controls
+            style={{ display: "none" }}
+            ref={audioPlayer}
+            onLoadedMetadata={onLoadedMetadata}
+         >
             <source src={source} type="audio/mp3" />
          </audio>
 
@@ -109,7 +136,15 @@ function Player() {
                <MdSkipPrevious />
             </button>
             <button className="play-btn" onClick={togglePlayPause}>
-               {isPlaying ? <MdPause /> : <MdPlayArrow />}
+               {isLoaded ? (
+                  isPlaying ? (
+                     <MdPause />
+                  ) : (
+                     <MdPlayArrow />
+                  )
+               ) : (
+                  <BiLoaderAlt className="spin" />
+               )}
             </button>
             <button
                className="next-btn"
@@ -149,7 +184,11 @@ function Player() {
             <button title="Shuffle">
                <MdShuffle />
             </button>
-            <button title="Repeat">
+            <button
+               title="Repeat"
+               className={isLoop ? "active" : ""}
+               onClick={loopAudio}
+            >
                <MdRepeat />
             </button>
          </div>

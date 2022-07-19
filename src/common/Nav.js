@@ -41,10 +41,10 @@ function Nav() {
 
          {/* login container */}
          <div className="login-box">
-            <Link className="login-btn btn" to="/">
+            <Link className="login-btn btn" to="/Login">
                Login
             </Link>
-            <Link className="register-btn btn" to="/">
+            <Link className="register-btn btn" to="/Register">
                Register
             </Link>
          </div>

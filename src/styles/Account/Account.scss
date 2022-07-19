@@ -1,0 +1,116 @@
+$primary: #689f38;
+$black: #23232c;
+$danger: rgb(223, 2, 2);
+
+.register-page,
+.login-page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+    background-color: #1e1e26;
+    overflow-y: auto;
+    padding-bottom: 80px;
+    .logo {
+        text-align: center;
+        color: white;
+        letter-spacing: 2px;
+    }
+    .register-box,
+    .login-box {
+        border-radius: 5px;
+        width: 450px;
+        margin-top: 50px;
+        background-color: $black;
+        padding: 40px;
+        .title {
+            color: #f1f1f1;
+            font-weight: normal;
+            margin-bottom: 30px;
+        }
+        .error {
+            color: $danger;
+            display: flex;
+            font-weight: normal;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            padding-top: 10px;
+            .icon {
+                display: block;
+                margin-right: 5px;
+            }
+        }
+        .input-filed {
+            margin-top: 30px;
+            .heading {
+                color: #f1f1f1;
+                font-weight: normal;
+                font-size: 0.9rem;
+            }
+            .forgot-link {
+                font-weight: normal;
+                font-size: 0.9rem;
+                text-align: right;
+                display: block;
+                text-align: right;
+                margin-top: 10px;
+                color: #f1f1f1;
+                &:hover {
+                    color: white;
+                    text-decoration: underline;
+                }
+            }
+            .text-field {
+                background: none;
+                border: none;
+                padding: 13px 14px;
+                border: 1px solid rgb(63, 63, 63);
+                border-radius: 3px;
+                width: 100%;
+                font-size: 0.9rem;
+                color: white;
+                margin-top: 10px;
+                transition: 0.2s;
+                &:focus {
+                    border-color: $primary;
+                }
+            }
+        }
+        .submit-btn {
+            background: none;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            margin-top: 30px;
+            background-color: $primary;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: 0.2s;
+            &:hover {
+                background-color: #508323;
+            }
+        }
+    }
+    .bottom-link {
+        text-align: center;
+        color: #f1f1f1;
+        font-weight: normal;
+        margin-top: 22px;
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+        a {
+            margin-left: 5px;
+            color: $primary;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
