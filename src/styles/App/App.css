@@ -170,22 +170,97 @@
 
 .data-table-container .data-table {
   border-collapse: collapse;
+  width: 100%;
 }
 
 .data-table-container .data-table * {
   color: white;
-  font-weight: 300;
+  font-weight: 400;
+}
+
+.data-table-container .data-table .playing .number {
+  display: none;
+}
+
+.data-table-container .data-table .playing:hover .play-icon {
+  display: none;
+}
+
+.data-table-container .data-table .playing td:nth-child(n + 2) {
+  color: #689f38 !important;
+}
+
+.data-table-container .data-table .playing td:nth-child(n + 2) * {
+  color: #689f38 !important;
+}
+
+.data-table-container .data-table .playing .sound-icon {
+  display: -ms-grid;
+  display: grid;
+}
+
+.data-table-container .data-table .audio-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: #fff;
+  display: none;
+  cursor: pointer;
+  padding-left: 0px !important;
+  place-items: center;
+}
+
+.data-table-container .data-table .audio-icon * {
+  color: black;
+  font-size: 1.2rem;
 }
 
 .data-table-container .data-table tr,
 .data-table-container .data-table thead {
   border-bottom: 1px solid rgba(58, 58, 58, 0.753);
+  text-align: left;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .data-table-container .data-table td,
 .data-table-container .data-table th {
-  padding: 13px 20px;
+  padding: 12px 20px;
   font-size: 0.9rem;
+}
+
+.data-table-container .data-table td:first-child,
+.data-table-container .data-table th:first-child {
+  height: 60px;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.data-table-container .data-table td:last-child,
+.data-table-container .data-table th:last-child {
+  padding-right: 40px;
+}
+
+.data-table-container .data-table tr:hover {
+  background-color: #27272f;
+}
+
+.data-table-container .data-table tr:hover .menu-icon {
+  opacity: 1;
+}
+
+.data-table-container .data-table tr:hover .number {
+  display: none;
+}
+
+.data-table-container .data-table tr:hover .play-icon {
+  display: -ms-grid;
+  display: grid;
+}
+
+.data-table-container .data-table .menu-icon {
+  opacity: 0;
 }
 
 .data-table-container .data-table .song-image {

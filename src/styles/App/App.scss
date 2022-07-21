@@ -130,20 +130,85 @@ $primary: #689f38;
     }
     .data-table {
         border-collapse: collapse;
+        width: 100%;
         * {
             color: white;
-            font-weight: 300;
+            font-weight: 400;
+        }
+
+        .playing {
+            .number {
+                display: none;
+            }
+            &:hover {
+                .play-icon {
+                    display: none;
+                }
+            }
+            td {
+                &:nth-child(n + 2) {
+                    color: $primary !important;
+                    * {
+                        color: $primary !important;
+                    }
+                }
+            }
+            .sound-icon {
+                display: grid;
+                // color: black !important;
+            }
+        }
+        .audio-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 100%;
+            background-color: #fff;
+            display: none;
+            cursor: pointer;
+            padding-left: 0px !important;
+            place-items: center;
+            * {
+                color: black;
+                font-size: 1.2rem;
+            }
         }
 
         tr,
         thead {
             border-bottom: 1px solid rgba(58, 58, 58, 0.753);
+            text-align: left;
+            transition: 0.2s;
         }
 
         td,
         th {
-            padding: 13px 20px;
+            padding: 12px 20px;
             font-size: 0.9rem;
+            &:first-child {
+                height: 60px;
+                display: grid;
+                place-items: center;
+            }
+            &:last-child {
+                padding-right: 40px;
+            }
+        }
+        tr {
+            &:hover {
+                background-color: #27272f;
+                .menu-icon {
+                    opacity: 1;
+                }
+                .number {
+                    display: none;
+                }
+                .play-icon {
+                    display: grid;
+                }
+            }
+        }
+        .menu-icon {
+            opacity: 0;
         }
         .song-image {
             padding-right: 0px;
@@ -161,6 +226,7 @@ $primary: #689f38;
                 font-size: 1.2rem;
             }
         }
+
         .empty {
             * {
                 color: #bababa;
