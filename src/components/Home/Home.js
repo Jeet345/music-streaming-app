@@ -1,13 +1,14 @@
 import React from "react";
-import SongDataTable from "../../common/SongDataTable";
+import PopularTracks from "../PopularTracks/PopularTracks";
+import PopularAlbums from "../PopularAlbums/PopularAlbums";
 import "../../styles/Home/Home.css";
 
 function Home() {
    console.log("Home loaded");
    return (
       <div className="home-page">
-         <h1>Home Page</h1>
-         <SongDataTable />
+         <PopularAlbums />
+         <PopularTracks />
       </div>
    );
 }

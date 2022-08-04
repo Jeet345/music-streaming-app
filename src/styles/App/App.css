@@ -300,4 +300,104 @@
   color: #bababa;
   font-weight: 500;
 }
+
+.album-container {
+  margin-bottom: 60px;
+}
+
+.album-container .heading {
+  color: #f1f1f1;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.album-container .album-body {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 40px;
+}
+
+.album-container .album-body .album-card .img {
+  overflow: hidden;
+  border-radius: 5px;
+  position: relative;
+}
+
+.album-container .album-body .album-card .img img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  width: 100%;
+}
+
+.album-container .album-body .album-card .img:hover .hover-box {
+  opacity: 1;
+}
+
+.album-container .album-body .album-card .img .hover-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.album-container .album-body .album-card .img .hover-box .icon {
+  width: 60px;
+  height: 60px;
+  border: 1px solid white;
+  border-radius: 100%;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.album-container .album-body .album-card .img .hover-box .icon * {
+  font-size: 2rem;
+  color: white;
+}
+
+.album-container .album-body .album-card .img .hover-box .icon:hover {
+  -webkit-transform: scale(115%);
+          transform: scale(115%);
+}
+
+.album-container .album-body .album-card .desc {
+  color: white;
+  text-align: center;
+}
+
+.album-container .album-body .album-card .desc h5 {
+  font-weight: normal;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  margin-top: 9px;
+}
+
+.album-container .album-body .album-card .desc h5:hover {
+  text-decoration: underline;
+}
+
+.album-container .album-body .album-card .desc .artist-name {
+  color: #aaaaaa;
+}
+
+.album-container .album-body .active .icon {
+  display: none;
+}
 /*# sourceMappingURL=App.css.map */

@@ -249,3 +249,89 @@ $primary: #689f38;
         }
     }
 }
+
+.album-container {
+    margin-bottom: 60px;
+    .heading {
+        color: #f1f1f1;
+        font-weight: 300;
+        margin-bottom: 30px;
+    }
+    .album-body {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 40px;
+        .album-card {
+            // width: 200px;
+            // height: 250px;
+            .img {
+                overflow: hidden;
+                border-radius: 5px;
+                position: relative;
+                img {
+                    object-fit: cover;
+                    object-position: center;
+                    width: 100%;
+                    // height: 100%;
+                }
+                &:hover {
+                    .hover-box {
+                        opacity: 1;
+                    }
+                }
+                .hover-box {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(0, 0, 0, 0.6);
+                    width: 100%;
+                    height: 100%;
+                    display: grid;
+                    place-items: center;
+                    cursor: pointer;
+                    opacity: 0;
+                    transition: 0.2s ease-in-out;
+                    .icon {
+                        width: 60px;
+                        height: 60px;
+                        border: 1px solid white;
+                        border-radius: 100%;
+                        display: grid;
+                        place-items: center;
+                        transition: 0.2s;
+                        * {
+                            font-size: 2rem;
+                            color: white;
+                        }
+                        &:hover {
+                            transform: scale(115%);
+                        }
+                    }
+                }
+            }
+            .desc {
+                color: white;
+                text-align: center;
+                h5 {
+                    font-weight: normal;
+                    font-size: 0.9rem;
+                    letter-spacing: 0.2px;
+                    cursor: pointer;
+                    margin-top: 9px;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                .artist-name {
+                    color: rgb(170, 170, 170);
+                }
+            }
+        }
+        .active {
+            .icon {
+                display: none;
+            }
+        }
+    }
+}
