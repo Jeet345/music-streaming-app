@@ -1,0 +1,99 @@
+.song-page-container .title {
+  font-weight: 300;
+  color: white;
+}
+
+.song-page-container .search-filed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+.song-page-container .search-filed .search-input * {
+  -webkit-transition: 0.1s;
+  transition: 0.1s;
+}
+
+.song-page-container .search-filed .search-input input {
+  padding: 13px 0px;
+  padding-right: 13px;
+}
+
+.song-page-container .search-filed .button-input {
+  width: 170px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.song-page-container .search-filed .MuiButton-startIcon * {
+  font-size: 28px;
+}
+
+.MuiList-root {
+  background: #23232c;
+}
+
+.MuiList-root li {
+  padding: 10px 20px;
+}
+
+.add-track-container {
+  padding: 20px;
+  border: 1px solid #3e3e46;
+  border-radius: 5px;
+  background-color: #1e1e26;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 20px;
+}
+
+.add-track-container .left-side-box {
+  width: 21%;
+}
+
+.add-track-container .left-side-box .img-box {
+  width: 100%;
+  position: relative;
+}
+
+.add-track-container .left-side-box .img-box img {
+  width: 100%;
+}
+
+.add-track-container .left-side-box .img-box .upload-btn {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: 25px;
+  width: 55%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: black;
+}
+
+.add-track-container .left-side-box .upload-track-btn {
+  width: 100%;
+  margin-top: 10px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.add-track-container .right-side-box {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  height: 500px;
+  border: 1px solid #3e3e46;
+}
+/*# sourceMappingURL=song.css.map */

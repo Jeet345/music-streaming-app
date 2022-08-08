@@ -1,5 +1,6 @@
 $primary: #689f38;
 $border: #3e3e46;
+$background: #23232c;
 
 .admin-top-nav {
     background-color: #23232c;
@@ -104,22 +105,5 @@ $border: #3e3e46;
         flex: 1;
         background-color: #23232c;
         padding: 25px 22px;
-    }
-}
-
-.song-page-container {
-    .title {
-        font-weight: 300;
-        color: white;
-    }
-    .search-filed {
-        padding: 0px;
-        // * {
-        //     color: white;
-        //     border-color: white;
-        // }
-        // &:hover {
-        //     border-color: white;
-        // }
     }
 }
