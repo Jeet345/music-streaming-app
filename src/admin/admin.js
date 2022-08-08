@@ -5,10 +5,21 @@ import SideNav from "./common/SideNav.js";
 import Dashboard from "./pages/Dashboard/Dashboard.js";
 import Songs from "./pages/Songs/Songs";
 import "./admin.css";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 function admin() {
+   const theme = createTheme({
+      palette: {
+         mode: "dark",
+         primary: { main: "#689f38" },
+         secondary: {
+            main: "#fff",
+         },
+      },
+   });
+
    return (
-      <>
+      <ThemeProvider theme={theme}>
          <TopNav />
          <div className="admin-container">
             <SideNav />
@@ -20,7 +31,7 @@ function admin() {
                </Routes>
             </div>
          </div>
-      </>
+      </ThemeProvider>
    );
 }
 

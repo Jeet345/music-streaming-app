@@ -142,5 +142,15 @@
       -ms-flex: 1;
           flex: 1;
   background-color: #23232c;
+  padding: 25px 22px;
+}
+
+.song-page-container .title {
+  font-weight: 300;
+  color: white;
+}
+
+.song-page-container .search-filed {
+  padding: 0px;
 }
 /*# sourceMappingURL=admin.css.map */

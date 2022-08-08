@@ -103,5 +103,23 @@ $border: #3e3e46;
     .admin-pages {
         flex: 1;
         background-color: #23232c;
+        padding: 25px 22px;
+    }
+}
+
+.song-page-container {
+    .title {
+        font-weight: 300;
+        color: white;
+    }
+    .search-filed {
+        padding: 0px;
+        // * {
+        //     color: white;
+        //     border-color: white;
+        // }
+        // &:hover {
+        //     border-color: white;
+        // }
     }
 }

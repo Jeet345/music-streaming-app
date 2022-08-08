@@ -1,9 +1,7 @@
 import React from "react";
-import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { FaRegBell } from "react-icons/fa";
 import { BsFillCaretDownFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
-
+import { IconButton, Tooltip } from "@mui/material";
 function TopNav() {
    return (
       <>
@@ -13,12 +11,19 @@ function TopNav() {
             </div>
             <ul className="right-side">
                <li>
-                  <Link className="link" to="/admin">
-                     <FaRegBell />
-                  </Link>
+                  <Tooltip title="Notifications">
+                     <IconButton
+                        title="Notifications"
+                        aria-label="notifications"
+                        color="secondary"
+                     >
+                        <FaRegBell size={"20px"} />
+                     </IconButton>
+                  </Tooltip>
                </li>
                <li className="profile-btn">
                   <img
+                     alt=""
                      src={require("../assets/profileIcon.png")}
                      width="40px"
                   />
