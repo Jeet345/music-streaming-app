@@ -42,43 +42,74 @@ $background: #23232c;
     }
 }
 .add-track-container {
+    background-color: #1e1e26;
     padding: 20px;
     border: 1px solid $border;
     border-radius: 5px;
-    background-color: #1e1e26;
-    display: flex;
-    grid-gap: 20px;
-    .left-side-box {
-        width: 21%;
-        .img-box {
-            width: 100%;
-            position: relative;
-            img {
+    .song-label {
+        color: white;
+        font-weight: normal;
+        font-size: 0.8rem;
+        padding: 10px 0px;
+    }
+    form {
+        display: flex;
+        grid-gap: 20px;
+
+        .left-side-box {
+            width: 21%;
+            .img-box {
+                width: 100%;
+                position: relative;
+                img {
+                    width: 100%;
+                }
+                .upload-btn {
+                    background: rgba(255, 255, 255, 0.7);
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 25px;
+                    width: 60%;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                    color: black;
+                }
+            }
+            .upload-track-btn {
+                width: 100%;
+                margin-top: 10px;
+                text-transform: capitalize;
+                font-weight: 600;
+            }
+        }
+        .right-side-box {
+            flex: 1;
+            .input {
+                margin-bottom: 20px;
+                width: 100%;
+                // .MuiInputLabel-shrink {
+                // font-size: 20px;
+                // }
+            }
+            .MuiFormControl-root {
                 width: 100%;
             }
-            .upload-btn {
-                background: rgba(255, 255, 255, 0.7);
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 25px;
-                width: 55%;
-                font-size: 0.8rem;
-                font-weight: 600;
-                text-transform: capitalize;
-                color: black;
+            .tagChip {
+                margin-right: 10px;
+            }
+            .button-group {
+                display: flex;
+                grid-gap: 10px;
+                button {
+                    font-weight: 600;
+                    text-transform: capitalize;
+                }
+                .reset-btn {
+                    color: white;
+                }
             }
         }
-        .upload-track-btn {
-            width: 100%;
-            margin-top: 10px;
-            text-transform: capitalize;
-            font-weight: 600;
-        }
-    }
-    .right-side-box {
-        flex: 1;
-        height: 500px;
-        border: 1px solid $border;
     }
 }

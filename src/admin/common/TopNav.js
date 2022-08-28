@@ -12,11 +12,7 @@ function TopNav() {
             <ul className="right-side">
                <li>
                   <Tooltip title="Notifications">
-                     <IconButton
-                        title="Notifications"
-                        aria-label="notifications"
-                        color="secondary"
-                     >
+                     <IconButton aria-label="notifications" color="secondary">
                         <FaRegBell size={"20px"} />
                      </IconButton>
                   </Tooltip>

@@ -45,55 +45,92 @@
 }
 
 .add-track-container {
+  background-color: #1e1e26;
   padding: 20px;
   border: 1px solid #3e3e46;
   border-radius: 5px;
-  background-color: #1e1e26;
+}
+
+.add-track-container .song-label {
+  color: white;
+  font-weight: normal;
+  font-size: 0.8rem;
+  padding: 10px 0px;
+}
+
+.add-track-container form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   grid-gap: 20px;
 }
 
-.add-track-container .left-side-box {
+.add-track-container form .left-side-box {
   width: 21%;
 }
 
-.add-track-container .left-side-box .img-box {
+.add-track-container form .left-side-box .img-box {
   width: 100%;
   position: relative;
 }
 
-.add-track-container .left-side-box .img-box img {
+.add-track-container form .left-side-box .img-box img {
   width: 100%;
 }
 
-.add-track-container .left-side-box .img-box .upload-btn {
+.add-track-container form .left-side-box .img-box .upload-btn {
   background: rgba(255, 255, 255, 0.7);
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   bottom: 25px;
-  width: 55%;
+  width: 60%;
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: capitalize;
   color: black;
 }
 
-.add-track-container .left-side-box .upload-track-btn {
+.add-track-container form .left-side-box .upload-track-btn {
   width: 100%;
   margin-top: 10px;
   text-transform: capitalize;
   font-weight: 600;
 }
 
-.add-track-container .right-side-box {
+.add-track-container form .right-side-box {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  height: 500px;
-  border: 1px solid #3e3e46;
+}
+
+.add-track-container form .right-side-box .input {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.add-track-container form .right-side-box .MuiFormControl-root {
+  width: 100%;
+}
+
+.add-track-container form .right-side-box .tagChip {
+  margin-right: 10px;
+}
+
+.add-track-container form .right-side-box .button-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 10px;
+}
+
+.add-track-container form .right-side-box .button-group button {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.add-track-container form .right-side-box .button-group .reset-btn {
+  color: white;
 }
 /*# sourceMappingURL=song.css.map */

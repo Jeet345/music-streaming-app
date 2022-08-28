@@ -143,5 +143,7 @@
           flex: 1;
   background-color: #23232c;
   padding: 25px 22px;
+  overflow: auto;
+  height: 100%;
 }
 /*# sourceMappingURL=admin.css.map */
