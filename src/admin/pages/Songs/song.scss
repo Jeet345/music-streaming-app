@@ -57,7 +57,17 @@ $background: #23232c;
         grid-gap: 20px;
 
         .left-side-box {
-            width: 21%;
+            .error{
+                margin-top: 10px;
+                li{
+                    color: #F4342A;
+                    font-weight: normal;
+                    font-size: .9rem;
+                    padding: 5px 0px;
+                }
+            }
+            min-width: 220px;
+            max-width: 21%;
             .img-box {
                 width: 100%;
                 position: relative;
