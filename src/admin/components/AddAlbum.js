@@ -1,13 +1,11 @@
 import {
   Button,
-  MenuItem,
-  Select,
   TextField,
-  InputLabel,
-  FormControl,
   Chip,
   Autocomplete,
   LinearProgress,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
@@ -17,7 +15,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 
-function AddTrack() {
+function AddAlbum() {
   const names = [
     "Admin",
     "Oliver Hansen",
@@ -33,24 +31,14 @@ function AddTrack() {
   ];
 
   let schema = yup.object().shape({
-    title: yup.string().required("Title is a required field"),
-    songImg: yup
+    name: yup.string().required("Title is a required field"),
+    coverImg: yup
       .mixed()
       .test("required", "Please select song cover img", (value) => {
         return value && value.length;
       }),
-    song: yup.mixed().test("required", "Please select song track", (value) => {
-      return value && value.length;
-    }),
-    lyrics: yup.string(),
+    description: yup.string(),
     artists: yup.array().required("Artists is a required field"),
-    album: yup.string().required("Album is a required field"),
-    duration: yup
-      .number()
-      .min(10, "Please enter valid duration")
-      .typeError("Please enter valid duration")
-      .required("Duration field is required"),
-    genres: yup.array().required("Genred is a required field"),
     tags: yup.array().min(1, "Tags is a requird field"),
   });
 
@@ -71,7 +59,8 @@ function AddTrack() {
   const [inputTag, setInputTag] = useState();
   const [progressValue, setProgressValue] = useState(0);
   const [isFormDisabled, setIsFormDisabled] = useState(false);
-  const [songImagePath, setSongImagePath] = useState("");
+  const [coverImagePath, setCoverImagePath] = useState("");
+  const [albumActive, setAlbumActive] = useState(true);
 
   useEffect(() => {
     setValue("tags", selectedTags);
@@ -99,31 +88,33 @@ function AddTrack() {
     if (e.target.files[0]) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSongImagePath(reader.result);
+        setCoverImagePath(reader.result);
       };
       reader.readAsDataURL(e.target.files[0]);
     } //
     else {
-      setSongImagePath("");
+      setCoverImagePath("");
     }
   };
 
   const formSubmit = async (data, e) => {
     e.preventDefault();
 
+    console.log(data);
+
     setIsFormDisabled(true);
 
     var form_data = new FormData();
 
-    form_data.append("title", data.title);
-    form_data.append("songImg", data.songImg[0]);
-    form_data.append("album", data.album);
+    form_data.append("name", data.name);
+    form_data.append("coverImg", data.coverImg[0]);
     form_data.append("artists", data.artists);
-    form_data.append("duration", data.duration);
-    form_data.append("genres", data.genres);
     form_data.append("tags", data.tags);
-    form_data.append("lyrics", data.lyrics);
-    form_data.append("song", data.song[0]);
+    form_data.append("description", data.description);
+    form_data.append("status", albumActive);
+
+    console.log("formdata : ----------------");
+    console.log(...form_data);
 
     const uploadProgress = (progressEvent) => {
       const { loaded, total } = progressEvent;
@@ -132,7 +123,7 @@ function AddTrack() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/songs/addtrack",
+      url: "http://localhost:4000/admin/albums/addAlbum",
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,
@@ -169,30 +160,11 @@ function AddTrack() {
       <form method="post" id="form" onSubmit={handleSubmit(formSubmit)}>
         <div className="left-side-box">
           <div className="img-box">
-            {songImagePath != "" ? (
-              <img src={songImagePath} />
+            {coverImagePath != "" ? (
+              <img src={coverImagePath} />
             ) : (
               <img src={require("../assets/album.jpg")} />
             )}
-            <Button
-              className="upload-btn"
-              variant="contained"
-              component="label"
-              disabled={isFormDisabled}
-            >
-              Upload image
-              <input
-                hidden
-                accept="image/*"
-                type="file"
-                onChangeCapture={(e) => {
-                  songImgChange(e);
-                }}
-                disabled={isFormDisabled}
-                {...register("songImg")}
-                name="songImg"
-              />
-            </Button>
           </div>
 
           <Button
@@ -201,22 +173,23 @@ function AddTrack() {
             component="label"
             disabled={isFormDisabled}
           >
+            Upload image
             <input
               hidden
-              accept=".mp3"
+              accept="image/*"
               type="file"
-              name="song"
-              id="song"
+              onChangeCapture={(e) => {
+                songImgChange(e);
+              }}
               disabled={isFormDisabled}
-              {...register("song")}
+              {...register("coverImg")}
+              name="coverImg"
             />
-            Upload Track
           </Button>
 
-          {errors.song || errors.songImg ? (
+          {errors.coverImg ? (
             <ul className="error">
-              {errors.songImg ? <li>{errors.songImg.message}</li> : ""}
-              {errors.song ? <li>{errors.song.message}</li> : ""}
+              {errors.coverImg ? <li>{errors.coverImg.message}</li> : ""}
             </ul>
           ) : (
             ""
@@ -225,31 +198,13 @@ function AddTrack() {
         <div className="right-side-box">
           <TextField
             className="input"
-            label="Title"
+            label="Name"
             variant="outlined"
-            {...register("title")}
-            name="title"
-            error={errors.title ? true : false}
-            helperText={errors.title ? errors.title.message : ""}
+            {...register("name")}
+            name="name"
+            error={errors.name ? true : false}
+            helperText={errors.name ? errors.name.message : ""}
             disabled={isFormDisabled}
-          />
-
-          <Autocomplete
-            options={names}
-            className="input"
-            {...register("album")}
-            autoHighlight
-            getOptionLabel={(option) => option}
-            disabled={isFormDisabled}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Album"
-                name="album"
-                error={errors.album ? true : false}
-                helperText={errors.album ? errors.album.message : ""}
-              />
-            )}
           />
 
           <Controller
@@ -272,48 +227,6 @@ function AddTrack() {
                     name="artists"
                     error={errors.artists ? true : false}
                     helperText={errors.artists ? errors.artists.message : ""}
-                  />
-                )}
-              />
-            )}
-          />
-
-          <TextField
-            className="input"
-            type={"number"}
-            label="Duration(ms)"
-            variant="outlined"
-            disabled={isFormDisabled}
-            error={errors.duration ? true : false}
-            helperText={errors.duration ? errors.duration.message : ""}
-            {...register("duration")}
-            name="duration"
-          />
-
-          <Controller
-            name="genres"
-            control={control}
-            render={({ field }) => (
-              <Autocomplete
-                multiple
-                className="input"
-                autoHighlight
-                options={names}
-                getOptionLabel={(option) => option}
-                filterSelectedOptions
-                disabled={isFormDisabled}
-                onChange={(e, value) => {
-                  setValue("genres", value);
-                }}
-                name="genres"
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Genres"
-                    name="genres"
-                    placeholder="Genres"
-                    error={errors.genres ? true : false}
-                    helperText={errors.genres ? errors.genres.message : ""}
                   />
                 )}
               />
@@ -350,17 +263,32 @@ function AddTrack() {
                 : null
             }
           />
+
           <TextField
             className="input"
             multiline
             rows={3}
-            label="Lyrics"
-            error={errors.lyrics ? true : false}
-            helperText={errors.lyrics ? errors.lyrics.message : ""}
+            label="description"
+            error={errors.description ? true : false}
+            helperText={errors.description ? errors.description.message : ""}
             variant="outlined"
             disabled={isFormDisabled}
-            {...register("lyrics")}
-            name="lyrics"
+            {...register("description")}
+            name="description"
+          />
+
+          <FormControlLabel
+            style={{ marginBottom: "20px", color: "white" }}
+            control={
+              <Switch
+                checked={albumActive}
+                onChange={() => {
+                  setAlbumActive(!albumActive);
+                }}
+                name="status"
+              />
+            }
+            label="Active"
           />
 
           <div className="button-group">
@@ -381,4 +309,4 @@ function AddTrack() {
   );
 }
 
-export default AddTrack;
+export default AddAlbum;
