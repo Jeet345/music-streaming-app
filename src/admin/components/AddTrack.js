@@ -45,11 +45,6 @@ function AddTrack() {
     lyrics: yup.string(),
     artists: yup.array().required("Artists is a required field"),
     album: yup.string().required("Album is a required field"),
-    duration: yup
-      .number()
-      .min(10, "Please enter valid duration")
-      .typeError("Please enter valid duration")
-      .required("Duration field is required"),
     genres: yup.array().required("Genred is a required field"),
     tags: yup.array().min(1, "Tags is a requird field"),
   });
@@ -119,7 +114,6 @@ function AddTrack() {
     form_data.append("songImg", data.songImg[0]);
     form_data.append("album", data.album);
     form_data.append("artists", data.artists);
-    form_data.append("duration", data.duration);
     form_data.append("genres", data.genres);
     form_data.append("tags", data.tags);
     form_data.append("lyrics", data.lyrics);
@@ -131,28 +125,36 @@ function AddTrack() {
       setProgressValue(percent);
     };
 
-    axios({
-      url: "http://localhost:4000/admin/songs/addtrack",
-      method: "post",
-      data: form_data,
-      onUploadProgress: uploadProgress,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-      .then((res) => {
-        setIsFormDisabled(false);
-        if (res.data === 1) {
-          console.log(res);
-          alert("submitted");
-        } else {
-          alert(res.data);
-        }
+    var audio = new Audio();
+    audio.src = URL.createObjectURL(form_data.get("song"));
+
+    audio.onloadedmetadata = () => {
+      //
+      form_data.append("duration", Math.floor(audio.duration));
+
+      axios({
+        url: "http://localhost:4000/admin/songs/addtrack",
+        method: "post",
+        data: form_data,
+        onUploadProgress: uploadProgress,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .catch((err) => {
-        setIsFormDisabled(false);
-        console.log(err);
-      });
+        .then((res) => {
+          setIsFormDisabled(false);
+          if (res.data === 1) {
+            console.log(res);
+            alert("submitted");
+          } else {
+            alert(res.data);
+          }
+        })
+        .catch((err) => {
+          setIsFormDisabled(false);
+          console.log(err);
+        });
+    };
   };
 
   console.log(errors);
@@ -276,18 +278,6 @@ function AddTrack() {
                 )}
               />
             )}
-          />
-
-          <TextField
-            className="input"
-            type={"number"}
-            label="Duration(ms)"
-            variant="outlined"
-            disabled={isFormDisabled}
-            error={errors.duration ? true : false}
-            helperText={errors.duration ? errors.duration.message : ""}
-            {...register("duration")}
-            name="duration"
           />
 
           <Controller
