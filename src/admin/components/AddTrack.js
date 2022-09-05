@@ -1,37 +1,18 @@
 import {
   Button,
-  MenuItem,
-  Select,
   TextField,
-  InputLabel,
-  FormControl,
   Chip,
   Autocomplete,
   LinearProgress,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import "../pages/Songs/song.css";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 
 function AddTrack() {
-  const names = [
-    "Admin",
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
-
   let schema = yup.object().shape({
     title: yup.string().required("Title is a required field"),
     songImg: yup
@@ -44,7 +25,7 @@ function AddTrack() {
     }),
     lyrics: yup.string(),
     artists: yup.array().required("Artists is a required field"),
-    album: yup.string().required("Album is a required field"),
+    album: yup.string(),
     genres: yup.array().required("Genred is a required field"),
     tags: yup.array().min(1, "Tags is a requird field"),
   });
@@ -67,10 +48,51 @@ function AddTrack() {
   const [progressValue, setProgressValue] = useState(0);
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [songImagePath, setSongImagePath] = useState("");
+  const [artistList, setArtistList] = useState([]);
+  const [albumList, setAlbumList] = useState([]);
+  const [genresList, setGenresList] = useState([]);
 
   useEffect(() => {
     setValue("tags", selectedTags);
   }, [selectedTags]);
+
+  useEffect(() => {
+    // getting artist data from api
+    axios({
+      url: "http://localhost:4000/admin/artists/getAllActiveArtists",
+      method: "get",
+    })
+      .then((res) => {
+        setArtistList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // getting album data from api
+    axios({
+      url: "http://localhost:4000/admin/albums/getAllActiveAlbums",
+      method: "get",
+    })
+      .then((res) => {
+        setAlbumList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // getting genres data from api
+    axios({
+      url: "http://localhost:4000/admin/genres/getAllActiveGenres",
+      method: "get",
+    })
+      .then((res) => {
+        setGenresList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const tagsChipHandleDelete = (e, value) => {
     setSelectedTags((tags) => {
@@ -237,17 +259,20 @@ function AddTrack() {
           />
 
           <Autocomplete
-            options={names}
+            options={albumList}
             className="input"
             {...register("album")}
             autoHighlight
-            getOptionLabel={(option) => option}
+            getOptionLabel={(option) => option.name}
             disabled={isFormDisabled}
+            name="album"
+            onChange={(e, value) => {
+              setValue("album", value._id);
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Album"
-                name="album"
                 error={errors.album ? true : false}
                 helperText={errors.album ? errors.album.message : ""}
               />
@@ -259,12 +284,20 @@ function AddTrack() {
             name="artists"
             render={({ field }) => (
               <Autocomplete
-                options={names}
+                options={artistList}
                 className="input"
                 autoHighlight
                 multiple={true}
-                getOptionLabel={(option) => option}
-                onChange={(e, value) => setValue("artists", value)}
+                getOptionLabel={(option) => option.name}
+                onChange={(e, value) => {
+                  const arrayOfArtist = [];
+
+                  value.map((data) => {
+                    arrayOfArtist.push(data._id);
+                  });
+
+                  setValue("artists", arrayOfArtist);
+                }}
                 name="artists"
                 disabled={isFormDisabled}
                 renderInput={(params) => (
@@ -288,12 +321,18 @@ function AddTrack() {
                 multiple
                 className="input"
                 autoHighlight
-                options={names}
-                getOptionLabel={(option) => option}
+                options={genresList}
+                getOptionLabel={(option) => option.name}
                 filterSelectedOptions
                 disabled={isFormDisabled}
                 onChange={(e, value) => {
-                  setValue("genres", value);
+                  const arrayOfGenres = [];
+
+                  value.map((data) => {
+                    arrayOfGenres.push(data._id);
+                  });
+
+                  setValue("genres", arrayOfGenres);
                 }}
                 name="genres"
                 renderInput={(params) => (

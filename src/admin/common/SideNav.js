@@ -6,6 +6,7 @@ import {
 } from "react-icons/md";
 
 import { BiMicrophone, BiAlbum } from "react-icons/bi";
+import { BsTags } from "react-icons/bs";
 
 function SideNav() {
   return (
@@ -36,11 +37,19 @@ function SideNav() {
           </NavLink>
         </li>
         <li>
-          <NavLink className="link" to="artist">
+          <NavLink className="link" to="artists">
             <span className="icon">
               <BiMicrophone />
             </span>
             Artists
+          </NavLink>
+        </li>
+        <li>
+          <NavLink className="link" to="genres">
+            <span className="icon">
+              <BsTags />
+            </span>
+            Genres
           </NavLink>
         </li>
       </ul>

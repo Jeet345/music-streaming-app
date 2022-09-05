@@ -11,6 +11,9 @@ import Albums from "./pages/Albums/albums";
 import AddAlbum from "./components/AddAlbum";
 import Artists from "./pages/Artists/Artists";
 import AddArtist from "./components/AddArtist";
+import UpdateArtist from "./components/UpdateArtist";
+import Genres from "./pages/Genres/Genres.js";
+import AddGenres from "./components/AddGenres.js";
 
 function admin() {
   const theme = createTheme({
@@ -38,6 +41,9 @@ function admin() {
             <Route path="/albums/addAlbum" element={<AddAlbum />} />
             <Route path="/artists" element={<Artists />} />
             <Route path="/artists/addArtist" element={<AddArtist />} />
+            <Route path="/artists/updateArtist" element={<UpdateArtist />} />
+            <Route path="/genres" element={<Genres />} />
+            <Route path="/genres/addGenres" element={<AddGenres />} />
           </Routes>
         </div>
       </div>

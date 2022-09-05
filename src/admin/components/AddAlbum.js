@@ -9,27 +9,12 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import "../pages/Songs/song.css";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 
 function AddAlbum() {
-  const names = [
-    "Admin",
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
-
   let schema = yup.object().shape({
     name: yup.string().required("Title is a required field"),
     coverImg: yup
@@ -61,10 +46,25 @@ function AddAlbum() {
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [coverImagePath, setCoverImagePath] = useState("");
   const [albumActive, setAlbumActive] = useState(true);
+  const [artistList, setArtistList] = useState({});
 
   useEffect(() => {
     setValue("tags", selectedTags);
   }, [selectedTags]);
+
+  useEffect(() => {
+    // getting artist data from api
+    axios({
+      url: "http://localhost:4000/admin/artists/getAllActiveArtists",
+      method: "get",
+    })
+      .then((res) => {
+        setArtistList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const tagsChipHandleDelete = (e, value) => {
     setSelectedTags((tags) => {
@@ -146,7 +146,7 @@ function AddAlbum() {
       });
   };
 
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <div className="add-track-container">
@@ -212,12 +212,20 @@ function AddAlbum() {
             name="artists"
             render={({ field }) => (
               <Autocomplete
-                options={names}
+                options={artistList}
                 className="input"
                 autoHighlight
                 multiple={true}
-                getOptionLabel={(option) => option}
-                onChange={(e, value) => setValue("artists", value)}
+                getOptionLabel={(option) => option.name}
+                onChange={(e, value) => {
+                  const arrayOfArtist = [];
+
+                  value.map((data) => {
+                    arrayOfArtist.push(data._id);
+                  });
+
+                  setValue("artists", arrayOfArtist);
+                }}
                 name="artists"
                 disabled={isFormDisabled}
                 renderInput={(params) => (

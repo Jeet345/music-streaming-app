@@ -12,8 +12,9 @@ import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-function AddArtist() {
+function UpdateArtist() {
   let schema = yup.object().shape({
     name: yup.string().required("Title is a required field"),
     coverImg: yup
@@ -37,13 +38,18 @@ function AddArtist() {
     resolver: yupResolver(schema),
   });
 
-  const [selectedTags, setSelectedTags] = useState([]);
+  const location = useLocation();
+  const rowData = location.state;
+
+  const [selectedTags, setSelectedTags] = useState(rowData.tags);
   const [inputTag, setInputTag] = useState();
   const [progressValue, setProgressValue] = useState(0);
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [coverImagePath, setCoverImagePath] = useState("");
-  const [artistActive, setArtistActive] = useState(true);
-  const [artistIsVerified, setArtistIsVerified] = useState(false);
+  const [artistActive, setArtistActive] = useState(
+    rowData.status == "active" ? true : false
+  );
+  const [artistIsVerified, setArtistIsVerified] = useState(rowData.verified);
 
   useEffect(() => {
     setValue("tags", selectedTags);
@@ -179,6 +185,7 @@ function AddArtist() {
             label="Name"
             variant="outlined"
             {...register("name")}
+            defaultValue={rowData.name}
             name="name"
             error={errors.name ? true : false}
             helperText={errors.name ? errors.name.message : ""}
@@ -224,6 +231,7 @@ function AddArtist() {
             error={errors.description ? true : false}
             helperText={errors.description ? errors.description.message : ""}
             variant="outlined"
+            defaultValue={rowData.description}
             disabled={isFormDisabled}
             {...register("description")}
             name="description"
@@ -275,4 +283,4 @@ function AddArtist() {
   );
 }
 
-export default AddArtist;
+export default UpdateArtist;

@@ -112,6 +112,7 @@ $background: #23232c;
             .button-group {
                 display: flex;
                 grid-gap: 10px;
+                justify-content: flex-end;
                 button {
                     font-weight: 600;
                     text-transform: capitalize;
