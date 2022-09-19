@@ -170,6 +170,7 @@ function AddTrack() {
             alert("submitted");
           } else {
             alert(res.data);
+            console.log(res.data);
           }
         })
         .catch((err) => {

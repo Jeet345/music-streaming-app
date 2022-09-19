@@ -16,6 +16,7 @@ import "./artists.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Box, padding } from "@mui/system";
+import moment from "moment";
 
 function Artists() {
   // useStates
@@ -137,7 +138,7 @@ function Artists() {
       headerName: "Created At",
       flex: 1,
       renderCell: (param) => {
-        return param.value;
+        return moment(param.value).format("MMM DD YYYY");
       },
     },
     {
