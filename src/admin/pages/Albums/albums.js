@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { FiSearch } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
-import "./albums.css";
+import "../../admin.css";
 import { useNavigate } from "react-router-dom";
 import { DataGrid, GridFooter, GridFooterContainer } from "@mui/x-data-grid";
 import { MdOutlineModeEditOutline } from "react-icons/md";

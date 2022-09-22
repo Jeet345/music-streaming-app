@@ -6,7 +6,8 @@
   overflow: hidden;
 }
 .appContainer .left-side-nav {
-  width: 19%;
+  max-width: 17% !important;
+  min-width: 17% !important;
   padding: 18px;
   overflow-y: scroll;
   background-color: #23232c;
@@ -16,32 +17,18 @@
   text-align: center;
   padding: 20px 0px;
 }
-.appContainer .left-side-nav .search-filed {
+.appContainer .left-side-nav .search-filled {
   width: 100%;
   background-color: #353543;
-  display: flex;
-  margin-top: 15px;
-  border: 1px solid rgba(92, 92, 92, 0.842);
+  margin-top: 5px;
   border-radius: 4px;
+  color: white;
   overflow: hidden;
 }
-.appContainer .left-side-nav .search-filed input {
-  width: 100%;
+.appContainer .left-side-nav .MuiFormControl-root .MuiInputBase-input {
   padding: 11px 13px;
-  background: none;
-  border: none;
-  color: white;
+  padding-right: 0px;
   font-size: 0.9rem;
-}
-.appContainer .left-side-nav .search-filed button {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  display: grid;
-  place-items: center;
-  color: white;
-  padding-right: 10px;
-  cursor: pointer;
 }
 .appContainer .left-side-nav .link-box {
   width: 100%;
@@ -79,6 +66,7 @@
   font-weight: 300;
   border-radius: 3px;
   transition: 0.2s;
+  text-decoration: none;
 }
 .appContainer .left-side-nav .link-box ul li .link .icon {
   display: grid;
@@ -104,6 +92,7 @@
   display: block;
   padding: 11px 15px;
   font-weight: 500;
+  text-decoration: none;
   color: white;
   border-radius: 3px;
   font-size: 0.9rem;

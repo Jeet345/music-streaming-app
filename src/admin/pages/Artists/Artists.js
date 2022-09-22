@@ -12,7 +12,7 @@ import { DataGrid, GridFooter, GridFooterContainer } from "@mui/x-data-grid";
 import { FiSearch } from "react-icons/fi";
 import { MdOutlineModeEditOutline } from "react-icons/md";
 import { HiPlusSm } from "react-icons/hi";
-import "./artists.css";
+import "../../admin.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Box, padding } from "@mui/system";
@@ -63,17 +63,17 @@ function Artists() {
 
   const handleEditBtnClick = (params) => {
     var api = params.api;
-    var thisRow = {};
+    var rowData = {};
     api
       .getAllColumns()
       .filter(function (c) {
         return c.field !== "__check__" && !!c;
       })
       .forEach(function (c) {
-        return (thisRow[c.field] = params.getValue(params.id, c.field));
+        return (rowData[c.field] = params.getValue(params.id, c.field));
       });
 
-    navigate("/Admin/Artists/UpdateArtist", { state: thisRow });
+    navigate("/Admin/Artists/UpdateArtist", { state: rowData });
   };
 
   const columns = [

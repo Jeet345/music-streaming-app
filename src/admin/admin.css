@@ -100,4 +100,127 @@
   padding: 25px 22px;
   overflow: auto;
   height: 100%;
+}
+
+.edit-btn {
+  color: rgb(236, 236, 236) !important;
+}
+
+.MuiDataGrid-columnSeparator {
+  display: none !important;
+}
+
+.song-page-container .title {
+  font-weight: 300;
+  color: white;
+}
+.song-page-container .search-filed {
+  display: flex;
+  align-items: center;
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+.song-page-container .search-filed .search-input * {
+  transition: 0.1s;
+}
+.song-page-container .search-filed .search-input input {
+  padding: 13px 0px;
+  padding-right: 13px;
+}
+.song-page-container .search-filed .button-input {
+  width: 170px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.song-page-container .search-filed .MuiButton-startIcon * {
+  font-size: 28px;
+}
+
+.MuiList-root {
+  background: #23232c;
+}
+.MuiList-root li {
+  padding: 10px 20px;
+}
+
+.add-track-container {
+  background-color: #1e1e26;
+  padding: 20px;
+  border: 1px solid #3e3e46;
+  border-radius: 5px;
+}
+.add-track-container .song-label {
+  color: white;
+  font-weight: normal;
+  font-size: 0.8rem;
+  padding: 10px 0px;
+}
+.add-track-container form {
+  display: flex;
+  grid-gap: 20px;
+}
+.add-track-container form .left-side-box {
+  min-width: 220px;
+  max-width: 21%;
+}
+.add-track-container form .left-side-box .error {
+  margin-top: 10px;
+}
+.add-track-container form .left-side-box .error li {
+  color: #f4342a;
+  font-weight: normal;
+  font-size: 0.9rem;
+  padding: 5px 0px;
+}
+.add-track-container form .left-side-box .img-box {
+  width: 100%;
+  position: relative;
+}
+.add-track-container form .left-side-box .img-box img {
+  width: 100%;
+}
+.add-track-container form .left-side-box .img-box .upload-btn {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 25px;
+  width: 60%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: black;
+}
+.add-track-container form .left-side-box .upload-track-btn {
+  width: 100%;
+  margin-top: 10px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.add-track-container form .right-side-box {
+  flex: 1;
+}
+.add-track-container form .right-side-box .input {
+  margin-bottom: 20px;
+  width: 100%;
+}
+.add-track-container form .right-side-box .MuiFormControl-root {
+  width: 100%;
+}
+.add-track-container form .right-side-box .tagChip {
+  margin-right: 10px;
+}
+.add-track-container form .right-side-box .button-group {
+  display: flex;
+  grid-gap: 10px;
+  justify-content: flex-end;
+}
+.add-track-container form .right-side-box .button-group button {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.add-track-container form .right-side-box .button-group .reset-btn {
+  color: white;
 }/*# sourceMappingURL=admin.css.map */

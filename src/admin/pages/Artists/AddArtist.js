@@ -141,7 +141,7 @@ function AddArtist() {
             {coverImagePath != "" ? (
               <img src={coverImagePath} />
             ) : (
-              <img src={require("../assets/album.jpg")} />
+              <img src={require("../../assets/album.jpg")} />
             )}
           </div>
 

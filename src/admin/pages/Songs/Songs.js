@@ -12,7 +12,7 @@ import { MdOutlineModeEditOutline } from "react-icons/md";
 import { DataGrid, GridFooter, GridFooterContainer } from "@mui/x-data-grid";
 import { FiSearch } from "react-icons/fi";
 import { HiPlusSm } from "react-icons/hi";
-import "./song.css";
+import "../../admin.css";
 import axios from "axios";
 import { Box, padding } from "@mui/system";
 import { useNavigate } from "react-router-dom";

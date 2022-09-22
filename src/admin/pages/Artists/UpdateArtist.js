@@ -12,16 +12,13 @@ import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function UpdateArtist() {
   let schema = yup.object().shape({
+    id: yup.string().required(),
     name: yup.string().required("Title is a required field"),
-    coverImg: yup
-      .mixed()
-      .test("required", "Please select song cover img", (value) => {
-        return value && value.length;
-      }),
+    coverImg: yup.mixed(),
     description: yup.string(),
     tags: yup.array().min(1, "Tags is a requird field"),
   });
@@ -39,6 +36,7 @@ function UpdateArtist() {
   });
 
   const location = useLocation();
+  const navigate = useNavigate();
   const rowData = location.state;
 
   const [selectedTags, setSelectedTags] = useState(rowData.tags);
@@ -93,8 +91,9 @@ function UpdateArtist() {
 
     var form_data = new FormData();
 
+    form_data.append("id", data.id);
     form_data.append("name", data.name);
-    form_data.append("coverImg", data.coverImg[0]);
+    form_data.append("coverImg", data.coverImg[0] ? data.coverImg[0] : "");
     form_data.append("tags", data.tags);
     form_data.append("description", data.description);
     form_data.append("verified", artistIsVerified);
@@ -107,7 +106,7 @@ function UpdateArtist() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/artists/addArtist",
+      url: "http://localhost:4000/admin/artists/updateArtist",
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,
@@ -119,7 +118,8 @@ function UpdateArtist() {
         setIsFormDisabled(false);
         if (res.data === 1) {
           console.log(res);
-          alert("submitted");
+          alert("Updated Successfully..");
+          navigate("/Admin/Artists");
         } else {
           alert(res.data);
         }
@@ -147,9 +147,16 @@ function UpdateArtist() {
             {coverImagePath != "" ? (
               <img src={coverImagePath} />
             ) : (
-              <img src={require("../assets/album.jpg")} />
+              <img src={require("../../assets/album.jpg")} />
             )}
           </div>
+
+          <input
+            type="hidden"
+            value={rowData._id}
+            name="id"
+            {...register("id")}
+          />
 
           <Button
             className="upload-track-btn"

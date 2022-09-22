@@ -109,3 +109,137 @@ $background: #23232c;
         height: 100%;
     }
 }
+
+.edit-btn {
+    color: rgb(236, 236, 236) !important;
+}
+.MuiDataGrid-columnSeparator {
+    display: none !important;
+}
+
+$primary: #689f38;
+$border: #3e3e46;
+$background: #23232c;
+
+.song-page-container {
+    .title {
+        font-weight: 300;
+        color: white;
+    }
+    .search-filed {
+        display: flex;
+        align-items: center;
+        grid-gap: 20px;
+        margin-top: 20px;
+        .search-input {
+            * {
+                transition: 0.1s;
+            }
+            input {
+                padding: 13px 0px;
+                padding-right: 13px;
+            }
+        }
+        .button-input {
+            width: 170px;
+            height: 45px;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .MuiButton-startIcon {
+            * {
+                font-size: 28px;
+            }
+        }
+    }
+}
+.MuiList-root {
+    background: $background;
+    li {
+        padding: 10px 20px;
+    }
+}
+.add-track-container {
+    background-color: #1e1e26;
+    padding: 20px;
+    border: 1px solid $border;
+    border-radius: 5px;
+    .song-label {
+        color: white;
+        font-weight: normal;
+        font-size: 0.8rem;
+        padding: 10px 0px;
+    }
+    form {
+        display: flex;
+        grid-gap: 20px;
+
+        .left-side-box {
+            .error {
+                margin-top: 10px;
+                li {
+                    color: #f4342a;
+                    font-weight: normal;
+                    font-size: 0.9rem;
+                    padding: 5px 0px;
+                }
+            }
+            min-width: 220px;
+            max-width: 21%;
+            .img-box {
+                width: 100%;
+                position: relative;
+                img {
+                    width: 100%;
+                }
+                .upload-btn {
+                    background: rgba(255, 255, 255, 0.7);
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: 25px;
+                    width: 60%;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                    color: black;
+                }
+            }
+            .upload-track-btn {
+                width: 100%;
+                margin-top: 10px;
+                text-transform: capitalize;
+                font-weight: 600;
+            }
+        }
+        .right-side-box {
+            flex: 1;
+            .input {
+                margin-bottom: 20px;
+                width: 100%;
+                // .MuiInputLabel-shrink {
+                // font-size: 20px;
+                // }
+            }
+            .MuiFormControl-root {
+                width: 100%;
+            }
+            .tagChip {
+                margin-right: 10px;
+            }
+            .button-group {
+                display: flex;
+                grid-gap: 10px;
+                justify-content: flex-end;
+                button {
+                    font-weight: 600;
+                    text-transform: capitalize;
+                }
+                .reset-btn {
+                    color: white;
+                }
+            }
+        }
+    }
+}
