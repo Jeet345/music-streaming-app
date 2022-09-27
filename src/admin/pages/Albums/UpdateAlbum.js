@@ -13,15 +13,13 @@ import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function AddAlbum() {
+function UpdateAlbum() {
   let schema = yup.object().shape({
+    id: yup.string().required(),
     name: yup.string().required("Title is a required field"),
-    coverImg: yup
-      .mixed()
-      .test("required", "Please select song cover img", (value) => {
-        return value && value.length;
-      }),
+    coverImg: yup.mixed(),
     description: yup.string(),
     artists: yup.array().min(1, "Artists is a required field"),
     tags: yup.array().min(1, "Tags is a requird field"),
@@ -40,17 +38,36 @@ function AddAlbum() {
     resolver: yupResolver(schema),
   });
 
-  const [selectedTags, setSelectedTags] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const rowData = location.state;
+
+  const [selectedTags, setSelectedTags] = useState(rowData.tags);
   const [inputTag, setInputTag] = useState();
   const [progressValue, setProgressValue] = useState(0);
   const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [coverImagePath, setCoverImagePath] = useState("");
-  const [albumActive, setAlbumActive] = useState(true);
-  const [artistList, setArtistList] = useState({});
+  const [albumActive, setAlbumActive] = useState(
+    rowData.status == "active" ? true : false
+  );
+  const [artistList, setArtistList] = useState([]);
+  const [selectedArtistList, setSelectedArtistList] = useState([
+    ...rowData.artist_names,
+  ]);
 
   useEffect(() => {
     setValue("tags", selectedTags);
   }, [selectedTags]);
+
+  useEffect(() => {
+    let arrayOfArtistId = [];
+
+    rowData.artist_names.map((val, ele) => {
+      arrayOfArtistId.push(val._id);
+    });
+
+    setValue("artists", arrayOfArtistId);
+  }, []);
 
   useEffect(() => {
     // getting artist data from api
@@ -106,8 +123,9 @@ function AddAlbum() {
 
     var form_data = new FormData();
 
+    form_data.append("id", data.id);
     form_data.append("name", data.name);
-    form_data.append("coverImg", data.coverImg[0]);
+    form_data.append("coverImg", data.coverImg[0] ? data.coverImg[0] : "");
     form_data.append("artists", data.artists);
     form_data.append("tags", data.tags);
     form_data.append("description", data.description);
@@ -123,7 +141,7 @@ function AddAlbum() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/albums/addAlbum",
+      url: "http://localhost:4000/admin/albums/updateAlbum",
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,
@@ -135,7 +153,7 @@ function AddAlbum() {
         setIsFormDisabled(false);
         if (res.data === 1) {
           console.log(res);
-          alert("submitted");
+          alert("Updated Successfully...");
         } else {
           alert(res.data);
         }
@@ -146,7 +164,7 @@ function AddAlbum() {
       });
   };
 
-  // console.log(errors);
+  console.log(errors);
 
   return (
     <div className="add-track-container">
@@ -158,6 +176,12 @@ function AddAlbum() {
         <LinearProgress variant="determinate" value={progressValue} />
       </Box>
       <form method="post" id="form" onSubmit={handleSubmit(formSubmit)}>
+        <input
+          type="hidden"
+          value={rowData._id}
+          name="id"
+          {...register("id")}
+        />
         <div className="left-side-box">
           <div className="img-box">
             {coverImagePath != "" ? (
@@ -202,6 +226,7 @@ function AddAlbum() {
             variant="outlined"
             {...register("name")}
             name="name"
+            defaultValue={rowData.name}
             error={errors.name ? true : false}
             helperText={errors.name ? errors.name.message : ""}
             disabled={isFormDisabled}
@@ -215,7 +240,12 @@ function AddAlbum() {
                 options={artistList}
                 className="input"
                 autoHighlight
+                // disableCloseOnSelect
                 multiple={true}
+                isOptionEqualToValue={(option, value) =>
+                  option._id === value._id
+                }
+                value={selectedArtistList}
                 getOptionLabel={(option) => option.name}
                 onChange={(e, value) => {
                   const arrayOfArtist = [];
@@ -224,6 +254,7 @@ function AddAlbum() {
                     arrayOfArtist.push(data._id);
                   });
 
+                  setSelectedArtistList(value);
                   setValue("artists", arrayOfArtist, { shouldValidate: true });
                 }}
                 name="artists"
@@ -277,6 +308,7 @@ function AddAlbum() {
             multiline
             rows={3}
             label="description"
+            defaultValue={rowData.description}
             error={errors.description ? true : false}
             helperText={errors.description ? errors.description.message : ""}
             variant="outlined"
@@ -317,4 +349,4 @@ function AddAlbum() {
   );
 }
 
-export default AddAlbum;
+export default UpdateAlbum;

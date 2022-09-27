@@ -1,132 +1,168 @@
 import React, { useEffect, useState } from "react";
-import { RiErrorWarningFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import * as yup from "yup";
 import "../../styles/Account/account.css";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import moment from "moment";
+import { Button, InputLabel, TextField } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
 
 function Register() {
-   const navigate = useNavigate();
-   const {
-      register,
-      formState: { errors },
-      handleSubmit,
-      watch,
-   } = useForm();
+  let schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Please enter valid email")
+      .required("Email is a required field"),
+    password: yup
+      .string()
+      .required("Password is a required field")
+      .min(4, "Password must be at least 4 characters"),
+    conPassword: yup
+      .string()
+      .oneOf(
+        [yup.ref("password"), null],
+        "Password and confirm password not match"
+      )
+      .required("Confirm Password is a required field"),
+  });
 
-   const registerClick = async (data) => {
-      let created_at = moment().format("yyyy-MM-DD");
-      data = { ...data, groupName: "user", created_at };
+  const navigate = useNavigate();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
 
-      try {
-         let result = await fetch("http://localhost:4000/register", {
-            method: "post",
-            body: JSON.stringify(data),
-            headers: {
-               "Content-Type": "application/json",
-            },
-         });
-         result = await result.json();
-         if (result) {
-            navigate("/");
-         }
-      } catch (e) {
-         alert(e);
+  const checkIfEmailExist = async (email) => {
+    const res = await axios({
+      url: "http://localhost:4000/users/findUserByEmail",
+      method: "post",
+      data: {
+        email,
+      },
+    })
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        alert("Something Wan't Wrong");
+        console.log(err);
+      });
+    return res;
+  };
+
+  const registerClick = async (data) => {
+    let created_at = moment().format("yyyy-MM-DD");
+    data = { ...data, groupName: "user", created_at };
+
+    await checkIfEmailExist(data.email).then((res) => {
+      if (res.data == "") {
+        axios({
+          url: "http://localhost:4000/register",
+          method: "post",
+          data,
+        })
+          .then((res) => {
+            if (res.data === 1) {
+              alert("Registed..");
+              navigate("/login");
+            } else {
+              console.log(res);
+            }
+          })
+          .catch((err) => {
+            alert("Something Wan't Wrong");
+            console.log(err);
+          });
+      } else {
+        alert("Account already Exists...");
       }
-   };
+    });
+  };
 
-   return (
-      <div className="register-page">
-         <form action="" method="post" onSubmit={handleSubmit(registerClick)}>
-            <h1 className="logo">BEMUSIC</h1>
-            <div className="register-box">
-               <h3 className="title">Create New Account</h3>
-               <div className="input-filed">
-                  <h4 className="heading">User Name</h4>
-                  <input
-                     type="text"
-                     name="username"
-                     {...register("username", {
-                        required: "Username is required",
-                     })}
-                     className="text-field"
-                  />
-                  {errors.username && (
-                     <h4 className="error">
-                        <RiErrorWarningFill className="icon" />
-                        {errors.username.message}
-                     </h4>
-                  )}
-               </div>
-               <div className="input-filed">
-                  <h4 className="heading">Email</h4>
-                  <input
-                     type="text"
-                     {...register("email", {
-                        required: "Email Field Is Required",
-                        pattern: {
-                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                           message: "Please Enter Valid Email Address",
-                        },
-                     })}
-                     className="text-field"
-                  />
-                  {errors.email && (
-                     <h4 className="error">
-                        <RiErrorWarningFill className="icon" />
-                        {errors.email.message}
-                     </h4>
-                  )}
-               </div>
-               <div className="input-filed">
-                  <h4 className="heading">Password</h4>
-                  <input
-                     type="password"
-                     {...register("password", {
-                        required: "Password Field Is Required",
-                     })}
-                     className="text-field"
-                  />
-                  {errors.password && (
-                     <h4 className="error">
-                        <RiErrorWarningFill className="icon" />
-                        {errors.password.message}
-                     </h4>
-                  )}
-               </div>
-               <div className="input-filed">
-                  <h4 className="heading">Confirm Password</h4>
-                  <input
-                     type="password"
-                     {...register("conPassword", {
-                        required: "Confirm Password Field Is Required",
-                        validate: (val = handleSubmit.password) => {
-                           if (watch("password") != val) {
-                              return "Password and confirm password not match";
-                           }
-                        },
-                     })}
-                     className="text-field"
-                  />
-                  {errors.conPassword && (
-                     <h4 className="error">
-                        <RiErrorWarningFill className="icon" />
-                        {errors.conPassword.message}
-                     </h4>
-                  )}
-               </div>
-               <button className="submit-btn" type="submit">
-                  Create Account
-               </button>
-            </div>
-            <h5 className="bottom-link">
-               Already have an account?
-               <Link to="/Login">Sign in.</Link>
-            </h5>
-         </form>
-      </div>
-   );
+  return (
+    <div className="register-page">
+      <form method="post" onSubmit={handleSubmit(registerClick)}>
+        <h1 className="logo">BEMUSIC</h1>
+        <div className="register-box">
+          <h3 className="title">Create New Account</h3>
+
+          <div className="input-filed">
+            <label className="label" htmlFor="Email">
+              email
+            </label>
+            <TextField
+              id="email"
+              className="input"
+              style={{ width: "100%" }}
+              variant="outlined"
+              name="email"
+              {...register("email")}
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : ""}
+            />
+          </div>
+
+          <div className="input-filed">
+            <label className="label" htmlFor="password">
+              Password
+              <Link className="forgot-link" to="/">
+                Forgot your password?
+              </Link>
+            </label>
+            <TextField
+              hintText="Password"
+              type="password"
+              id="password"
+              {...register("password")}
+              className="input"
+              style={{ width: "100%" }}
+              variant="outlined"
+              name="password"
+              error={errors.password ? true : false}
+              helperText={errors.password ? errors.password.message : ""}
+            />
+          </div>
+
+          <div className="input-filed">
+            <label className="label" htmlFor="conPassword">
+              Confirm Password
+            </label>
+            <TextField
+              type="password"
+              id="conPassword"
+              className="input"
+              {...register("conPassword")}
+              style={{ width: "100%" }}
+              variant="outlined"
+              name="conPassword"
+              error={errors.conPassword ? true : false}
+              helperText={errors.conPassword ? errors.conPassword.message : ""}
+            />
+          </div>
+
+          <Button
+            className="submit-btn"
+            type="submit"
+            variant="contained"
+            onClick={() => {}}
+          >
+            Create Account
+          </Button>
+        </div>
+        <h5 className="bottom-link">
+          Already have an account?
+          <Link to="/Login">Sign in.</Link>
+        </h5>
+      </form>
+    </div>
+  );
 }
 
 export default Register;

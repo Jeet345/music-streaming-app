@@ -14,6 +14,8 @@ import UpdateArtist from "./pages/Artists/UpdateArtist";
 import Genres from "./pages/Genres/Genres.js";
 import AddGenres from "./pages/Genres/AddGenres.js";
 import UpdateGenres from "./pages/Genres/UpdateGenres.js";
+import UpdateAlbum from "./pages/Albums/UpdateAlbum.js";
+import UpdateTrack from "./pages/Songs/UpdateTrack.js";
 
 function admin() {
   return (
@@ -27,8 +29,10 @@ function admin() {
             {/* path : /admin */}
             <Route path="/songs" element={<Songs />} />
             <Route path="/songs/createTrack" element={<AddTrack />} />
+            <Route path="/songs/updateTrack" element={<UpdateTrack />} />
             <Route path="/albums" element={<Albums />} />
             <Route path="/albums/addAlbum" element={<AddAlbum />} />
+            <Route path="/albums/updateAlbum" element={<UpdateAlbum />} />
             <Route path="/artists" element={<Artists />} />
             <Route path="/artists/addArtist" element={<AddArtist />} />
             <Route path="/artists/updateArtist" element={<UpdateArtist />} />

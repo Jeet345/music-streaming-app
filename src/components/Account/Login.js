@@ -1,47 +1,116 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Button, TextField } from "@mui/material";
 import React from "react";
-import { RiErrorWarningFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/Account/account.css";
+import axios from "axios";
+import { useState } from "react";
 
 function Login() {
-   return (
-      <div className="login-page">
-         <form action="" method="post">
-            <h1 className="logo">BEMUSIC</h1>
-            <div className="login-box">
-               <h3 className="title">Sign In To Your Account</h3>
 
-               <div className="input-filed">
-                  <h4 className="heading">Email</h4>
-                  <input type="email" name="" id="" className="text-field" />
-                  <h4 className="error">
-                     <RiErrorWarningFill className="icon" />
-                     Email Field Is Required
-                  </h4>
-               </div>
-               <div className="input-filed">
-                  <h4 className="heading">Password</h4>
-                  <input type="password" name="" id="" className="text-field" />
-                  <Link className="forgot-link" to="/">
-                     Forgot your password?
-                  </Link>
-                  <h4 className="error">
-                     <RiErrorWarningFill className="icon" />
-                     Password Field Is Required
-                  </h4>
-               </div>
+  let schema = yup.object().shape({
+    email: yup
+      .string()
+      .email("Please enter valid email")
+      .required("Email is a required field"),
+    password: yup.string().required("Password is a required field"),
+  });
 
-               <button className="submit-btn" type="submit">
-                  Continue
-               </button>
-            </div>
-            <h5 className="bottom-link">
-               Don't have an account?
-               <Link to="/Register">Sign up.</Link>
-            </h5>
-         </form>
-      </div>
-   );
+  const navigate = useNavigate();
+
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
+
+  const formSubmit = async (data) => {
+    setIsFormDisabled(true);
+    axios({
+      url: "http://localhost:4000/login",
+      method: "post",
+      data,
+    })
+      .then((res) => {
+        setIsFormDisabled(false);
+        alert("U R Logged In..");
+        console.log(res);
+      })
+      .catch((err) => {
+        setIsFormDisabled(false);
+        if (err.response.data.error) {
+          alert(err.response.data.error);
+        } else {
+          console.log(err);
+        }
+      });
+  };
+
+  return (
+    <div className="login-page">
+      <form method="post" onSubmit={handleSubmit(formSubmit)}>
+        <h1 className="logo">BEMUSIC</h1>
+        <div className="login-box">
+          <h3 className="title">Sign In To Your Account</h3>
+          <div className="input-filed">
+            <label className="label" htmlFor="Email">
+              email
+            </label>
+            <TextField
+              id="email"
+              className="input"
+              style={{ width: "100%" }}
+              variant="outlined"
+              name="email"
+              {...register("email")}
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : ""}
+            />
+          </div>
+          <div className="input-filed">
+            <label className="label" htmlFor="password">
+              Password
+              <Link className="forgot-link" to="/">
+                Forgot your password?
+              </Link>
+            </label>
+            <TextField
+              hintText="Password"
+              type="password"
+              id="password"
+              {...register("password")}
+              className="input"
+              style={{ width: "100%" }}
+              variant="outlined"
+              name="password"
+              error={errors.password ? true : false}
+              helperText={errors.password ? errors.password.message : ""}
+            />
+          </div>
+          <Button
+            disabled={isFormDisabled}
+            className="submit-btn"
+            type="submit"
+            variant="contained"
+          >
+            {isFormDisabled ? "Loading..." : "Continue"}
+          </Button>
+        </div>
+        <h5 className="bottom-link">
+          Don't have an account?
+          <Link to="/Register">Sign up.</Link>
+        </h5>
+      </form>
+    </div>
+  );
 }
 
 export default Login;

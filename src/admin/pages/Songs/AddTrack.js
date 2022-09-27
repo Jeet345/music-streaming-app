@@ -4,6 +4,8 @@ import {
   Chip,
   Autocomplete,
   LinearProgress,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
@@ -24,9 +26,9 @@ function AddTrack() {
       return value && value.length;
     }),
     lyrics: yup.string(),
-    artists: yup.array().required("Artists is a required field"),
+    artists: yup.array().min(1, "Artists is a required field"),
     album: yup.string(),
-    genres: yup.array().required("Genred is a required field"),
+    genres: yup.array().min(1, "Genres is a required field"),
     tags: yup.array().min(1, "Tags is a requird field"),
   });
 
@@ -51,6 +53,7 @@ function AddTrack() {
   const [artistList, setArtistList] = useState([]);
   const [albumList, setAlbumList] = useState([]);
   const [genresList, setGenresList] = useState([]);
+  const [trackActive, setTrackActive] = useState(true);
 
   useEffect(() => {
     setValue("tags", selectedTags);
@@ -140,6 +143,7 @@ function AddTrack() {
     form_data.append("tags", data.tags);
     form_data.append("lyrics", data.lyrics);
     form_data.append("song", data.song[0]);
+    form_data.append("status", trackActive);
 
     const uploadProgress = (progressEvent) => {
       const { loaded, total } = progressEvent;
@@ -268,7 +272,7 @@ function AddTrack() {
             disabled={isFormDisabled}
             name="album"
             onChange={(e, value) => {
-              setValue("album", value._id);
+              setValue("album", value._id, { shouldValidate: true });
             }}
             renderInput={(params) => (
               <TextField
@@ -297,7 +301,7 @@ function AddTrack() {
                     arrayOfArtist.push(data._id);
                   });
 
-                  setValue("artists", arrayOfArtist);
+                  setValue("artists", arrayOfArtist, { shouldValidate: true });
                 }}
                 name="artists"
                 disabled={isFormDisabled}
@@ -333,7 +337,7 @@ function AddTrack() {
                     arrayOfGenres.push(data._id);
                   });
 
-                  setValue("genres", arrayOfGenres);
+                  setValue("genres", arrayOfGenres, { shouldValidate: true });
                 }}
                 name="genres"
                 renderInput={(params) => (
@@ -391,6 +395,20 @@ function AddTrack() {
             disabled={isFormDisabled}
             {...register("lyrics")}
             name="lyrics"
+          />
+
+          <FormControlLabel
+            style={{ marginBottom: "20px", color: "white" }}
+            control={
+              <Switch
+                checked={trackActive}
+                onChange={() => {
+                  setTrackActive(!trackActive);
+                }}
+                name="status"
+              />
+            }
+            label="Active"
           />
 
           <div className="button-group">

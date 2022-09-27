@@ -1,8 +1,15 @@
 .register-page,
 .login-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 100%;
   height: 100%;
   padding-top: 50px;
@@ -10,12 +17,14 @@
   overflow-y: auto;
   padding-bottom: 80px;
 }
+
 .register-page .logo,
 .login-page .logo {
   text-align: center;
   color: white;
   letter-spacing: 2px;
 }
+
 .register-page .register-box,
 .register-page .login-box,
 .login-page .register-box,
@@ -26,6 +35,7 @@
   background-color: #23232c;
   padding: 40px;
 }
+
 .register-page .register-box .title,
 .register-page .login-box .title,
 .login-page .register-box .title,
@@ -34,101 +44,73 @@
   font-weight: normal;
   margin-bottom: 30px;
 }
-.register-page .register-box .error,
-.register-page .login-box .error,
-.login-page .register-box .error,
-.login-page .login-box .error {
-  color: rgb(223, 2, 2);
-  display: flex;
-  font-weight: normal;
-  font-size: 0.9rem;
-  align-items: center;
-  padding-top: 10px;
-}
-.register-page .register-box .error .icon,
-.register-page .login-box .error .icon,
-.login-page .register-box .error .icon,
-.login-page .login-box .error .icon {
-  display: block;
-  margin-right: 5px;
-}
+
 .register-page .register-box .input-filed,
 .register-page .login-box .input-filed,
 .login-page .register-box .input-filed,
 .login-page .login-box .input-filed {
   margin-top: 30px;
 }
-.register-page .register-box .input-filed .heading,
-.register-page .login-box .input-filed .heading,
-.login-page .register-box .input-filed .heading,
-.login-page .login-box .input-filed .heading {
+
+.register-page .register-box .input-filed .label,
+.register-page .login-box .input-filed .label,
+.login-page .register-box .input-filed .label,
+.login-page .login-box .input-filed .label {
   color: #f1f1f1;
   font-weight: normal;
   font-size: 0.9rem;
+  text-transform: capitalize;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 7px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-.register-page .register-box .input-filed .forgot-link,
-.register-page .login-box .input-filed .forgot-link,
-.login-page .register-box .input-filed .forgot-link,
-.login-page .login-box .input-filed .forgot-link {
+
+.register-page .register-box .input-filed .label .forgot-link,
+.register-page .login-box .input-filed .label .forgot-link,
+.login-page .register-box .input-filed .label .forgot-link,
+.login-page .login-box .input-filed .label .forgot-link {
   font-weight: normal;
   font-size: 0.9rem;
-  text-align: right;
-  display: block;
-  text-align: right;
-  margin-top: 10px;
-  color: #f1f1f1;
+  display: table;
+  text-decoration: none;
+  color: #dbdbdb;
 }
-.register-page .register-box .input-filed .forgot-link:hover,
-.register-page .login-box .input-filed .forgot-link:hover,
-.login-page .register-box .input-filed .forgot-link:hover,
-.login-page .login-box .input-filed .forgot-link:hover {
+
+.register-page .register-box .input-filed .label .forgot-link:hover,
+.register-page .login-box .input-filed .label .forgot-link:hover,
+.login-page .register-box .input-filed .label .forgot-link:hover,
+.login-page .login-box .input-filed .label .forgot-link:hover {
   color: white;
   text-decoration: underline;
 }
-.register-page .register-box .input-filed .text-field,
-.register-page .login-box .input-filed .text-field,
-.login-page .register-box .input-filed .text-field,
-.login-page .login-box .input-filed .text-field {
-  background: none;
-  border: none;
-  padding: 13px 14px;
-  border: 1px solid rgb(63, 63, 63);
-  border-radius: 3px;
-  width: 100%;
-  font-size: 0.9rem;
-  color: white;
-  margin-top: 10px;
-  transition: 0.2s;
+
+.register-page .register-box .input-filed input,
+.register-page .login-box .input-filed input,
+.login-page .register-box .input-filed input,
+.login-page .login-box .input-filed input {
+  padding: 13px 15px;
 }
-.register-page .register-box .input-filed .text-field:focus,
-.register-page .login-box .input-filed .text-field:focus,
-.login-page .register-box .input-filed .text-field:focus,
-.login-page .login-box .input-filed .text-field:focus {
-  border-color: #689f38;
-}
+
 .register-page .register-box .submit-btn,
 .register-page .login-box .submit-btn,
 .login-page .register-box .submit-btn,
 .login-page .login-box .submit-btn {
-  background: none;
-  border: none;
   width: 100%;
-  padding: 16px;
-  margin-top: 30px;
-  background-color: #689f38;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
+  margin-top: 40px;
+  padding: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
   font-size: 1rem;
-  font-weight: 500;
-  transition: 0.2s;
+  letter-spacing: 0px;
 }
-.register-page .register-box .submit-btn:hover,
-.register-page .login-box .submit-btn:hover,
-.login-page .register-box .submit-btn:hover,
-.login-page .login-box .submit-btn:hover {
-  background-color: #508323;
-}
+
 .register-page .bottom-link,
 .login-page .bottom-link {
   text-align: center;
@@ -138,12 +120,15 @@
   font-size: 0.9rem;
   letter-spacing: 0.3px;
 }
+
 .register-page .bottom-link a,
 .login-page .bottom-link a {
   margin-left: 5px;
   color: #689f38;
 }
+
 .register-page .bottom-link a:hover,
 .login-page .bottom-link a:hover {
   text-decoration: underline;
-}/*# sourceMappingURL=Account.css.map */
+}
+/*# sourceMappingURL=Account.css.map */

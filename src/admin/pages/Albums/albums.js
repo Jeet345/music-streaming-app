@@ -58,6 +58,21 @@ function Albums() {
       });
   };
 
+  const handleEditBtnClick = (params) => {
+    var api = params.api;
+    var rowData = {};
+    api
+      .getAllColumns()
+      .filter(function (c) {
+        return c.field !== "__check__" && !!c;
+      })
+      .forEach(function (c) {
+        return (rowData[c.field] = params.getValue(params.id, c.field));
+      });
+
+    navigate("/admin/albums/updateAlbum", { state: rowData });
+  };
+
   const columns = [
     {
       field: "coverImg",
@@ -150,7 +165,7 @@ function Albums() {
           <IconButton
             aria-label="Edit"
             onClick={() => {
-              // handleEditBtnClick(param);
+              handleEditBtnClick(param);
             }}
             className="edit-btn"
           >
