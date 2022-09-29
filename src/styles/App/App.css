@@ -253,6 +253,19 @@
   border: none;
 }
 
+.appContainer .right-side-queue .playing {
+  background-color: #689f38;
+}
+
+.appContainer .right-side-queue .playing .desc-box .link-box a {
+  color: white;
+}
+
+.appContainer .right-side-queue .playing .img-box .hover-box {
+  display: -ms-grid;
+  display: grid;
+}
+
 .data-table-container .title {
   color: #f1f1f1;
   font-weight: 300;

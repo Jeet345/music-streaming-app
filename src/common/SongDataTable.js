@@ -3,7 +3,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsThreeDots, BsFillPlayFill, BsPauseFill } from "react-icons/bs";
 import { MdOutlineVolumeUp } from "react-icons/md";
 import { BiTimeFive } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setQueue } from "../actions/index";
 const img = require("../assets/download.jpg");
 

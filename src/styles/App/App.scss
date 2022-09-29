@@ -192,6 +192,21 @@ $primary: #689f38;
                 border: none;
             }
         }
+        .playing {
+            background-color: $primary;
+            .desc-box {
+                .link-box {
+                    a {
+                        color: white;
+                    }
+                }
+            }
+            .img-box {
+                .hover-box {
+                    display: grid;
+                }
+            }
+        }
     }
 }
 
