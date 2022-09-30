@@ -14,28 +14,46 @@ function Control(prop) {
   const isPlaying = useSelector((state) => state.changeIsPlaying);
 
   const audioPlayer = prop.audioPlayer;
+  const animationRef = prop.animationRef;
 
   const togglePlayPause = () => {
     dispatch(setIsPlaying(!isPlaying));
     if (!isPlaying) {
       audioPlayer.current.play();
+      animationRef.current = requestAnimationFrame(prop.whilePlaying);
     } else {
       audioPlayer.current.pause();
+      cancelAnimationFrame(animationRef.current);
     }
   };
 
   const changeAudio = () => {
     audioPlayer.current.load();
 
-    if (!isPlaying) {
-      dispatch(setIsPlaying(false));
-    } else {
+    if (isPlaying) {
       audioPlayer.current.play();
+      animationRef.current = requestAnimationFrame(prop.whilePlaying);
+    } else {
+      audioPlayer.current.pause();
+      cancelAnimationFrame(animationRef.current);
     }
   };
 
   useEffect(() => {
-    changeAudio();
+    if (!isPlaying) {
+      animationRef.current = requestAnimationFrame(prop.whilePlaying);
+    } else {
+      cancelAnimationFrame(animationRef.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      audioPlayer.current.currentSrc !=
+      `http://localhost:4000/getAudio/${prop.songData.trackFileName}`
+    ) {
+      changeAudio();
+    }
   }, [prop.songData]);
 
   return (
