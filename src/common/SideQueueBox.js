@@ -1,39 +1,84 @@
 import React from "react";
-import { BsFillPlayFill, BsThreeDots } from "react-icons/bs";
+import { BsFillPauseFill, BsFillPlayFill, BsThreeDots } from "react-icons/bs";
 import { MdOutlineVolumeUp } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrPlayingSong } from "../actions";
+import { setCurrPlayingSong, setIsPlaying } from "../actions";
 
 function SideQueueBox() {
   const dispatch = useDispatch();
 
   const queueData = JSON.parse(useSelector((state) => state.changeTheQueue));
+  const queueIsVisible = useSelector((state) => state.changeSongQueueIsVisible);
+
   const currPlayingSongData = JSON.parse(
-    useSelector((state) => state.changeTheQueue)
+    useSelector((state) => state.changeCurrPlayingSong)
   );
+
+  const isPlaying = useSelector((state) => state.changeIsPlaying);
 
   const handlePlayBtnClick = (data) => {
     dispatch(setCurrPlayingSong(JSON.stringify(data)));
+    dispatch(setIsPlaying(true));
+  };
+
+  const handlePauseBtnClick = () => {
+    dispatch(setIsPlaying(false));
   };
 
   // console.log("Queue : ", queueData);
 
   return (
-    <div className="right-side-queue">
+    <div
+      className="right-side-queue"
+      style={queueIsVisible ? { display: "block" } : { display: "none" }}
+    >
       {queueData.length > 1
         ? queueData.map((data, elem) => (
-            <div className="song-card" key={elem}>
+            <div
+              className={`song-card ${
+                data._id == currPlayingSongData._id ? "playing" : ""
+              }`}
+              key={elem}
+            >
               <div className="img-box">
                 <div className="hover-box">
-                  <BsFillPlayFill
-                    size={22}
-                    onClick={() => {
-                      handlePlayBtnClick(data);
-                    }}
-                  />
-                  {/* <MdOutlineVolumeUp size={22} /> */}
+                  {data._id == currPlayingSongData._id ? (
+                    isPlaying ? (
+                      <div className="playing-box">
+                        <div className="volume-icon">
+                          <MdOutlineVolumeUp size={22} />
+                        </div>
+                        <div
+                          className="pause-icon"
+                          onClick={handlePauseBtnClick}
+                        >
+                          <BsFillPauseFill size={22} />
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        className="play-box"
+                        style={{ display: "grid" }}
+                        onClick={() => {
+                          handlePlayBtnClick(data);
+                        }}
+                      >
+                        <BsFillPlayFill size={22} />
+                      </div>
+                    )
+                  ) : (
+                    <div
+                      className="play-box"
+                      onClick={() => {
+                        handlePlayBtnClick(data);
+                      }}
+                    >
+                      <BsFillPlayFill size={22} />
+                    </div>
+                  )}
                 </div>
+
                 <img
                   src={`http://localhost:4000/getImg/${data.imageFileName}`}
                 />
@@ -46,8 +91,6 @@ function SideQueueBox() {
                       {artist.name},&nbsp;
                     </Link>
                   ))}
-                  {/* <Link to="/about">bad bunny,</Link>&nbsp;
-                  <Link to="/about">Chencho Cor</Link> */}
                 </div>
               </div>
               <div className="menu-icon">

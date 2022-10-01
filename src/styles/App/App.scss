@@ -1,5 +1,17 @@
 $primary: #689f38;
-
+:root {
+    --toastify-toast-min-height: 28px;
+    --toastify-text-color-light: rgb(90, 90, 90);
+}
+.Toastify__toast-container {
+    .Toastify__toast {
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: #f1f1f1;
+    }
+    width: auto;
+    margin-bottom: 34px;
+}
 .appContainer {
     height: 100%;
     display: flex;
@@ -112,10 +124,11 @@ $primary: #689f38;
         }
     }
     .right-side-queue {
-        min-width: 18% !important;
+        min-width: 18%;
         overflow-y: scroll;
         background-color: #23232c;
         border-left: 1px solid #3b3b3b;
+        transition: 0.3s;
         .song-card {
             padding: 10px 8px;
             display: flex;
@@ -137,11 +150,47 @@ $primary: #689f38;
                     position: absolute;
                     width: 100%;
                     height: 100%;
-                    display: none;
+                    display: grid;
                     place-items: center;
                     color: white;
                     cursor: pointer;
-                    background-color: rgba(0, 0, 0, 0.5);
+                    .play-box {
+                        display: none;
+                        width: 100%;
+                        height: 100%;
+                        place-items: center;
+                        background-color: rgba(0, 0, 0, 0.5);
+                    }
+                    .playing-box {
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        .pause-icon {
+                            width: 100%;
+                            height: 100%;
+                            place-items: center;
+                            display: none;
+                        }
+                        .volume-icon {
+                            width: 100%;
+                            height: 100%;
+                            place-items: center;
+                            display: grid;
+                        }
+                        &:hover {
+                            .pause-icon {
+                                display: grid;
+                            }
+                            .volume-icon {
+                                display: none;
+                            }
+                        }
+                    }
+                    &:hover {
+                        .play-box {
+                            display: grid;
+                        }
+                    }
                 }
             }
             .desc-box {
@@ -178,18 +227,14 @@ $primary: #689f38;
                 display: none;
                 cursor: pointer;
             }
+
+            &:last-child {
+                border: none;
+            }
             &:hover {
                 .menu-icon {
                     display: grid;
                 }
-                .img-box {
-                    .hover-box {
-                        display: grid;
-                    }
-                }
-            }
-            &:last-child {
-                border: none;
             }
         }
         .playing {
@@ -199,11 +244,6 @@ $primary: #689f38;
                     a {
                         color: white;
                     }
-                }
-            }
-            .img-box {
-                .hover-box {
-                    display: grid;
                 }
             }
         }

@@ -18,3 +18,17 @@ export const setCurrPlayingSong = (isPlaying) => {
     payload: isPlaying,
   };
 };
+
+export const setSongQueueIsVisible = (isVisible) => {
+  return {
+    type: "SET_SONG_QUEUE_IS_VISIBLE",
+    payload: isVisible,
+  };
+};
+
+export const setSongIsRepeat = (isRepeat) => {
+  return {
+    type: "SET_SONG_IS_REPEAT",
+    payload: isRepeat,
+  };
+};

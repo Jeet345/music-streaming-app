@@ -2,20 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../styles/Player/player.css";
 import Volume from "./Volume";
 
-import { BiLoaderAlt } from "react-icons/bi";
-
-import {
-  MdSkipNext,
-  MdPlayArrow,
-  MdPause,
-  MdShuffle,
-  MdRepeat,
-  MdQueueMusic,
-  MdSkipPrevious,
-} from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Control from "./Control";
-import { setIsPlaying } from "../../actions";
+import {
+  setIsPlaying,
+  setSongIsRepeat,
+  setSongQueueIsVisible,
+} from "../../actions";
+import { MdQueueMusic, MdRepeat, MdShuffle } from "react-icons/md";
 
 function Player() {
   const audioPlayer = useRef();
@@ -26,7 +20,6 @@ function Player() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isLoop, setIsLoop] = useState(false);
 
   const songData = JSON.parse(
     useSelector((state) => state.changeCurrPlayingSong)
@@ -34,31 +27,22 @@ function Player() {
 
   const dispatch = useDispatch();
   const isPlaying = useSelector((state) => state.changeIsPlaying);
+  const isLoop = useSelector((state) => state.changeSongIsRepeat);
+  const queueIsVisible = useSelector((state) => state.changeSongQueueIsVisible);
 
-  console.log("curr: " + currentTime, "dur : " + duration);
+  // console.log("curr: " + currentTime, "dur : " + duration);
 
   useEffect(() => {
-    if (!isLoop) {
-      const currentSec = Math.floor(audioPlayer.current.currentTime);
-      if (currentSec != 0 && currentTime == duration) {
+    const currentSec = Math.floor(audioPlayer.current.currentTime);
+    if (currentSec != 0 && currentTime == duration) {
+      if (!isLoop) {
+        dispatch(setIsPlaying(false));
         cancelAnimationFrame(whilePlaying);
-        togglePlayPause();
+      } else {
+        audioPlayer.current.currentTime = 0;
       }
     }
   }, [currentTime]);
-
-  //play pause button toggle
-  const togglePlayPause = () => {
-    // const preValue = isPlaying;
-    dispatch(setIsPlaying(!isPlaying));
-    if (!isPlaying) {
-      audioPlayer.current.play();
-      animationRef.current = requestAnimationFrame(whilePlaying);
-    } else {
-      audioPlayer.current.pause();
-      cancelAnimationFrame(animationRef.current);
-    }
-  };
 
   // when load data of audio file
   const onLoadedMetadata = () => {
@@ -80,7 +64,9 @@ function Player() {
   // when range is chnaged
   const changeRange = () => {
     audioPlayer.current.currentTime = progressBar.current.value;
-    setCurrentTime(progressBar.current.value);
+    if (currentTime != progressBar.current.value) {
+      setCurrentTime(progressBar.current.value);
+    }
     progressFill.current.style.setProperty(
       "width",
       `${(progressBar.current.value / audioPlayer.current.duration) * 100}%`
@@ -88,16 +74,20 @@ function Player() {
   };
 
   const whilePlaying = () => {
-    progressBar.current.value = audioPlayer.current.currentTime; //  here
+    progressBar.current.value = audioPlayer.current.currentTime;
     animationRef.current = requestAnimationFrame(whilePlaying);
-    setCurrentTime(progressBar.current.value);
+    if (currentTime != progressBar.current.value) {
+      setCurrentTime(progressBar.current.value);
+    }
     progressFill.current.style.setProperty(
       "width",
       `${(progressBar.current.value / audioPlayer.current.duration) * 100}%`
     );
   };
 
-  console.log("loaded");
+  const handleSongQueueClick = () => {
+    dispatch(setSongQueueIsVisible(!queueIsVisible));
+  };
 
   return (
     <div className="player-container">
@@ -116,6 +106,7 @@ function Player() {
       <Control
         audioPlayer={audioPlayer}
         isLoaded={isLoaded}
+        setIsLoaded={setIsLoaded}
         songData={songData}
         whilePlaying={whilePlaying}
         animationRef={animationRef}
@@ -136,6 +127,28 @@ function Player() {
         <h5 className="track-time">
           {duration && !isNaN(duration) ? calculateTime(duration) : "00:00"}
         </h5>
+      </div>
+
+      <div className="right-controls">
+        <button
+          className={queueIsVisible ? "active" : ""}
+          onClick={handleSongQueueClick}
+          title="Toggle Queue"
+        >
+          <MdQueueMusic />
+        </button>
+        <button title="Toggle Shuffle">
+          <MdShuffle />
+        </button>
+        <button
+          title="Repeat"
+          className={isLoop ? "active" : ""}
+          onClick={() => {
+            dispatch(setSongIsRepeat(!isLoop));
+          }}
+        >
+          <MdRepeat />
+        </button>
       </div>
 
       <Volume audioPlayer={audioPlayer} />

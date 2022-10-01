@@ -1,3 +1,19 @@
+:root {
+  --toastify-toast-min-height: 28px;
+  --toastify-text-color-light: rgb(90, 90, 90);
+}
+
+.Toastify__toast-container {
+  width: auto;
+  margin-bottom: 34px;
+}
+
+.Toastify__toast-container .Toastify__toast {
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #f1f1f1;
+}
+
 .appContainer {
   height: 100%;
   display: -webkit-box;
@@ -148,10 +164,12 @@
 }
 
 .appContainer .right-side-queue {
-  min-width: 18% !important;
+  min-width: 18%;
   overflow-y: scroll;
   background-color: #23232c;
   border-left: 1px solid #3b3b3b;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .appContainer .right-side-queue .song-card {
@@ -184,11 +202,54 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  display: none;
+  display: -ms-grid;
+  display: grid;
   place-items: center;
   color: white;
   cursor: pointer;
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box .play-box {
+  display: none;
+  width: 100%;
+  height: 100%;
+  place-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box .playing-box {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box .playing-box .pause-icon {
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  display: none;
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box .playing-box .volume-icon {
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  display: -ms-grid;
+  display: grid;
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box .playing-box:hover .pause-icon {
+  display: -ms-grid;
+  display: grid;
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box .playing-box:hover .volume-icon {
+  display: none;
+}
+
+.appContainer .right-side-queue .song-card .img-box .hover-box:hover .play-box {
+  display: -ms-grid;
+  display: grid;
 }
 
 .appContainer .right-side-queue .song-card .desc-box {
@@ -239,18 +300,13 @@
   cursor: pointer;
 }
 
+.appContainer .right-side-queue .song-card:last-child {
+  border: none;
+}
+
 .appContainer .right-side-queue .song-card:hover .menu-icon {
   display: -ms-grid;
   display: grid;
-}
-
-.appContainer .right-side-queue .song-card:hover .img-box .hover-box {
-  display: -ms-grid;
-  display: grid;
-}
-
-.appContainer .right-side-queue .song-card:last-child {
-  border: none;
 }
 
 .appContainer .right-side-queue .playing {
@@ -259,11 +315,6 @@
 
 .appContainer .right-side-queue .playing .desc-box .link-box a {
   color: white;
-}
-
-.appContainer .right-side-queue .playing .img-box .hover-box {
-  display: -ms-grid;
-  display: grid;
 }
 
 .data-table-container .title {

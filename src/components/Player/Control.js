@@ -7,25 +7,37 @@ import {
 } from "react-icons/md";
 import { BiLoaderAlt } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsPlaying } from "../../actions";
+import { setCurrPlayingSong, setIsPlaying } from "../../actions";
+
+import { toast, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Control(prop) {
   const dispatch = useDispatch();
   const isPlaying = useSelector((state) => state.changeIsPlaying);
+  const songQueueData = JSON.parse(
+    useSelector((state) => state.changeTheQueue)
+  );
+  const currPlayingSong = JSON.parse(
+    useSelector((state) => state.changeCurrPlayingSong)
+  );
 
   const audioPlayer = prop.audioPlayer;
   const animationRef = prop.animationRef;
 
   const togglePlayPause = () => {
     dispatch(setIsPlaying(!isPlaying));
-    if (!isPlaying) {
+  };
+
+  useEffect(() => {
+    if (isPlaying) {
       audioPlayer.current.play();
       animationRef.current = requestAnimationFrame(prop.whilePlaying);
     } else {
       audioPlayer.current.pause();
       cancelAnimationFrame(animationRef.current);
     }
-  };
+  }, [isPlaying]);
 
   const changeAudio = () => {
     audioPlayer.current.load();
@@ -53,13 +65,57 @@ function Control(prop) {
       `http://localhost:4000/getAudio/${prop.songData.trackFileName}`
     ) {
       changeAudio();
+      prop.setIsLoaded(false);
     }
   }, [prop.songData]);
+
+  const handleNextBtnClick = () => {
+    let newIndex = 0;
+
+    songQueueData.map((data, elem) => {
+      if (data._id == currPlayingSong._id) {
+        if (elem == songQueueData.length - 1) {
+          newIndex = 0;
+          toast.info("Queue is playing from first song !!");
+        } else {
+          newIndex = elem + 1;
+        }
+      }
+    });
+    dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+  };
+
+  const handlePrevBtnDBClick = () => {
+    let newIndex = 0;
+
+    songQueueData.map((data, elem) => {
+      if (data._id == currPlayingSong._id) {
+        if (elem == 0) {
+          newIndex = songQueueData.length - 1;
+          toast.info("Queue is playing from last song !!");
+        } else {
+          newIndex = elem - 1;
+        }
+      }
+    });
+    dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+  };
+
+  const handlePrevBtnClick = () => {
+    audioPlayer.current.currentTime = 0;
+    // toast.info("Press double click for previous song !!", {
+    //   toastId: toastId,
+    // });
+  };
 
   return (
     <>
       <div className="left-controls">
-        <button className="prev-btn">
+        <button
+          className="prev-btn"
+          onClick={handlePrevBtnClick}
+          onDoubleClick={handlePrevBtnDBClick}
+        >
           <MdSkipPrevious />
         </button>
         <button className="play-btn" onClick={togglePlayPause}>
@@ -71,9 +127,9 @@ function Control(prop) {
             )
           ) : (
             <BiLoaderAlt className="spin" />
-          )}{" "}
+          )}
         </button>
-        <button className="next-btn" onClick={() => {}}>
+        <button className="next-btn" onClick={handleNextBtnClick}>
           <MdSkipNext />
         </button>
       </div>
