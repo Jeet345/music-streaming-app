@@ -5,11 +5,13 @@ import Volume from "./Volume";
 import { useDispatch, useSelector } from "react-redux";
 import Control from "./Control";
 import {
+  setCurrPlayingSong,
   setIsPlaying,
   setSongIsRepeat,
   setSongQueueIsVisible,
 } from "../../actions";
 import { MdQueueMusic, MdRepeat, MdShuffle } from "react-icons/md";
+import { toast } from "react-toastify";
 
 function Player() {
   const audioPlayer = useRef();
@@ -29,24 +31,47 @@ function Player() {
   const isPlaying = useSelector((state) => state.changeIsPlaying);
   const isLoop = useSelector((state) => state.changeSongIsRepeat);
   const queueIsVisible = useSelector((state) => state.changeSongQueueIsVisible);
-
-  // console.log("curr: " + currentTime, "dur : " + duration);
+  const songQueueData = JSON.parse(
+    useSelector((state) => state.changeTheQueue)
+  );
+  const currPlayingSong = JSON.parse(
+    useSelector((state) => state.changeCurrPlayingSong)
+  );
 
   useEffect(() => {
-    const currentSec = Math.floor(audioPlayer.current.currentTime);
-    if (currentSec != 0 && currentTime == duration) {
+    const currentSec = audioPlayer.current.currentTime;
+
+    if (currentSec != 0 && currentSec == duration) {
       if (!isLoop) {
-        dispatch(setIsPlaying(false));
-        cancelAnimationFrame(whilePlaying);
+        let newIndex = 0;
+
+        if (songQueueData.length > 1) {
+          songQueueData.map((data, elem) => {
+            if (data._id == currPlayingSong._id) {
+              if (elem == songQueueData.length - 1) {
+                newIndex = 0;
+                toast.info("Queue is playing from first song !!");
+              } else {
+                newIndex = elem + 1;
+              }
+            }
+          });
+          dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+        } else {
+          dispatch(setIsPlaying(false));
+          cancelAnimationFrame(whilePlaying);
+        }
       } else {
         audioPlayer.current.currentTime = 0;
+        audioPlayer.current.play();
       }
     }
   }, [currentTime]);
 
   // when load data of audio file
   const onLoadedMetadata = () => {
-    const seconds = Math.floor(audioPlayer.current.duration);
+    const seconds = audioPlayer.current.duration;
+
     progressBar.current.max = seconds;
     setDuration(seconds);
     setIsLoaded(true);
@@ -65,7 +90,7 @@ function Player() {
   const changeRange = () => {
     audioPlayer.current.currentTime = progressBar.current.value;
     if (currentTime != progressBar.current.value) {
-      setCurrentTime(progressBar.current.value);
+      setCurrentTime(audioPlayer.current.currentTime);
     }
     progressFill.current.style.setProperty(
       "width",
@@ -77,7 +102,7 @@ function Player() {
     progressBar.current.value = audioPlayer.current.currentTime;
     animationRef.current = requestAnimationFrame(whilePlaying);
     if (currentTime != progressBar.current.value) {
-      setCurrentTime(progressBar.current.value);
+      setCurrentTime(audioPlayer.current.currentTime);
     }
     progressFill.current.style.setProperty(
       "width",
@@ -93,7 +118,7 @@ function Player() {
     <div className="player-container">
       <audio
         controls
-        style={{ display: "" }}
+        style={{ display: "none" }}
         ref={audioPlayer}
         onLoadedMetadata={onLoadedMetadata}
       >

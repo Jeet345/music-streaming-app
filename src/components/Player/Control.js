@@ -29,6 +29,8 @@ function Control(prop) {
     dispatch(setIsPlaying(!isPlaying));
   };
 
+  let queueEmptyToastId = "queue empty";
+
   useEffect(() => {
     if (isPlaying) {
       audioPlayer.current.play();
@@ -72,33 +74,45 @@ function Control(prop) {
   const handleNextBtnClick = () => {
     let newIndex = 0;
 
-    songQueueData.map((data, elem) => {
-      if (data._id == currPlayingSong._id) {
-        if (elem == songQueueData.length - 1) {
-          newIndex = 0;
-          toast.info("Queue is playing from first song !!");
-        } else {
-          newIndex = elem + 1;
+    if (songQueueData.length > 1) {
+      songQueueData.map((data, elem) => {
+        if (data._id == currPlayingSong._id) {
+          if (elem == songQueueData.length - 1) {
+            newIndex = 0;
+            toast.info("Queue is playing from first song !!");
+          } else {
+            newIndex = elem + 1;
+          }
         }
-      }
-    });
-    dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+      });
+      dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+    } else {
+      toast.info("Next not possible, Queue is empty !!", {
+        toastId: queueEmptyToastId,
+      });
+    }
   };
 
   const handlePrevBtnDBClick = () => {
     let newIndex = 0;
 
-    songQueueData.map((data, elem) => {
-      if (data._id == currPlayingSong._id) {
-        if (elem == 0) {
-          newIndex = songQueueData.length - 1;
-          toast.info("Queue is playing from last song !!");
-        } else {
-          newIndex = elem - 1;
+    if (songQueueData.length > 1) {
+      songQueueData.map((data, elem) => {
+        if (data._id == currPlayingSong._id) {
+          if (elem == 0) {
+            newIndex = songQueueData.length - 1;
+            toast.info("Queue is playing from last song !!");
+          } else {
+            newIndex = elem - 1;
+          }
         }
-      }
-    });
-    dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+      });
+      dispatch(setCurrPlayingSong(JSON.stringify(songQueueData[newIndex])));
+    } else {
+      toast.info("Previous not possible, Queue is empty !!", {
+        toastId: queueEmptyToastId,
+      });
+    }
   };
 
   const handlePrevBtnClick = () => {

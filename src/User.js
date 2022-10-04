@@ -7,6 +7,8 @@ import "./styles/App/App.css";
 import Nav from "./common/Nav.js";
 import SideQueueBox from "./common/SideQueueBox.js";
 import { Route, Routes } from "react-router-dom";
+import Genres from "./components/Genres/Genres.js";
+import PopularTracks from "./components/PopularTracks/PopularTracks.js";
 
 function User() {
   return (
@@ -18,6 +20,8 @@ function User() {
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/genres" element={<Genres />} />
+          <Route path="/popularTracks" element={<PopularTracks />} />
         </Routes>
 
         <SideQueueBox />

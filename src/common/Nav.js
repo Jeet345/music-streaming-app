@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
+import { BsTag } from "react-icons/bs";
 import { MdPlaylistAdd } from "react-icons/md";
 import {
   FormControl,
@@ -9,6 +10,7 @@ import {
   InputLabel,
   OutlinedInput,
 } from "@mui/material";
+import { BiTrendingUp } from "react-icons/bi";
 
 function Nav() {
   return (
@@ -40,20 +42,28 @@ function Nav() {
       <div className="link-box">
         <ul>
           <li>
-            <Link className="link" to="/">
+            <NavLink className="link" to="/">
               <span className="icon">
                 <FiSearch />
               </span>
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="link" to="/about">
+            <NavLink className="link" to="genres">
               <span className="icon">
-                <FiSearch />
+                <BsTag />
               </span>
-              About
-            </Link>
+              Genres
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="popularTracks">
+              <span className="icon">
+                <BiTrendingUp />
+              </span>
+              Popular Tracks
+            </NavLink>
           </li>
         </ul>
       </div>
@@ -62,12 +72,12 @@ function Nav() {
 
       {/* login container */}
       <div className="login-box">
-        <Link className="login-btn btn" to="/Login">
+        <NavLink className="login-btn btn" to="/Login">
           Login
-        </Link>
-        <Link className="register-btn btn" to="/Register">
+        </NavLink>
+        <NavLink className="register-btn btn" to="/Register">
           Register
-        </Link>
+        </NavLink>
       </div>
 
       {/* your music container */}
@@ -75,20 +85,20 @@ function Nav() {
         <h3 className="title">your music</h3>
         <ul>
           <li>
-            <Link className="link" to="/">
+            <NavLink className="link" to="/">
               <span className="icon">
                 <FiSearch />
               </span>
               Home
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className="link" to="/about">
+            <NavLink className="link" to="/about">
               <span className="icon">
                 <FiSearch />
               </span>
               About
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

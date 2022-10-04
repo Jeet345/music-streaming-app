@@ -4,7 +4,8 @@ import { BsThreeDots, BsFillPlayFill, BsPauseFill } from "react-icons/bs";
 import { MdOutlineVolumeUp } from "react-icons/md";
 import { BiTimeFive } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { setQueue } from "../actions/index";
+import { setCurrPlayingSong, setQueue, setIsPlaying } from "../actions/index";
+
 const img = require("../assets/download.jpg");
 
 export default function SongDataTable(props) {
@@ -14,9 +15,17 @@ export default function SongDataTable(props) {
     console.log("data :", props.data);
   }
 
-  const handlePlayBtnClick = (val) => {
-    console.log(val);
+  const currSongData = JSON.parse(
+    useSelector((state) => state.changeCurrPlayingSong)
+  );
+
+  const isPlaying = useSelector((state) => state.changeIsPlaying);
+
+  const handlePlayBtnClick = (currSong) => {
+    console.log(currSong);
+    dispatch(setIsPlaying(true));
     dispatch(setQueue(JSON.stringify(props.data)));
+    dispatch(setCurrPlayingSong(JSON.stringify(currSong)));
   };
 
   const calculateTime = (sesc) => {
@@ -29,8 +38,6 @@ export default function SongDataTable(props) {
 
   return (
     <div className="data-table-container">
-      <h1 className="title">Popular Tracks</h1>
-
       <table className="data-table">
         <tbody>
           <tr>
@@ -48,27 +55,47 @@ export default function SongDataTable(props) {
 
           {props.data
             ? props.data.map((row, elem) => (
-                <tr key={elem}>
+                <tr
+                  key={elem}
+                  className={row._id == currSongData._id ? "playing" : ""}
+                >
                   <td style={{ color: "#bababa" }}>
                     <span className="number">{elem + 1}</span>
 
-                    <div
-                      onClick={() => {
-                        handlePlayBtnClick(row);
-                      }}
-                      className="play-icon audio-icon"
-                    >
-                      <BsFillPlayFill />
-                    </div>
+                    <div className="audio-icon">
+                      <div
+                        onClick={() => {
+                          handlePlayBtnClick(row);
+                        }}
+                        className="play-icon icon"
+                      >
+                        <BsFillPlayFill />
+                      </div>
 
-                    <div className="pause-icon audio-icon">
-                      <BsPauseFill />
-                    </div>
-
-                    <div className="sound-icon audio-icon">
-                      <MdOutlineVolumeUp />
+                      <div
+                        className="pause-icon icon"
+                        onClick={() => {
+                          dispatch(setIsPlaying(!isPlaying));
+                        }}
+                      >
+                        <BsPauseFill />
+                      </div>
+                      {row._id == currSongData._id ? (
+                        isPlaying ? (
+                          <div className="sound-icon icon">
+                            <MdOutlineVolumeUp />
+                          </div>
+                        ) : (
+                          <div className="playing-play-icon icon">
+                            <BsFillPlayFill />
+                          </div>
+                        )
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </td>
+
                   {/* two classes empty and fill */}
                   <td className="icon empty">
                     <AiOutlineHeart />
@@ -81,7 +108,10 @@ export default function SongDataTable(props) {
                       width="35px"
                     />
                   </td>
-                  <td style={{ paddingLeft: "15px" }}>{row.title}</td>
+                  <td style={{ paddingLeft: "15px" }}>
+                    {row.title.slice(0, 20) +
+                      (row.title.length > 20 ? "..." : "")}
+                  </td>
                   <td
                     className="icon menu-icon"
                     style={{ paddingRight: "25px" }}
@@ -102,38 +132,6 @@ export default function SongDataTable(props) {
                 </tr>
               ))
             : ""}
-
-          <tr className="playing">
-            <td style={{ color: "#bababa" }}>
-              <span className="number">1</span>
-
-              <div className="play-icon audio-icon">
-                <BsFillPlayFill />
-              </div>
-              <div className="pause-icon audio-icon">
-                <BsPauseFill />
-              </div>
-              <div className="sound-icon audio-icon">
-                <MdOutlineVolumeUp />
-              </div>
-            </td>
-            {/* two classes empty and fill */}
-            <td className="icon empty">
-              <AiOutlineHeart />
-              {/* <AiFillHeart /> */}
-            </td>
-
-            <td className="song-image">
-              <img src={img} width="35px" />
-            </td>
-            <td style={{ paddingLeft: "15px" }}>STAY (with Justin Bieber)</td>
-            <td className="icon menu-icon" style={{ paddingRight: "25px" }}>
-              <BsThreeDots />
-            </td>
-            <td>The Kid LAROI, Justin Bieber</td>
-            <td>F*CK LOVE 3: OVER YOU</td>
-            <td>2:21</td>
-          </tr>
         </tbody>
       </table>
     </div>
