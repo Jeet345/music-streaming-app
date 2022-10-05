@@ -1,8 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { BsTag } from "react-icons/bs";
-import { MdPlaylistAdd } from "react-icons/md";
+import { MdOutlineAlbum, MdPlaylistAdd } from "react-icons/md";
 import {
   FormControl,
   IconButton,
@@ -16,7 +16,9 @@ function Nav() {
   return (
     <div className="left-side-nav">
       <div className="logo">
-        <h1>MUSICK</h1>
+        <Link className="link" to="/">
+          MUSICK
+        </Link>
       </div>
 
       <FormControl
@@ -42,11 +44,11 @@ function Nav() {
       <div className="link-box">
         <ul>
           <li>
-            <NavLink className="link" to="/">
+            <NavLink className="link" to="/popularAlbums">
               <span className="icon">
-                <FiSearch />
+                <MdOutlineAlbum />
               </span>
-              Home
+              Popular Albums
             </NavLink>
           </li>
           <li>

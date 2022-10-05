@@ -33,7 +33,7 @@ function SideQueueBox() {
       className="right-side-queue"
       style={queueIsVisible ? { display: "block" } : { display: "none" }}
     >
-      {queueData.length > 1
+      {queueData.length >= 1
         ? queueData.map((data, elem) => (
             <div
               className={`song-card ${

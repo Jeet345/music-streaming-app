@@ -9,6 +9,8 @@ import SideQueueBox from "./common/SideQueueBox.js";
 import { Route, Routes } from "react-router-dom";
 import Genres from "./components/Genres/Genres.js";
 import PopularTracks from "./components/PopularTracks/PopularTracks.js";
+import PopularAlbums from "./components/Albums/PopularAlbums.js";
+import TracksByAlbum from "./components/Albums/TracksByAlbum.js";
 
 function User() {
   return (
@@ -22,6 +24,8 @@ function User() {
           <Route path="/register" element={<Register />} />
           <Route path="/genres" element={<Genres />} />
           <Route path="/popularTracks" element={<PopularTracks />} />
+          <Route path="/popularAlbums" element={<PopularAlbums />} />
+          <Route path="/tracksByAlbum/:albumId" element={<TracksByAlbum />} />
         </Routes>
 
         <SideQueueBox />

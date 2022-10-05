@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PopularTracks from "../PopularTracks/PopularTracks";
-import PopularAlbums from "../PopularAlbums/PopularAlbums";
+import PopularAlbums from "../Albums/PopularAlbums";
 import "../../styles/Home/Home.css";
 import "../../styles/App/App.css";
 import axios from "axios";
@@ -10,10 +10,12 @@ import Genres from "../Genres/Genres";
 import SongDataTable from "../../common/SongDataTable";
 import { Link } from "react-router-dom";
 import { BiChevronRight } from "react-icons/bi";
+import AlbumContainer from "../Albums/AlbumContainer";
 
 function Home() {
   const [tracksData, setTracksData] = useState([]);
   const [genresData, setGenresData] = useState([]);
+  const [albumsData, setAlbumsData] = useState([]);
 
   const currPlayingSongData = useSelector(
     (state) => state.changeCurrPlayingSong
@@ -25,7 +27,8 @@ function Home() {
       method: "get",
     })
       .then((res) => {
-        setTracksData(res);
+        setTracksData(res.data);
+        console.log("res", res.data);
       })
       .catch((err) => {
         alert(err);
@@ -43,19 +46,36 @@ function Home() {
         alert(err);
         console.log(err);
       });
+
+    axios({
+      url: "http://localhost:4000/albums/get10PopularAlbums",
+      method: "get",
+    })
+      .then((res) => {
+        setAlbumsData(res.data);
+      })
+      .catch((err) => {
+        alert(err);
+        console.log(err);
+      });
   }, []);
 
   return (
     <div className="home-page">
       <pre style={{ color: "red" }}>{currPlayingSongData}</pre>
 
-      <PopularAlbums />
+      <div className="popular-albums-container">
+        <Link className="heading" to="/popularAlbums">
+          Popular Albums <BiChevronRight />
+        </Link>
+        <AlbumContainer albumData={albumsData} />
+      </div>
 
       <div className="popular-tracks-container">
         <Link className="heading" to="/popularTracks">
           Popular Tracks <BiChevronRight />
         </Link>
-        <SongDataTable {...tracksData} />
+        <SongDataTable data={tracksData} />
       </div>
 
       <div className="genres-container">

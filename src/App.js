@@ -2,7 +2,7 @@ import User from "./User";
 import { Route, Routes } from "react-router-dom";
 import Admin from "./admin/admin";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { Slide, ToastContainer } from "react-toastify";
+import { Slide, ToastContainer, Zoom } from "react-toastify";
 
 function App() {
   const theme = createTheme({
@@ -19,7 +19,7 @@ function App() {
       <div className="bodyContainer">
         <ToastContainer
           position="bottom-center"
-          transition={Slide}
+          transition={Zoom}
           autoClose={3000}
           hideProgressBar
           closeOnClick

@@ -63,7 +63,6 @@ function Player() {
         }
       } else {
         audioPlayer.current.currentTime = 0;
-        audioPlayer.current.play();
       }
     }
   }, [currentTime]);

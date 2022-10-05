@@ -5,6 +5,7 @@ import { MdOutlineVolumeUp } from "react-icons/md";
 import { BiTimeFive } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrPlayingSong, setQueue, setIsPlaying } from "../actions/index";
+import { Link } from "react-router-dom";
 
 const img = require("../assets/download.jpg");
 
@@ -20,6 +21,8 @@ export default function SongDataTable(props) {
   );
 
   const isPlaying = useSelector((state) => state.changeIsPlaying);
+
+  const isAlbumVisible = props.albumVisible == false ? false : true;
 
   const handlePlayBtnClick = (currSong) => {
     console.log(currSong);
@@ -47,91 +50,100 @@ export default function SongDataTable(props) {
             <th>Title</th>
             <th></th>
             <th>Artist</th>
-            <th>Albums</th>
+            {isAlbumVisible ? <th>Albums</th> : ""}
             <th className="head-icon">
               <BiTimeFive />
             </th>
           </tr>
 
-          {props.data
-            ? props.data.map((row, elem) => (
-                <tr
-                  key={elem}
-                  className={row._id == currSongData._id ? "playing" : ""}
-                >
-                  <td style={{ color: "#bababa" }}>
-                    <span className="number">{elem + 1}</span>
+          {props.data.length >= 1 ? (
+            props.data.map((row, elem) => (
+              <tr
+                key={elem}
+                className={row._id == currSongData._id ? "playing" : ""}
+              >
+                <td style={{ color: "#bababa" }}>
+                  <span className="number">{elem + 1}</span>
 
-                    <div className="audio-icon">
-                      <div
-                        onClick={() => {
-                          handlePlayBtnClick(row);
-                        }}
-                        className="play-icon icon"
-                      >
-                        <BsFillPlayFill />
-                      </div>
-
-                      <div
-                        className="pause-icon icon"
-                        onClick={() => {
-                          dispatch(setIsPlaying(!isPlaying));
-                        }}
-                      >
-                        <BsPauseFill />
-                      </div>
-                      {row._id == currSongData._id ? (
-                        isPlaying ? (
-                          <div className="sound-icon icon">
-                            <MdOutlineVolumeUp />
-                          </div>
-                        ) : (
-                          <div className="playing-play-icon icon">
-                            <BsFillPlayFill />
-                          </div>
-                        )
-                      ) : (
-                        ""
-                      )}
+                  <div className="audio-icon">
+                    <div
+                      onClick={() => {
+                        handlePlayBtnClick(row);
+                      }}
+                      className="play-icon icon"
+                    >
+                      <BsFillPlayFill />
                     </div>
-                  </td>
 
-                  {/* two classes empty and fill */}
-                  <td className="icon empty">
-                    <AiOutlineHeart />
-                    {/* <AiFillHeart /> */}
-                  </td>
+                    <div
+                      className="pause-icon icon"
+                      onClick={() => {
+                        dispatch(setIsPlaying(!isPlaying));
+                      }}
+                    >
+                      <BsPauseFill />
+                    </div>
+                    {row._id == currSongData._id ? (
+                      isPlaying ? (
+                        <div className="sound-icon icon">
+                          <MdOutlineVolumeUp />
+                        </div>
+                      ) : (
+                        <div className="playing-play-icon icon">
+                          <BsFillPlayFill />
+                        </div>
+                      )
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </td>
 
-                  <td className="song-image">
-                    <img
-                      src={"http://localhost:4000/getImg/" + row.imageFileName}
-                      width="35px"
-                    />
-                  </td>
-                  <td style={{ paddingLeft: "15px" }}>
-                    {row.title.slice(0, 20) +
-                      (row.title.length > 20 ? "..." : "")}
-                  </td>
-                  <td
-                    className="icon menu-icon"
-                    style={{ paddingRight: "25px" }}
-                  >
-                    <BsThreeDots />
-                  </td>
-                  <td>
-                    {row.artist_names.map((artist, elem) => {
-                      return artist.name + ", ";
-                    })}
-                  </td>
+                {/* two classes empty and fill */}
+                <td className="icon empty">
+                  <AiOutlineHeart />
+                  {/* <AiFillHeart /> */}
+                </td>
+
+                <td className="song-image">
+                  <img
+                    src={"http://localhost:4000/getImg/" + row.imageFileName}
+                    width="35px"
+                  />
+                </td>
+                <td style={{ paddingLeft: "15px" }}>
+                  {row.title.slice(0, 20) +
+                    (row.title.length > 20 ? "..." : "")}
+                </td>
+                <td className="icon menu-icon" style={{ paddingRight: "25px" }}>
+                  <BsThreeDots />
+                </td>
+                <td>
+                  {row.artist_names.map((artist, elem) => {
+                    return artist.name + ", ";
+                  })}
+                </td>
+                {isAlbumVisible ? (
                   <td>
                     {row.album_name.map((album, elem) => {
-                      return album.name;
+                      return (
+                        <Link key={elem} to={`/tracksByAlbum/${album._id}`}>
+                          {album.name}
+                        </Link>
+                      );
                     })}
                   </td>
-                  <td>{calculateTime(row.duration)}</td>
-                </tr>
-              ))
-            : ""}
+                ) : (
+                  ""
+                )}
+                <td>{calculateTime(row.duration)}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td>Tracks Not Avilable</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
