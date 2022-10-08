@@ -11,6 +11,7 @@ import axios from "axios";
 
 function Register() {
   let schema = yup.object().shape({
+    username: yup.string().required("Username is a required field"),
     email: yup
       .string()
       .email("Please enter valid email")
@@ -95,6 +96,22 @@ function Register() {
 
           <div className="input-filed">
             <label className="label" htmlFor="Email">
+              username
+            </label>
+            <TextField
+              id="username"
+              className="input"
+              style={{ width: "100%" }}
+              variant="outlined"
+              name="username"
+              {...register("username")}
+              error={errors.username ? true : false}
+              helperText={errors.username ? errors.username.message : ""}
+            />
+          </div>
+
+          <div className="input-filed">
+            <label className="label" htmlFor="Email">
               email
             </label>
             <TextField
@@ -112,9 +129,6 @@ function Register() {
           <div className="input-filed">
             <label className="label" htmlFor="password">
               Password
-              <Link className="forgot-link" to="/">
-                Forgot your password?
-              </Link>
             </label>
             <TextField
               hintText="Password"

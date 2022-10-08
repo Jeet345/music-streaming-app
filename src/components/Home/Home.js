@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PopularTracks from "../PopularTracks/PopularTracks";
+import PopularTracks from "../Tracks/PopularTracks";
 import PopularAlbums from "../Albums/PopularAlbums";
 import "../../styles/Home/Home.css";
 import "../../styles/App/App.css";

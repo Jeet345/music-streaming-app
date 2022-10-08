@@ -7,8 +7,15 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/Account/account.css";
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { setUserCookie } from "../../actions";
 
 function Login() {
+  const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let schema = yup.object().shape({
     email: yup
@@ -17,8 +24,6 @@ function Login() {
       .required("Email is a required field"),
     password: yup.string().required("Password is a required field"),
   });
-
-  const navigate = useNavigate();
 
   const [isFormDisabled, setIsFormDisabled] = useState(false);
 
@@ -41,8 +46,12 @@ function Login() {
     })
       .then((res) => {
         setIsFormDisabled(false);
-        alert("U R Logged In..");
-        console.log(res);
+        setCookie("userCookie", res.data._id, {
+          maxAge: 2592000,
+        });
+        dispatch(setUserCookie(res.data._id));
+        navigate("/");
+        console.log("res", res.data._id);
       })
       .catch((err) => {
         setIsFormDisabled(false);
@@ -83,7 +92,7 @@ function Login() {
               </Link>
             </label>
             <TextField
-              hintText="Password"
+              hinttext="Password"
               type="password"
               id="password"
               {...register("password")}

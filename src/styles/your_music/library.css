@@ -1,0 +1,101 @@
+.library-songs-container,
+.library-artists-container,
+.library-albums-container,
+.library-history-container {
+  width: 100%;
+  background-color: #1e1e26;
+  padding: 28px;
+}
+
+.library-songs-container .header,
+.library-artists-container .header,
+.library-albums-container .header,
+.library-history-container .header {
+  margin-top: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #3b3b3b;
+  padding-bottom: 25px;
+}
+
+.library-songs-container .header .title,
+.library-artists-container .header .title,
+.library-albums-container .header .title,
+.library-history-container .header .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 20px;
+}
+
+.library-songs-container .header .title .btn,
+.library-artists-container .header .title .btn,
+.library-albums-container .header .title .btn,
+.library-history-container .header .title .btn {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.library-songs-container .header .title h1,
+.library-artists-container .header .title h1,
+.library-albums-container .header .title h1,
+.library-history-container .header .title h1 {
+  color: white;
+  font-weight: normal;
+  font-size: 1.8rem;
+}
+
+.library-songs-container .header .input-filed .search-input input,
+.library-artists-container .header .input-filed .search-input input,
+.library-albums-container .header .input-filed .search-input input,
+.library-history-container .header .input-filed .search-input input {
+  width: 225px;
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.library-songs-container .header .input-filed .search-input input::-webkit-input-placeholder,
+.library-artists-container .header .input-filed .search-input input::-webkit-input-placeholder,
+.library-albums-container .header .input-filed .search-input input::-webkit-input-placeholder,
+.library-history-container .header .input-filed .search-input input::-webkit-input-placeholder {
+  color: #bababa;
+}
+
+.library-songs-container .header .input-filed .search-input input:-ms-input-placeholder,
+.library-artists-container .header .input-filed .search-input input:-ms-input-placeholder,
+.library-albums-container .header .input-filed .search-input input:-ms-input-placeholder,
+.library-history-container .header .input-filed .search-input input:-ms-input-placeholder {
+  color: #bababa;
+}
+
+.library-songs-container .header .input-filed .search-input input::-ms-input-placeholder,
+.library-artists-container .header .input-filed .search-input input::-ms-input-placeholder,
+.library-albums-container .header .input-filed .search-input input::-ms-input-placeholder,
+.library-history-container .header .input-filed .search-input input::-ms-input-placeholder {
+  color: #bababa;
+}
+
+.library-songs-container .header .input-filed .search-input input::placeholder,
+.library-artists-container .header .input-filed .search-input input::placeholder,
+.library-albums-container .header .input-filed .search-input input::placeholder,
+.library-history-container .header .input-filed .search-input input::placeholder {
+  color: #bababa;
+}
+
+.library-songs-container .header .input-filed .search-input :not(.Mui-focused) fieldset,
+.library-artists-container .header .input-filed .search-input :not(.Mui-focused) fieldset,
+.library-albums-container .header .input-filed .search-input :not(.Mui-focused) fieldset,
+.library-history-container .header .input-filed .search-input :not(.Mui-focused) fieldset {
+  border-color: #3b3b3b;
+}
+/*# sourceMappingURL=library.css.map */

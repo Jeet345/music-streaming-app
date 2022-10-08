@@ -3,6 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import Admin from "./admin/admin";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { Slide, ToastContainer, Zoom } from "react-toastify";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { setUserCookie } from "./actions";
 
 function App() {
   const theme = createTheme({
@@ -14,6 +17,12 @@ function App() {
       },
     },
   });
+
+  const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
+  const dispatch = useDispatch();
+
+  dispatch(setUserCookie(cookies.userCookie));
+
   return (
     <ThemeProvider theme={theme}>
       <div className="bodyContainer">

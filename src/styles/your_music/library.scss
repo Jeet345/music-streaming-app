@@ -1,0 +1,50 @@
+$primary: #689f38;
+$backgroundColor: #1e1e26;
+
+.library-songs-container,
+.library-artists-container,
+.library-albums-container,
+.library-history-container {
+    width: 100%;
+    background-color: $backgroundColor;
+    padding: 28px;
+    .header {
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #3b3b3b;
+        padding-bottom: 25px;
+        .title {
+            display: flex;
+            align-items: center;
+            grid-gap: 20px;
+            .btn {
+                text-transform: capitalize;
+                font-weight: 600;
+            }
+            h1 {
+                color: white;
+                font-weight: normal;
+                font-size: 1.8rem;
+            }
+        }
+        .input-filed {
+            .search-input {
+                input {
+                    width: 225px;
+                    padding: 12px;
+                    font-size: 0.9rem;
+                    &::placeholder {
+                        color: #bababa;
+                    }
+                }
+                :not(.Mui-focused) {
+                    fieldset {
+                        border-color: #3b3b3b;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -32,3 +32,9 @@ export const setSongIsRepeat = (isRepeat) => {
     payload: isRepeat,
   };
 };
+export const setUserCookie = (userData) => {
+  return {
+    type: "SET_USER_COOKIE",
+    payload: userData ? userData : "",
+  };
+};

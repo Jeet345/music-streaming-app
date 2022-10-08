@@ -36,7 +36,7 @@
 .appContainer .left-side-nav {
   max-width: 17% !important;
   min-width: 17% !important;
-  padding: 18px;
+  padding: 15px;
   overflow-y: scroll;
   background-color: #23232c;
 }
@@ -72,7 +72,7 @@
 }
 
 .appContainer .left-side-nav .link-box .title {
-  padding: 12px 11px;
+  padding: 12px 0px;
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -177,6 +177,46 @@
 
 .appContainer .left-side-nav .login-box .register-btn:hover {
   background-color: #2c2c34;
+}
+
+.appContainer .left-side-nav .user-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.appContainer .left-side-nav .user-box img {
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+}
+
+.appContainer .left-side-nav .user-box h5 {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-weight: normal;
+  overflow: hidden;
+}
+
+.appContainer .left-side-nav .user-box h5 a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.appContainer .left-side-nav .user-box h5 a:hover {
+  text-decoration: underline;
 }
 
 .appContainer .right-side-queue {
@@ -331,6 +371,10 @@
 
 .appContainer .right-side-queue .playing .desc-box .link-box a {
   color: white;
+}
+
+.setting-menu-container svg {
+  margin-right: 12px;
 }
 
 .data-table-container .title {
@@ -529,6 +573,32 @@
 .data-table-container .data-table th {
   color: #bababa;
   font-weight: 500;
+}
+
+.data-table-container .nothing-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 5px;
+}
+
+.data-table-container .nothing-box p {
+  color: #bababa;
+}
+
+.data-table-container .nothing-box h3 {
+  color: white;
+  font-weight: normal;
 }
 
 .genres-page {
@@ -758,15 +828,17 @@
   text-decoration: underline;
 }
 
-.album-container .album-body .album-card .desc .artist-name {
+.album-container .album-body .album-card .desc .artist-name a {
   color: #aaaaaa;
+  text-decoration: none;
 }
 
 .album-container .album-body .active .icon {
   display: none;
 }
 
-.tracks-by-album-page {
+.tracks-by-album-page,
+.tracks-by-artist-page {
   width: 100%;
   height: 100%;
   background-color: #1e1e26;
@@ -775,7 +847,8 @@
   margin-bottom: 60px;
 }
 
-.tracks-by-album-page .header {
+.tracks-by-album-page .header,
+.tracks-by-artist-page .header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -788,11 +861,13 @@
   margin-bottom: 20px;
 }
 
-.tracks-by-album-page .header .left-head {
+.tracks-by-album-page .header .left-head,
+.tracks-by-artist-page .header .left-head {
   width: 260px;
 }
 
-.tracks-by-album-page .header .left-head img {
+.tracks-by-album-page .header .left-head img,
+.tracks-by-artist-page .header .left-head img {
   width: 100%;
   border-radius: 5px;
   aspect-ratio: 1 / 1;
@@ -802,13 +877,15 @@
      object-fit: cover;
 }
 
-.tracks-by-album-page .header .right-head .title {
+.tracks-by-album-page .header .right-head .title,
+.tracks-by-artist-page .header .right-head .title {
   color: white;
   font-weight: 500;
   font-size: 33px;
 }
 
-.tracks-by-album-page .header .right-head .artist-box {
+.tracks-by-album-page .header .right-head .artist-box,
+.tracks-by-artist-page .header .right-head .artist-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -816,7 +893,8 @@
   margin-top: 13px;
 }
 
-.tracks-by-album-page .header .right-head .artist-box a {
+.tracks-by-album-page .header .right-head .artist-box a,
+.tracks-by-artist-page .header .right-head .artist-box a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -828,17 +906,20 @@
   text-decoration: none;
 }
 
-.tracks-by-album-page .header .right-head .artist-box a img {
+.tracks-by-album-page .header .right-head .artist-box a img,
+.tracks-by-artist-page .header .right-head .artist-box a img {
   width: 26px;
   height: 26px;
   border-radius: 100%;
 }
 
-.tracks-by-album-page .header .right-head .artist-box a:hover {
+.tracks-by-album-page .header .right-head .artist-box a:hover,
+.tracks-by-artist-page .header .right-head .artist-box a:hover {
   text-decoration: underline;
 }
 
-.tracks-by-album-page .header .right-head .desc-box {
+.tracks-by-album-page .header .right-head .desc-box,
+.tracks-by-artist-page .header .right-head .desc-box {
   list-style: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -848,7 +929,8 @@
   margin-top: 19px;
 }
 
-.tracks-by-album-page .header .right-head .action-btn {
+.tracks-by-album-page .header .right-head .action-btn,
+.tracks-by-artist-page .header .right-head .action-btn {
   margin-top: 30px;
   margin-bottom: 30px;
   display: -webkit-box;
@@ -857,7 +939,8 @@
   grid-gap: 7px;
 }
 
-.tracks-by-album-page .header .right-head .action-btn .btn {
+.tracks-by-album-page .header .right-head .action-btn .btn,
+.tracks-by-artist-page .header .right-head .action-btn .btn {
   text-transform: capitalize;
   font-weight: 500;
   font-size: 0.95rem;
@@ -867,13 +950,36 @@
   border-color: #3b3b3b;
 }
 
-.tracks-by-album-page .header .right-head .action-btn .play-btn {
+.tracks-by-album-page .header .right-head .action-btn .play-btn,
+.tracks-by-artist-page .header .right-head .action-btn .play-btn {
   padding: 7px 35px;
   margin-right: 15px;
 }
 
-.tracks-by-album-page .header .right-head .action-btn .active {
+.tracks-by-album-page .header .right-head .action-btn .active,
+.tracks-by-artist-page .header .right-head .action-btn .active {
   border-color: #689f38;
   color: #689f38;
+}
+
+.tracks-by-artist-page .header .left-head img {
+  border-radius: 100%;
+}
+
+.tracks-by-artist-page .title {
+  color: white;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #bababa;
+  font-weight: normal;
+}
+
+.tracks-by-artist-page .tab-container .MuiTabs-flexContainer .MuiButtonBase-root {
+  padding-left: 23px;
+  padding-right: 23px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-transform: capitalize;
 }
 /*# sourceMappingURL=App.css.map */

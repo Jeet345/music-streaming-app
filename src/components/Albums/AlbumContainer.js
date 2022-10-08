@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setCurrPlayingSong, setIsPlaying, setQueue } from "../../actions";
 
@@ -89,7 +89,11 @@ export default function AlbumContainer(prop) {
                 </h5>
                 <h5 className="artist-name">
                   {album.artist_names.map((artist, elem) => {
-                    return artist.name;
+                    return (
+                      <Link key={elem} to={`/tracksByArtist/${artist._id}`}>
+                        {artist.name}
+                      </Link>
+                    );
                   })}
                 </h5>
               </div>

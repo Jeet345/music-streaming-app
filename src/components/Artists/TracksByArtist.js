@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -10,21 +10,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { setCurrPlayingSong, setIsPlaying, setQueue } from "../../actions";
 import SongDataTable from "../../common/SongDataTable";
+import AlbumContainer from "../Albums/AlbumContainer";
 
-function TracksByAlbum() {
+function TracksByArtist() {
   const [songData, setSongData] = useState([]);
-  const [albumData, setAlbumData] = useState([]);
+  const [artistData, setArtistData] = useState([]);
   const [isFavourite, setIsFavourite] = useState(false);
+  const [albumData, setAlbumData] = useState([]);
 
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { albumId } = useParams();
+  const { artistId } = useParams();
 
   const isPlaying = useSelector((state) => state.changeIsPlaying);
   const queueData = useSelector((state) => state.changeTheQueue);
+  const [tabIndex, setTabIndex] = useState(0);
 
-  const created_at = moment(albumData.created_at).format("ll"); // or any other format
+  const created_at = moment(artistData.created_at).format("ll");
   let totalDuration = 0;
 
   songData?.map((song, elem) => {
@@ -33,15 +36,15 @@ function TracksByAlbum() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/albums/getAlbumById",
+      url: "http://localhost:4000/artists/getArtistById",
       method: "post",
       data: {
-        id: albumId,
+        id: artistId,
       },
     })
       .then((res) => {
-        console.log("album", res.data[0]);
-        setAlbumData(res.data[0]);
+        console.log("artist", res.data[0]);
+        setArtistData(res.data[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -51,15 +54,33 @@ function TracksByAlbum() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/songs/getTracksByAlbumId",
+      url: "http://localhost:4000/songs/getTracksByArtistId",
       method: "post",
       data: {
-        id: albumId,
+        id: artistId,
       },
     })
       .then((res) => {
         console.log("tracks", res.data);
         setSongData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios({
+      url: "http://localhost:4000/albums/getAlbumByArtistId",
+      method: "post",
+      data: {
+        id: artistId,
+      },
+    })
+      .then((res) => {
+        console.log("res", res.data);
+        setAlbumData(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -88,21 +109,25 @@ function TracksByAlbum() {
     dispatch(setIsPlaying(false));
   };
 
+  const handleTabChange = (event, newTabIndex) => {
+    setTabIndex(newTabIndex);
+  };
+
   return (
-    <div className="tracks-by-album-page">
+    <div className="tracks-by-artist-page">
       <div className="header">
         <div className="left-head">
           <img
-            src={`http://localhost:4000/getImg/${albumData.coverImg}`}
+            src={`http://localhost:4000/getImg/${artistData.coverImg}`}
             alt=""
           />
         </div>
         <div className="right-head">
-          <h1 className="title">{albumData.name}</h1>
-          <div className="artist-box">
+          <h1 className="title">{artistData.name}</h1>
+          {/* <div className="artist-box">
             {albumData.artist_names?.map((artist, elem) => {
               return (
-                <Link to={`/tracksByArtist/${artist._id}`} key={elem}>
+                <Link to="/" key={elem}>
                   <img
                     src={`http://localhost:4000/getImg/${artist.coverImg}`}
                     alt=""
@@ -111,7 +136,7 @@ function TracksByAlbum() {
                 </Link>
               );
             })}
-          </div>
+          </div> */}
           <ul className="desc-box">
             <li>{songData.length} tracks</li>
             <li>{calculateTime(totalDuration)} mins</li>
@@ -164,9 +189,51 @@ function TracksByAlbum() {
         </div>
       </div>
 
-      <SongDataTable data={songData} albumVisible={false} />
+      <Box className="tab-container" sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "#3b3b3b" }}>
+          <Tabs value={tabIndex} onChange={handleTabChange}>
+            <Tab label="Discography" />
+            <Tab label="Similar Artists" />
+            <Tab label="About" />
+          </Tabs>
+        </Box>
+        <Box>
+          {tabIndex === 0 && (
+            <Box>
+              <h3 className="title">Popular Songs</h3>
+              <SongDataTable
+                data={songData}
+                artistVisible={false}
+                albumVisible={false}
+              />
+
+              {albumData.length ? (
+                <>
+                  <h3 style={{ marginBottom: "30px" }} className="title">
+                    Albums
+                  </h3>
+                  <AlbumContainer albumData={albumData} />
+                </>
+              ) : null}
+            </Box>
+          )}
+          {tabIndex === 1 && <Box></Box>}
+          {tabIndex === 2 && (
+            <Box>
+              <p
+                style={{
+                  color: "white",
+                  padding: "20px",
+                }}
+              >
+                {artistData.description}
+              </p>
+            </Box>
+          )}
+        </Box>
+      </Box>
     </div>
   );
 }
 
-export default TracksByAlbum;
+export default TracksByArtist;
