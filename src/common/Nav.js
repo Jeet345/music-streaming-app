@@ -8,6 +8,7 @@ import {
   MdMicNone,
   MdOutlineAlbum,
   MdOutlineAudiotrack,
+  MdOutlineNewReleases,
   MdPlaylistAdd,
 } from "react-icons/md";
 import {
@@ -113,6 +114,14 @@ function Nav() {
                 <BiTrendingUp />
               </span>
               Popular Tracks
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="link" to="newReleases">
+              <span className="icon">
+                <MdOutlineNewReleases />
+              </span>
+              New Releases
             </NavLink>
           </li>
         </ul>

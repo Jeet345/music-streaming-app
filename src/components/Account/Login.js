@@ -48,6 +48,7 @@ function Login() {
         setIsFormDisabled(false);
         setCookie("userCookie", res.data._id, {
           maxAge: 2592000,
+          path: "/",
         });
         dispatch(setUserCookie(res.data._id));
         navigate("/");
@@ -79,6 +80,7 @@ function Login() {
               style={{ width: "100%" }}
               variant="outlined"
               name="email"
+              inputProps={{ tabIndex: 1 }}
               {...register("email")}
               error={errors.email ? true : false}
               helperText={errors.email ? errors.email.message : ""}
@@ -97,6 +99,7 @@ function Login() {
               id="password"
               {...register("password")}
               className="input"
+              inputProps={{ tabIndex: 2 }}
               style={{ width: "100%" }}
               variant="outlined"
               name="password"
@@ -108,6 +111,7 @@ function Login() {
             disabled={isFormDisabled}
             className="submit-btn"
             type="submit"
+            tabIndex={3}
             variant="contained"
           >
             {isFormDisabled ? "Loading..." : "Continue"}

@@ -6,6 +6,7 @@ import { Slide, ToastContainer, Zoom } from "react-toastify";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { setUserCookie } from "./actions";
+import { useEffect } from "react";
 
 function App() {
   const theme = createTheme({
@@ -16,6 +17,10 @@ function App() {
         main: "#fff",
       },
     },
+  });
+
+  useEffect(() => {
+    document.title = "Musick - Listen Music For Free";
   });
 
   const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);

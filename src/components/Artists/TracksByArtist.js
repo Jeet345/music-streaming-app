@@ -11,11 +11,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { setCurrPlayingSong, setIsPlaying, setQueue } from "../../actions";
 import SongDataTable from "../../common/SongDataTable";
 import AlbumContainer from "../Albums/AlbumContainer";
+import { toast } from "react-toastify";
 
 function TracksByArtist() {
   const [songData, setSongData] = useState([]);
   const [artistData, setArtistData] = useState([]);
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [albumData, setAlbumData] = useState([]);
 
   const location = useLocation();
@@ -25,6 +26,8 @@ function TracksByArtist() {
 
   const isPlaying = useSelector((state) => state.changeIsPlaying);
   const queueData = useSelector((state) => state.changeTheQueue);
+  const userCookie = useSelector((state) => state.changeUserCookie);
+
   const [tabIndex, setTabIndex] = useState(0);
 
   const created_at = moment(artistData.created_at).format("ll");
@@ -43,7 +46,6 @@ function TracksByArtist() {
       },
     })
       .then((res) => {
-        console.log("artist", res.data[0]);
         setArtistData(res.data[0]);
       })
       .catch((err) => {
@@ -61,7 +63,6 @@ function TracksByArtist() {
       },
     })
       .then((res) => {
-        console.log("tracks", res.data);
         setSongData(res.data);
       })
       .catch((err) => {
@@ -79,7 +80,6 @@ function TracksByArtist() {
       },
     })
       .then((res) => {
-        console.log("res", res.data);
         setAlbumData(res.data);
       })
       .catch((err) => {
@@ -113,30 +113,90 @@ function TracksByArtist() {
     setTabIndex(newTabIndex);
   };
 
+  const checkIsFollowing = () => {
+    if (userCookie) {
+      axios({
+        url: "http://localhost:4000/library/getFollowingArtistsByUserId",
+        method: "post",
+        data: {
+          userId: userCookie,
+          artistId,
+        },
+      })
+        .then((res) => {
+          if (res.data.following_artists.includes(artistId)) {
+            setIsFollowing(true);
+          } else {
+            setIsFollowing(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    checkIsFollowing();
+  }, []);
+
+  const handleFollowBtnClick = () => {
+    if (userCookie) {
+      axios({
+        url: "http://localhost:4000/library/addFollowingArtists",
+        method: "post",
+        data: {
+          userId: userCookie,
+          artistId,
+        },
+      })
+        .then((res) => {
+          checkIsFollowing();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      toast.warn("Please login to access this feature !!", {
+        toastId: "login toast",
+      });
+    }
+  };
+
+  const handleFollowingBtnClick = () => {
+    axios({
+      url: "http://localhost:4000/library/removeFollowingArtists",
+      method: "delete",
+      data: {
+        userId: userCookie,
+        artistId,
+      },
+    })
+      .then((res) => {
+        checkIsFollowing();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="tracks-by-artist-page">
       <div className="header">
         <div className="left-head">
           <img
-            src={`http://localhost:4000/getImg/${artistData.coverImg}`}
+            src={
+              artistData.coverImg
+                ? `http://localhost:4000/getImg/${artistData.coverImg}`
+                : null
+            }
             alt=""
           />
         </div>
         <div className="right-head">
           <h1 className="title">{artistData.name}</h1>
-          {/* <div className="artist-box">
-            {albumData.artist_names?.map((artist, elem) => {
-              return (
-                <Link to="/" key={elem}>
-                  <img
-                    src={`http://localhost:4000/getImg/${artist.coverImg}`}
-                    alt=""
-                  />
-                  {artist.name}
-                </Link>
-              );
-            })}
-          </div> */}
+
           <ul className="desc-box">
             <li>{songData.length} tracks</li>
             <li>{calculateTime(totalDuration)} mins</li>
@@ -164,13 +224,26 @@ function TracksByArtist() {
               </Button>
             )}
 
-            <Button
-              className={`like-btn btn ${isFavourite ? "active" : null}`}
-              variant="outlined"
-              startIcon={isFavourite ? <FaHeart color="red" /> : <FiHeart />}
-            >
-              Like
-            </Button>
+            {isFollowing ? (
+              <Button
+                className={`like-btn btn active`}
+                variant="outlined"
+                onClick={handleFollowingBtnClick}
+                startIcon={isFollowing ? <FaHeart color="red" /> : <FiHeart />}
+              >
+                Following
+              </Button>
+            ) : (
+              <Button
+                className={`like-btn btn`}
+                variant="outlined"
+                onClick={handleFollowBtnClick}
+                startIcon={isFollowing ? <FaHeart color="red" /> : <FiHeart />}
+              >
+                Follow
+              </Button>
+            )}
+
             <Button
               className="share-btn btn"
               variant="outlined"

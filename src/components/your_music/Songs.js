@@ -1,15 +1,35 @@
+import { prefix } from "@fortawesome/free-regular-svg-icons";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { BsPlayFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { BsFillPauseFill, BsPlayFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrPlayingSong, setIsPlaying, setQueue } from "../../actions";
 import SongDataTable from "../../common/SongDataTable";
 import "../../styles/your_music/library.css";
 
 function Songs() {
+  const dispatch = useDispatch();
+
   const [favSongData, setFavSongData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   const userCookie = useSelector((state) => state.changeUserCookie);
+
+  const isPlaying = useSelector((state) => state.changeIsPlaying);
+  const queueData = useSelector((state) => state.changeTheQueue);
+
+  const handlePlayBtnClick = () => {
+    dispatch(setIsPlaying(true));
+    if (queueData != JSON.stringify(favSongData)) {
+      dispatch(setQueue(JSON.stringify(favSongData)));
+      dispatch(setCurrPlayingSong(JSON.stringify(favSongData[0])));
+    }
+  };
+
+  const handlePauseBtnClick = () => {
+    dispatch(setIsPlaying(false));
+  };
 
   const getDetailFavoriteSongByUserId = async () => {
     axios({
@@ -28,6 +48,27 @@ function Songs() {
       });
   };
 
+  const handleSearchBoxChange = (e) => {
+    setSearchValue(e.target.value);
+    //   let preFavSongData = favSongData;
+    //   let newPreFavSongData = preFavSongData;
+    //   const newFavSongData = favSongData.filter((song) => {
+    //     if (searchVal.length)
+    //       return song.title.toLowerCase().startsWith(searchVal.toLowerCase());
+    //   });
+    //   if (newFavSongData.length) {
+    //     setFavSongData(newFavSongData);
+    //   } else {
+    //     console.log("s", searchVal.length);
+    //     console.log("pre", preFavSongData);
+    //     if (searchVal.length == 0) {
+    //       setFavSongData(newPreFavSongData);
+    //     } else {
+    //       setFavSongData([]);
+    //     }
+    //   }
+  };
+
   useEffect(() => {
     getDetailFavoriteSongByUserId();
   }, []);
@@ -37,19 +78,34 @@ function Songs() {
       <div className="header">
         <div className="title">
           <h1>{favSongData.length} Liked tracks</h1>
-          <Button
-            className="play-btn btn"
-            variant="contained"
-            startIcon={<BsPlayFill />}
-          >
-            Play
-          </Button>
+
+          {isPlaying && queueData == JSON.stringify(favSongData) ? (
+            <Button
+              className="pause-btn btn"
+              variant="contained"
+              onClick={handlePauseBtnClick}
+              startIcon={<BsFillPauseFill />}
+            >
+              Pause
+            </Button>
+          ) : (
+            <Button
+              className="play-btn btn"
+              variant="contained"
+              disabled={!favSongData.length}
+              onClick={handlePlayBtnClick}
+              startIcon={<BsPlayFill />}
+            >
+              Play
+            </Button>
+          )}
         </div>
         <div className="input-filed">
           <TextField
             id="search"
             className="search-input"
             variant="outlined"
+            onChange={handleSearchBoxChange}
             placeholder="Search within tracks..."
           />
         </div>
@@ -58,6 +114,7 @@ function Songs() {
       <SongDataTable
         data={favSongData}
         getFavoriteSongByUserId={getDetailFavoriteSongByUserId}
+        searchValue={searchValue}
       />
     </div>
   );

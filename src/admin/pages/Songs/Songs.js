@@ -103,7 +103,7 @@ function Songs() {
 
         <GridFooter
           sx={{
-            border: "none", // To delete double border.
+            border: "none",
           }}
         />
       </GridFooterContainer>
@@ -119,7 +119,6 @@ function Songs() {
       disableColumnMenu: true,
       headerName: "",
       width: 60,
-      // headerClassName: "hideRightSeparator",
       renderCell: (param) => {
         return (
           <img

@@ -1,56 +1,48 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { BiMicrophone } from "react-icons/bi";
 import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
-import { MdOutlineAlbum } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setCurrPlayingSong, setIsPlaying, setQueue } from "../../actions";
 
-export default function AlbumContainer(prop) {
-  let albumData = prop.albumData;
-  const searchValue = prop.searchValue;
-
-  const toastId = "no track";
+function ArtistContainer(props) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  let artistData = props.artistData;
+  const searchValue = props.searchValue;
 
   // if search is avilable then
   if (searchValue) {
-    const newAlbumData = albumData.filter((album) => {
+    const newArtistData = artistData.filter((artist) => {
       if (searchValue.length)
-        return (
-          album.name.toLowerCase().startsWith(searchValue.toLowerCase()) ||
-          album.artist_names[0].name
-            .toLowerCase()
-            .startsWith(searchValue.toLowerCase())
-        );
+        return artist.name.toLowerCase().startsWith(searchValue.toLowerCase());
     });
-    if (newAlbumData.length) {
-      albumData = newAlbumData;
+    if (newArtistData.length) {
+      artistData = newArtistData;
     } else {
       if (searchValue.length == 0) {
-        albumData = newAlbumData;
+        artistData = newArtistData;
       } else {
-        albumData = [];
+        artistData = [];
       }
     }
   }
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const isPlaying = useSelector((state) => state.changeIsPlaying);
   const queueData = useSelector((state) => state.changeTheQueue);
 
-  const handleAlbumClick = (row) => {
-    navigate(`/tracksByAlbum/${row._id}`);
+  const handleArtistClick = (artist) => {
+    navigate(`/tracksByArtist/${artist._id}`);
   };
 
-  const handlePlayBtnClick = (album) => {
+  const handlePlayBtnClick = (artist) => {
     axios({
-      url: "http://localhost:4000/songs/getTracksByAlbumId",
+      url: "http://localhost:4000/songs/getTracksByArtistId",
       method: "post",
       data: {
-        id: album._id,
+        id: artist._id,
       },
     })
       .then((res) => {
@@ -62,7 +54,7 @@ export default function AlbumContainer(prop) {
             dispatch(setCurrPlayingSong(JSON.stringify(newSongData[0])));
           }
         } else {
-          toast.info("This album has not tracks !!", { toastId });
+          toast.info("This artist has not tracks !!", { toastId: "no tracks" });
         }
       })
       .catch((err) => {
@@ -72,28 +64,28 @@ export default function AlbumContainer(prop) {
   };
 
   return (
-    <div className="album-container">
-      {albumData.length > 0 ? (
-        <div className="album-body">
-          {albumData.map((album, elem) => {
+    <div className="artist-container">
+      {artistData.length > 0 ? (
+        <div className="artist-body">
+          {artistData.map((artist, elem) => {
             return (
               <div className="album-card" key={elem}>
                 <div className="img">
                   <img
-                    src={`http://localhost:4000/getImg/${album.coverImg}`}
+                    src={`http://localhost:4000/getImg/${artist.coverImg}`}
                     alt=""
                   />
                   <div
                     className="hover-box"
                     onClick={() => {
-                      handleAlbumClick(album);
+                      handleArtistClick(artist);
                     }}
                   >
                     <div
                       className="icon"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handlePlayBtnClick(album);
+                        handlePlayBtnClick(artist);
                       }}
                     >
                       <BsFillPlayFill />
@@ -104,19 +96,10 @@ export default function AlbumContainer(prop) {
                   <h5
                     className="album-name"
                     onClick={() => {
-                      handleAlbumClick(album);
+                      handleArtistClick(artist);
                     }}
                   >
-                    {album.name}
-                  </h5>
-                  <h5 className="artist-name">
-                    {album.artist_names.map((artist, elem) => {
-                      return (
-                        <Link key={elem} to={`/tracksByArtist/${artist._id}`}>
-                          {artist.name}
-                        </Link>
-                      );
-                    })}
+                    {artist.name}
                   </h5>
                 </div>
               </div>
@@ -125,11 +108,13 @@ export default function AlbumContainer(prop) {
         </div>
       ) : (
         <div className="nothing-box">
-          <MdOutlineAlbum color="#bababa" size={90} />
+          <BiMicrophone color="#bababa" size={90} />
           <h3>Nothing To Display.</h3>
-          <p>You have not added any albums to your library yet.</p>
+          <p>You have not following any artists yet.</p>
         </div>
       )}
     </div>
   );
 }
+
+export default ArtistContainer;

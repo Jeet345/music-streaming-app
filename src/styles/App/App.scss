@@ -303,6 +303,48 @@ $backgroundColor: #1e1e26;
     }
 }
 
+.menu-header {
+    width: 290px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    grid-gap: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #3b3b3b;
+    img {
+        width: 85px;
+        border-radius: 5px;
+        aspect-ratio: 1 / 1;
+    }
+    .desc {
+        line-height: 1.5;
+        overflow: hidden;
+        a {
+            display: block;
+            text-decoration: none;
+            font-size: 0.95rem;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        .artist-list {
+            display: flex;
+            grid-gap: 5px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .title {
+            color: white;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .sub-title {
+            color: #bababa;
+        }
+    }
+}
 .data-table-container {
     .title {
         color: #f1f1f1;
@@ -474,6 +516,7 @@ $backgroundColor: #1e1e26;
         }
     }
     .nothing-box {
+        margin-top: 50px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -503,7 +546,8 @@ $backgroundColor: #1e1e26;
     }
 }
 
-.popular-albums-page {
+.popular-albums-page,
+.newReleases-page {
     width: 100%;
     height: 100%;
     background-color: $backgroundColor;
@@ -594,7 +638,8 @@ $backgroundColor: #1e1e26;
     }
 }
 
-.album-container {
+.album-container,
+.artist-container {
     margin-bottom: 60px;
     .heading {
         color: #f1f1f1;
@@ -602,7 +647,8 @@ $backgroundColor: #1e1e26;
         margin-bottom: 30px;
         font-size: 28px;
     }
-    .album-body {
+    .album-body,
+    .artist-body {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 25px;
@@ -684,6 +730,21 @@ $backgroundColor: #1e1e26;
             .icon {
                 display: none;
             }
+        }
+    }
+    .nothing-box {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        grid-gap: 5px;
+        p {
+            color: #bababa;
+        }
+        h3 {
+            color: white;
+            font-weight: normal;
         }
     }
 }

@@ -18,6 +18,7 @@ import Albums from "./components/your_music/Albums.js";
 import History from "./components/your_music/History.js";
 import Artists from "./components/your_music/Artists.js";
 import { useSelector } from "react-redux";
+import NewReleases from "./components/Tracks/NewReleases.js";
 
 function User() {
   const userCookie = useSelector((state) => state.changeUserCookie);
@@ -41,6 +42,7 @@ function User() {
 
           <Route path="/genres" element={<Genres />} />
           <Route path="/popularTracks" element={<PopularTracks />} />
+          <Route path="/newReleases" element={<NewReleases />} />
           <Route path="/popularAlbums" element={<PopularAlbums />} />
           <Route path="/tracksByAlbum/:albumId" element={<TracksByAlbum />} />
           <Route

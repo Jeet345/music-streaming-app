@@ -11,7 +11,9 @@ function Logout() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    removeCookie("userCookie");
+    removeCookie("userCookie", {
+      path: "/",
+    });
     dispatch(setUserCookie(""));
     navigate("/Login");
   }, []);

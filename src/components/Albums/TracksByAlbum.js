@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { setCurrPlayingSong, setIsPlaying, setQueue } from "../../actions";
 import SongDataTable from "../../common/SongDataTable";
+import { toast } from "react-toastify";
 
 function TracksByAlbum() {
   const [songData, setSongData] = useState([]);
@@ -23,6 +24,7 @@ function TracksByAlbum() {
 
   const isPlaying = useSelector((state) => state.changeIsPlaying);
   const queueData = useSelector((state) => state.changeTheQueue);
+  const userCookie = useSelector((state) => state.changeUserCookie);
 
   const created_at = moment(albumData.created_at).format("ll"); // or any other format
   let totalDuration = 0;
@@ -67,6 +69,35 @@ function TracksByAlbum() {
       });
   }, []);
 
+  const checkIsFavorite = () => {
+    if (userCookie) {
+      axios({
+        url: "http://localhost:4000/library/getFavoriteAlbumByUserId",
+        method: "post",
+        data: {
+          userId: userCookie,
+          albumId,
+        },
+      })
+        .then((res) => {
+          console.log("fav data", res.data.favorite_albums);
+          if (res.data.favorite_albums.includes(albumId)) {
+            setIsFavourite(true);
+          } else {
+            setIsFavourite(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    checkIsFavorite();
+  }, []);
+
   // formate seconds in form of (00:00)
   const calculateTime = (sesc) => {
     const minutes = Math.floor(sesc / 60);
@@ -88,12 +119,64 @@ function TracksByAlbum() {
     dispatch(setIsPlaying(false));
   };
 
+  const handleAddFavBtnClick = () => {
+    if (userCookie) {
+      axios({
+        url: "http://localhost:4000/library/addFavoriteAlbum",
+        method: "post",
+        data: {
+          userId: userCookie,
+          albumId,
+        },
+      })
+        .then((res) => {
+          console.log("add res", res.data);
+          checkIsFavorite();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      toast.warn("Please login to access this feature !!", {
+        toastId: "login toast",
+      });
+    }
+  };
+
+  const handleRemoveFavBtnClick = () => {
+    if (userCookie) {
+      axios({
+        url: "http://localhost:4000/library/removeFavoriteAlbum",
+        method: "delete",
+        data: {
+          userId: userCookie,
+          albumId,
+        },
+      })
+        .then((res) => {
+          console.log("remove res", res.data);
+          checkIsFavorite();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      toast.warn("Please login to access this feature !!", {
+        toastId: "login toast",
+      });
+    }
+  };
+
   return (
     <div className="tracks-by-album-page">
       <div className="header">
         <div className="left-head">
           <img
-            src={`http://localhost:4000/getImg/${albumData.coverImg}`}
+            src={
+              albumData.coverImg
+                ? `http://localhost:4000/getImg/${albumData.coverImg}`
+                : null
+            }
             alt=""
           />
         </div>
@@ -139,13 +222,26 @@ function TracksByAlbum() {
               </Button>
             )}
 
-            <Button
-              className={`like-btn btn ${isFavourite ? "active" : null}`}
-              variant="outlined"
-              startIcon={isFavourite ? <FaHeart color="red" /> : <FiHeart />}
-            >
-              Like
-            </Button>
+            {isFavourite ? (
+              <Button
+                className={`like-btn btn active`}
+                variant="outlined"
+                onClick={handleRemoveFavBtnClick}
+                startIcon={isFavourite ? <FaHeart color="red" /> : <FiHeart />}
+              >
+                Like
+              </Button>
+            ) : (
+              <Button
+                className={`like-btn btn`}
+                variant="outlined"
+                onClick={handleAddFavBtnClick}
+                startIcon={isFavourite ? <FaHeart color="red" /> : <FiHeart />}
+              >
+                Like
+              </Button>
+            )}
+
             <Button
               className="share-btn btn"
               variant="outlined"
