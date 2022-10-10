@@ -10,10 +10,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
+import { Menu, MenuItem } from "@mui/material";
 
 const img = require("../assets/download.jpg");
 
 export default function SongDataTable(props) {
+  let songData = props.data;
+  const searchValue = props.searchValue;
+
   const dispatch = useDispatch();
   const currSongData = JSON.parse(
     useSelector((state) => state.changeCurrPlayingSong)
@@ -25,10 +29,41 @@ export default function SongDataTable(props) {
   const isAlbumVisible = props.albumVisible == false ? false : true;
   const isArtistVisible = props.artistVisible == false ? false : true;
 
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
+
+  const menuOpen = Boolean(menuAnchorEl);
+
+  const [menuRowData, setMenuRowData] = useState([]);
+
+  // if search is avilable then
+  if (searchValue) {
+    const newSongData = songData.filter((song) => {
+      if (searchValue.length)
+        return (
+          song.title.toLowerCase().startsWith(searchValue.toLowerCase()) ||
+          song.artist_names[0].name
+            .toLowerCase()
+            .startsWith(searchValue.toLowerCase()) ||
+          song.album_name[0].name
+            .toLowerCase()
+            .startsWith(searchValue.toLowerCase())
+        );
+    });
+    if (newSongData.length) {
+      songData = newSongData;
+    } else {
+      if (searchValue.length == 0) {
+        songData = newSongData;
+      } else {
+        songData = [];
+      }
+    }
+  }
+
   const handlePlayBtnClick = (currSong) => {
     console.log(currSong);
     dispatch(setIsPlaying(true));
-    dispatch(setQueue(JSON.stringify(props.data)));
+    dispatch(setQueue(JSON.stringify(songData)));
     dispatch(setCurrPlayingSong(JSON.stringify(currSong)));
   };
 
@@ -41,21 +76,23 @@ export default function SongDataTable(props) {
   };
 
   const getFavoriteSongData = () => {
-    axios({
-      url: "http://localhost:4000/library/getFavoriteSongByUserId",
-      method: "post",
-      data: {
-        userId: userCookie,
-      },
-    })
-      .then((res) => {
-        // retrive songId and make arry of it`
-        console.log("fav arr", res.data[0].favorite_songs);
-        setFavSongData(res.data[0].favorite_songs);
+    if (userCookie) {
+      axios({
+        url: "http://localhost:4000/library/getFavoriteSongByUserId",
+        method: "post",
+        data: {
+          userId: userCookie,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          // retrive songId and make arry of it`
+          console.log("fav arr", res.data[0].favorite_songs);
+          setFavSongData(res.data[0].favorite_songs);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -96,7 +133,7 @@ export default function SongDataTable(props) {
       let songId = row._id;
       axios({
         url: "http://localhost:4000/library/removeFavoriteSong",
-        method: "post",
+        method: "delete",
         data: {
           userId,
           songId,
@@ -118,9 +155,102 @@ export default function SongDataTable(props) {
     }
   };
 
+  const handleMenuBtnClick = (e, row) => {
+    setMenuAnchorEl(e.currentTarget);
+    setMenuRowData(row);
+  };
+
+  const handleRowRightClick = (e, row) => {
+    e.preventDefault();
+    handleMenuBtnClick(e, row);
+  };
+
   return (
     <div className="data-table-container">
-      {props.data.length >= 1 ? (
+      <Menu
+        className="setting-menu-container"
+        anchorEl={menuAnchorEl}
+        open={menuOpen}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        onClose={() => {
+          setMenuAnchorEl(null);
+        }}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <div className="menu-header">
+          <img
+            src={`http://localhost:4000/getImg/${menuRowData.imageFileName}`}
+            alt=""
+          />
+          <div className="desc">
+            <Link to="/" className="title">
+              {menuRowData.title}
+            </Link>
+            <div className="artist-list">
+              {menuRowData.artist_names?.map((artist, elem) => {
+                return (
+                  <Link to="/" key={elem} className="sub-title">
+                    {artist.name}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+        <MenuItem
+          onClick={() => {
+            setMenuAnchorEl(null);
+          }}
+        >
+          Add to Queue
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuAnchorEl(null);
+          }}
+        >
+          Add to Playlist
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuAnchorEl(null);
+          }}
+        >
+          Save to Library
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuAnchorEl(null);
+          }}
+        >
+          Remove from Library
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuAnchorEl(null);
+          }}
+        >
+          Show Lyrics
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setMenuAnchorEl(null);
+          }}
+        >
+          Share
+        </MenuItem>
+      </Menu>
+
+      {songData.length >= 1 ? (
         <table className="data-table">
           <tbody>
             <tr>
@@ -143,8 +273,11 @@ export default function SongDataTable(props) {
                 <BiTimeFive />
               </th>
             </tr>
-            {props.data.map((row, elem) => (
+            {songData.map((row, elem) => (
               <tr
+                onContextMenu={(e) => {
+                  handleRowRightClick(e, row);
+                }}
                 key={elem}
                 className={row._id == currSongData._id ? "playing" : ""}
               >
@@ -215,7 +348,13 @@ export default function SongDataTable(props) {
                   {row.title.slice(0, 20) +
                     (row.title.length > 20 ? "..." : "")}
                 </td>
-                <td className="icon menu-icon" style={{ paddingRight: "25px" }}>
+                <td
+                  className="icon menu-icon"
+                  style={{ paddingRight: "25px" }}
+                  onClick={(e) => {
+                    handleMenuBtnClick(e, row);
+                  }}
+                >
                   <BsThreeDots />
                 </td>
 
