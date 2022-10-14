@@ -8,8 +8,13 @@ $backgroundColor: #1e1e26;
     width: 100%;
     background-color: $backgroundColor;
     padding: 28px;
+    padding-top: 0px;
+    overflow-y: auto;
     .header {
-        margin-top: 5px;
+        position: sticky;
+        background: $backgroundColor;
+        top: 0px;
+        padding-top: 33px;
         display: flex;
         justify-content: space-between;
         align-items: center;

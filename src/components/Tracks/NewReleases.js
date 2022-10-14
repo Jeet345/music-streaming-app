@@ -13,7 +13,6 @@ export default function NewReleases() {
       method: "get",
     })
       .then((res) => {
-        console.log("res", res.data);
         setSongData(res.data);
       })
       .catch((e) => {

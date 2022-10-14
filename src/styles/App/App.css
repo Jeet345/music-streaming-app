@@ -31,6 +31,7 @@
           flex-direction: row;
   background-color: #f1f1f1;
   overflow: hidden;
+  position: relative;
 }
 
 .appContainer .left-side-nav {
@@ -39,6 +40,7 @@
   padding: 15px;
   overflow-y: scroll;
   background-color: #23232c;
+  z-index: 101;
 }
 
 .appContainer .left-side-nav .logo a {
@@ -373,8 +375,280 @@
   color: white;
 }
 
+.search-page-container {
+  position: absolute;
+  left: 17%;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: #bdbdbd83;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.search-page-container .search-box {
+  width: 350px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #1e1e26;
+  padding: 20px;
+}
+
+.search-page-container .search-box .title {
+  background-color: #2a2a35;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 14px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.search-page-container .search-box .title h4 {
+  color: white;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.search-page-container .search-box .title:hover {
+  background-color: #353543;
+}
+
+.search-page-container .search-box .result-box .heading {
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.search-page-container .search-box .result-box ul {
+  margin-top: 16px;
+}
+
+.search-page-container .search-box .result-box ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 10px;
+  list-style: none;
+  margin-top: 10px;
+}
+
+.search-page-container .search-box .result-box ul li .img {
+  width: 55px;
+  height: 55px;
+  display: block;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.search-page-container .search-box .result-box ul li .img img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.search-page-container .search-box .result-box ul li .desc a {
+  display: block;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.search-page-container .search-box .result-box ul li .desc a:hover {
+  text-decoration: underline;
+}
+
+.search-page-container .search-box .result-box ul li .desc .main {
+  color: white;
+}
+
+.search-page-container .search-box .result-box ul li .desc .sub {
+  margin-top: 4px;
+  color: silver;
+}
+
+.search-page-container .search-box .songs-box li {
+  border-radius: 5px;
+  padding: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: #2a2a35;
+}
+
+.search-page-container .search-box .songs-box li:hover {
+  background-color: #353543;
+}
+
+.hidden-search-page-container {
+  left: -100%;
+}
+
+.dialog-container .MuiPaper-root {
+  min-width: 57vw;
+  background: #23232c;
+}
+
+.dialog-container .dialog-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 1.05rem;
+  color: #f7f7f7;
+  padding: 15px 23px;
+  letter-spacing: 0.5px;
+}
+
+.dialog-container .dialog-title .close-btn {
+  padding: 5px;
+  color: #f7f7f7;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.dialog-container .dialog-title .close-btn:hover {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.dialog-container .add-playlist-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 20px;
+  margin-top: 20px;
+}
+
+.dialog-container .add-playlist-container .left-side-box {
+  min-width: 220px;
+  max-width: 21%;
+}
+
+.dialog-container .add-playlist-container .left-side-box .error {
+  margin-top: 10px;
+}
+
+.dialog-container .add-playlist-container .left-side-box .error li {
+  color: #f4342a;
+  font-weight: normal;
+  font-size: 0.9rem;
+  padding: 5px 0px;
+}
+
+.dialog-container .add-playlist-container .left-side-box .img-box {
+  width: 100%;
+  position: relative;
+}
+
+.dialog-container .add-playlist-container .left-side-box .img-box img {
+  width: 100%;
+}
+
+.dialog-container .add-playlist-container .left-side-box .img-box .upload-btn {
+  background: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: 25px;
+  width: 60%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: black;
+}
+
+.dialog-container .add-playlist-container .left-side-box .upload-track-btn {
+  width: 100%;
+  margin-top: 10px;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.dialog-container .add-playlist-container .right-side-box {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dialog-container .add-playlist-container .right-side-box .input-filed {
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.dialog-container .add-playlist-container .right-side-box .input-filed p {
+  font-size: 0.8rem;
+  color: #dfdfdf;
+}
+
+.dialog-container .add-playlist-container .right-side-box .input-filed .input {
+  margin-top: 6px;
+}
+
+.dialog-container .add-playlist-container .right-side-box .input-filed .input input {
+  padding: 13px 14px;
+}
+
+.dialog-container .add-playlist-container .right-side-box .input-filed .label {
+  color: #dfdfdf;
+  font-size: 0.9rem;
+}
+
+.dialog-container .add-playlist-container .right-side-box .MuiFormControlLabel-root {
+  margin: 0px !important;
+}
+
+.dialog-container .add-playlist-container .right-side-box .MuiSwitch-root {
+  margin-left: -12px;
+}
+
+.dialog-container .add-playlist-container .right-side-box .MuiFormControl-root {
+  width: 100%;
+}
+
+.dialog-container .add-playlist-container .right-side-box .MuiFormHelperText-root {
+  color: #f4342a !important;
+  font-size: 0.9rem;
+}
+
+.dialog-container .action-btn {
+  padding-bottom: 20px;
+  padding-right: 25px;
+}
+
+.dialog-container .action-btn button {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.confirm-dialog .MuiPaper-root {
+  min-width: 350px;
+}
+
 .setting-menu-container svg {
   margin-right: 12px;
+}
+
+.playlist-menu-container .MuiPaper-root {
+  width: 250px;
 }
 
 .menu-header {
@@ -971,6 +1245,7 @@
 }
 
 .tracks-by-album-page,
+.playlist-page,
 .tracks-by-artist-page {
   width: 100%;
   height: 100%;
@@ -981,6 +1256,7 @@
 }
 
 .tracks-by-album-page .header,
+.playlist-page .header,
 .tracks-by-artist-page .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -995,11 +1271,13 @@
 }
 
 .tracks-by-album-page .header .left-head,
+.playlist-page .header .left-head,
 .tracks-by-artist-page .header .left-head {
   width: 260px;
 }
 
 .tracks-by-album-page .header .left-head img,
+.playlist-page .header .left-head img,
 .tracks-by-artist-page .header .left-head img {
   width: 100%;
   border-radius: 5px;
@@ -1011,6 +1289,7 @@
 }
 
 .tracks-by-album-page .header .right-head .title,
+.playlist-page .header .right-head .title,
 .tracks-by-artist-page .header .right-head .title {
   color: white;
   font-weight: 500;
@@ -1018,6 +1297,7 @@
 }
 
 .tracks-by-album-page .header .right-head .artist-box,
+.playlist-page .header .right-head .artist-box,
 .tracks-by-artist-page .header .right-head .artist-box {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1027,6 +1307,7 @@
 }
 
 .tracks-by-album-page .header .right-head .artist-box a,
+.playlist-page .header .right-head .artist-box a,
 .tracks-by-artist-page .header .right-head .artist-box a {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1040,6 +1321,7 @@
 }
 
 .tracks-by-album-page .header .right-head .artist-box a img,
+.playlist-page .header .right-head .artist-box a img,
 .tracks-by-artist-page .header .right-head .artist-box a img {
   width: 26px;
   height: 26px;
@@ -1047,11 +1329,13 @@
 }
 
 .tracks-by-album-page .header .right-head .artist-box a:hover,
+.playlist-page .header .right-head .artist-box a:hover,
 .tracks-by-artist-page .header .right-head .artist-box a:hover {
   text-decoration: underline;
 }
 
 .tracks-by-album-page .header .right-head .desc-box,
+.playlist-page .header .right-head .desc-box,
 .tracks-by-artist-page .header .right-head .desc-box {
   list-style: none;
   display: -webkit-box;
@@ -1063,6 +1347,7 @@
 }
 
 .tracks-by-album-page .header .right-head .action-btn,
+.playlist-page .header .right-head .action-btn,
 .tracks-by-artist-page .header .right-head .action-btn {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -1073,6 +1358,7 @@
 }
 
 .tracks-by-album-page .header .right-head .action-btn .btn,
+.playlist-page .header .right-head .action-btn .btn,
 .tracks-by-artist-page .header .right-head .action-btn .btn {
   text-transform: capitalize;
   font-weight: 500;
@@ -1084,15 +1370,61 @@
 }
 
 .tracks-by-album-page .header .right-head .action-btn .play-btn,
+.playlist-page .header .right-head .action-btn .play-btn,
 .tracks-by-artist-page .header .right-head .action-btn .play-btn {
   padding: 7px 35px;
   margin-right: 15px;
 }
 
 .tracks-by-album-page .header .right-head .action-btn .active,
+.playlist-page .header .right-head .action-btn .active,
 .tracks-by-artist-page .header .right-head .action-btn .active {
   border-color: #689f38;
   color: #689f38;
+}
+
+.playlist-page .playlist-desc {
+  color: #bababa;
+  margin-top: 19px;
+}
+
+.playlist-page .header {
+  margin-bottom: 0px;
+}
+
+.playlist-page .search-filed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.playlist-page .search-filed .search-input input {
+  width: 225px;
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.playlist-page .search-filed .search-input input::-webkit-input-placeholder {
+  color: #bababa;
+}
+
+.playlist-page .search-filed .search-input input:-ms-input-placeholder {
+  color: #bababa;
+}
+
+.playlist-page .search-filed .search-input input::-ms-input-placeholder {
+  color: #bababa;
+}
+
+.playlist-page .search-filed .search-input input::placeholder {
+  color: #bababa;
+}
+
+.playlist-page .search-filed .search-input :not(.Mui-focused) fieldset {
+  border-color: #3b3b3b;
 }
 
 .tracks-by-artist-page .header .left-head img {

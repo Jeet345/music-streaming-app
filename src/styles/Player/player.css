@@ -27,6 +27,7 @@
 }
 
 .player-container {
+  position: relative;
   min-height: 70px;
   padding: 0px 20px;
   display: -webkit-box;

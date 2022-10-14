@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsThreeDots, BsFillPlayFill, BsPauseFill } from "react-icons/bs";
-import { MdOutlineAudiotrack, MdOutlineVolumeUp } from "react-icons/md";
+import {
+  MdOutlineAudiotrack,
+  MdOutlineVolumeUp,
+  MdPlaylistAdd,
+} from "react-icons/md";
 import { BiTimeFive } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrPlayingSong, setQueue, setIsPlaying } from "../actions/index";
@@ -22,32 +26,42 @@ export default function SongDataTable(props) {
   const currSongData = JSON.parse(
     useSelector((state) => state.changeCurrPlayingSong)
   );
+  const playlistData = JSON.parse(
+    useSelector((state) => state.changePlaylistData)
+  );
+
   const isPlaying = useSelector((state) => state.changeIsPlaying);
   const userCookie = useSelector((state) => state.changeUserCookie);
 
   const [favSongData, setFavSongData] = useState([]);
   const isAlbumVisible = props.albumVisible == false ? false : true;
   const isArtistVisible = props.artistVisible == false ? false : true;
+  const isRemoveToPlaylistVisible =
+    props.removeToPlaylistOption == true ? true : false;
 
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
+  const [subMenuAnchorEl, setSubMenuAnchorEl] = useState(null);
 
   const menuOpen = Boolean(menuAnchorEl);
+  const subMenuOpen = Boolean(subMenuAnchorEl);
 
   const [menuRowData, setMenuRowData] = useState([]);
 
   // if search is avilable then
   if (searchValue) {
-    const newSongData = songData.filter((song) => {
-      if (searchValue.length)
-        return (
-          song.title.toLowerCase().startsWith(searchValue.toLowerCase()) ||
+    const newSongData = songData?.filter((song) => {
+      console.log("song", song);
+      if (searchValue.length) {
+        return song.title.toLowerCase().startsWith(searchValue.toLowerCase()) ||
           song.artist_names[0].name
             .toLowerCase()
             .startsWith(searchValue.toLowerCase()) ||
-          song.album_name[0].name
-            .toLowerCase()
-            .startsWith(searchValue.toLowerCase())
-        );
+          song.album_name.length
+          ? song.album_name[0].name
+              .toLowerCase()
+              .startsWith(searchValue.toLowerCase())
+          : null;
+      }
     });
     if (newSongData.length) {
       songData = newSongData;
@@ -61,7 +75,6 @@ export default function SongDataTable(props) {
   }
 
   const handlePlayBtnClick = (currSong) => {
-    console.log(currSong);
     dispatch(setIsPlaying(true));
     dispatch(setQueue(JSON.stringify(songData)));
     dispatch(setCurrPlayingSong(JSON.stringify(currSong)));
@@ -86,7 +99,6 @@ export default function SongDataTable(props) {
       })
         .then((res) => {
           // retrive songId and make arry of it`
-          console.log("fav arr", res.data[0].favorite_songs);
           setFavSongData(res.data[0].favorite_songs);
         })
         .catch((err) => {
@@ -165,6 +177,66 @@ export default function SongDataTable(props) {
     handleMenuBtnClick(e, row);
   };
 
+  const handlePlaylistMenuClick = (e) => {
+    e.preventDefault();
+    setSubMenuAnchorEl(e.currentTarget);
+  };
+
+  const handlePlaylistSelected = (e, playlist) => {
+    axios({
+      url: "http://localhost:4000/playlists/addSongInPlaylist",
+      method: "post",
+      data: {
+        id: playlist._id,
+        songId: menuRowData._id,
+      },
+    })
+      .then((res) => {
+        if (res.data == 1) {
+          toast.info("Added to playlist...", {
+            toastId: "song add in playlist",
+          });
+          setSubMenuAnchorEl(null);
+          setMenuAnchorEl(null);
+        } else if (res.data == 2) {
+          toast.info("Song already exist in playlist !!", {
+            toastId: "already exist",
+          });
+        } else {
+          console.log("here", res.data);
+        }
+      })
+      .catch((err) => {
+        console.log({ err: "Something Wan't Wrong" });
+      });
+  };
+
+  const handleRemoveToPlaylistClick = () => {
+    setMenuAnchorEl(null);
+
+    axios({
+      url: "http://localhost:4000/playlists/removeSongInPlaylist",
+      method: "post",
+      data: {
+        songId: menuRowData._id,
+        id: props.playlistId,
+      },
+    })
+      .then((res) => {
+        if (res.data == 1) {
+          toast.info("Song removed from playlist..", {
+            toastId: "song removed",
+          });
+          props.getPlaylistDataById();
+        } else {
+          console.log(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="data-table-container">
       <Menu
@@ -182,9 +254,6 @@ export default function SongDataTable(props) {
         onClose={() => {
           setMenuAnchorEl(null);
         }}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
       >
         <div className="menu-header">
           <img
@@ -198,7 +267,11 @@ export default function SongDataTable(props) {
             <div className="artist-list">
               {menuRowData.artist_names?.map((artist, elem) => {
                 return (
-                  <Link to="/" key={elem} className="sub-title">
+                  <Link
+                    to={`/tracksByArtist/${artist._id}`}
+                    key={elem}
+                    className="sub-title"
+                  >
                     {artist.name}
                   </Link>
                 );
@@ -213,13 +286,20 @@ export default function SongDataTable(props) {
         >
           Add to Queue
         </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenuAnchorEl(null);
-          }}
-        >
-          Add to Playlist
-        </MenuItem>
+        {isRemoveToPlaylistVisible ? (
+          <MenuItem onClick={handleRemoveToPlaylistClick}>
+            Remove to Playlist
+          </MenuItem>
+        ) : (
+          <MenuItem
+            onClick={(e) => {
+              handlePlaylistMenuClick(e);
+            }}
+          >
+            Add to Playlist
+          </MenuItem>
+        )}
+
         <MenuItem
           onClick={() => {
             setMenuAnchorEl(null);
@@ -248,6 +328,44 @@ export default function SongDataTable(props) {
         >
           Share
         </MenuItem>
+      </Menu>
+
+      <Menu
+        className="setting-menu-container"
+        anchorEl={subMenuAnchorEl}
+        open={subMenuOpen}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        onClose={() => {
+          setSubMenuAnchorEl(null);
+        }}
+      >
+        <MenuItem
+          onClick={() => {
+            setSubMenuAnchorEl(null);
+          }}
+        >
+          <MdPlaylistAdd size={25} color="#689f38" />
+          New Playlist
+        </MenuItem>
+        {playlistData?.map((playlist, elem) => {
+          return (
+            <MenuItem
+              onClick={(e) => {
+                handlePlaylistSelected(e, playlist);
+              }}
+            >
+              <MdOutlineAudiotrack size={22} />
+              {playlist.name}
+            </MenuItem>
+          );
+        })}
       </Menu>
 
       {songData.length >= 1 ? (

@@ -19,6 +19,8 @@ import History from "./components/your_music/History.js";
 import Artists from "./components/your_music/Artists.js";
 import { useSelector } from "react-redux";
 import NewReleases from "./components/Tracks/NewReleases.js";
+import Playlist from "./components/your_music/Playlist.js";
+import SearchContainer from "./common/SearchContainer.js";
 
 function User() {
   const userCookie = useSelector((state) => state.changeUserCookie);
@@ -27,6 +29,8 @@ function User() {
     <>
       <div className="appContainer">
         <Nav />
+
+        <SearchContainer />
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -56,6 +60,12 @@ function User() {
             path="/library/songs"
             element={userCookie ? <Songs /> : <Navigate to="/login" />}
           />
+
+          <Route
+            path="/playlist/:playlistId"
+            element={userCookie ? <Playlist /> : <Navigate to="/login" />}
+          />
+
           <Route
             path="/library/albums"
             element={userCookie ? <Albums /> : <Navigate to="/login" />}

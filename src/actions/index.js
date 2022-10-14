@@ -38,3 +38,17 @@ export const setUserCookie = (userData) => {
     payload: userData ? userData : "",
   };
 };
+
+export const setPlaylistData = (playlistData) => {
+  return {
+    type: "SET_PLAYLIST_DATA",
+    payload: playlistData,
+  };
+};
+
+export const setSearchQuery = (searchQuery) => {
+  return {
+    type: "SET_SEARCH_QUERY",
+    payload: searchQuery,
+  };
+};
