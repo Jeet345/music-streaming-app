@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import NewReleases from "./components/Tracks/NewReleases.js";
 import Playlist from "./components/your_music/Playlist.js";
 import SearchContainer from "./common/SearchContainer.js";
+import Settings from "./components/Account/Settings.js";
 
 function User() {
   const userCookie = useSelector((state) => state.changeUserCookie);
@@ -59,6 +60,11 @@ function User() {
           <Route
             path="/library/songs"
             element={userCookie ? <Songs /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/account/settings"
+            element={userCookie ? <Settings /> : <Navigate to="/login" />}
           />
 
           <Route

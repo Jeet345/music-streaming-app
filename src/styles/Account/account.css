@@ -131,4 +131,200 @@
 .login-page .bottom-link a:hover {
   text-decoration: underline;
 }
+
+.account-setting-page {
+  width: 100%;
+  background-color: #1e1e26;
+  padding: 35px 25px;
+  overflow-y: auto;
+}
+
+.account-setting-page .main-heading h1 {
+  color: white;
+  font-weight: normal;
+  font-size: 2.2rem;
+}
+
+.account-setting-page .main-heading p {
+  color: #c2c2c2;
+  margin-top: 5px;
+  font-size: 0.95rem;
+}
+
+.account-setting-page .detail-container {
+  width: 100%;
+  background: #23232c;
+  border-radius: 5px;
+  border: 1px solid #3b3b3b;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+.account-setting-page .detail-container .title {
+  border-bottom: 1px solid #3b3b3b;
+  padding-bottom: 13px;
+}
+
+.account-setting-page .detail-container .title h3 {
+  color: #f1f1f1;
+  font-weight: normal;
+  font-size: 1.1rem;
+}
+
+.account-setting-page .detail-container .input-form .input-filed {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.account-setting-page .detail-container .input-form .input-filed h5 {
+  color: #bababa;
+  font-weight: normal;
+  font-size: 0.95rem;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input {
+  width: 72%;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input input {
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 0.95rem;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input input::-webkit-input-placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input input:-ms-input-placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input input::-ms-input-placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input input::placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .detail-container .input-form .input-filed .input :not(.Mui-focused) fieldset {
+  border-color: #3b3b3b;
+}
+
+.account-setting-page .detail-container .delete-button {
+  margin-top: 25px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.account-setting-page .detail-container .footer {
+  margin-top: 40px;
+  border-top: 1px solid #3b3b3b;
+  padding-top: 13px;
+  padding-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.account-setting-page .detail-container .footer button {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed {
+  margin-top: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed h5 {
+  color: #bababa;
+  font-weight: normal;
+  font-size: 0.95rem;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input {
+  width: 72%;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input input {
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 0.95rem;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input input::-webkit-input-placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input input:-ms-input-placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input input::-ms-input-placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input input::placeholder {
+  color: #bababa;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input :not(.Mui-focused) fieldset {
+  border-color: #3b3b3b;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input-img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  grid-gap: 15px;
+  width: 72%;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input-img .img {
+  width: 90px;
+  height: 90px;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input-img .img img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input-img .desc p {
+  color: #bababa;
+  font-size: 0.75rem;
+  width: 140px;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input-img .desc .button {
+  text-transform: capitalize;
+  display: block;
+  margin-top: 10px;
+}
+
+.account-setting-page .user-info-container .input-form .input-filed .input-img .desc .upBtn {
+  display: table;
+}
 /*# sourceMappingURL=Account.css.map */

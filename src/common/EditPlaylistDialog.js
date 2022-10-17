@@ -58,9 +58,10 @@ function EditPlaylistDialog(prop) {
     } else {
       setIsPublic(false);
     }
-  }, [prop.editPlaylistData]);
+  }, [editPlaylistData]);
 
   const handlePlaylistDialogClose = () => {
+    reset();
     setPlaylistDialogIsOpen(false);
     setCoverImagePath("");
     prop.closePlaylist();

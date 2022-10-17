@@ -95,7 +95,7 @@ function Nav() {
 
   useEffect(() => {
     getPlaylistData();
-  }, []);
+  }, [userCookie]);
 
   const handleSettingBtnClick = (e) => {
     setSettingMenuAnchorEl(e.currentTarget);
@@ -206,7 +206,14 @@ function Nav() {
 
       {userCookie ? (
         <div className="user-box">
-          <img src={require("../../src/assets/profile.png")} alt="" />
+          <img
+            src={
+              userData?.profileImage
+                ? `http://localhost:4000/getImg/${userData.profileImage}`
+                : require("../../src/assets/profile.png")
+            }
+            alt=""
+          />
           <h5>
             <Link to="/">{userData ? userData.username : null}</Link>
           </h5>
@@ -235,6 +242,7 @@ function Nav() {
             <MenuItem
               onClick={() => {
                 setSettingMenuAnchorEl(null);
+                navigate("/account/settings");
               }}
             >
               <AiOutlineSetting size={20} />

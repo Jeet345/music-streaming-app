@@ -33,7 +33,7 @@ function TracksByAlbum() {
     totalDuration = totalDuration + song.duration;
   });
 
-  useEffect(() => {
+  const getAlbumData = () => {
     axios({
       url: "http://localhost:4000/albums/getAlbumById",
       method: "post",
@@ -49,7 +49,11 @@ function TracksByAlbum() {
         console.log(err);
         alert(err);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    getAlbumData();
+  }, [albumId]);
 
   useEffect(() => {
     axios({
@@ -67,7 +71,7 @@ function TracksByAlbum() {
         console.log(err);
         alert(err);
       });
-  }, []);
+  }, [albumId]);
 
   const checkIsFavorite = () => {
     if (userCookie) {
@@ -96,7 +100,7 @@ function TracksByAlbum() {
 
   useEffect(() => {
     checkIsFavorite();
-  }, []);
+  }, [albumId]);
 
   // formate seconds in form of (00:00)
   const calculateTime = (sesc) => {

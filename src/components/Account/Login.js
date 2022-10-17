@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { setUserCookie } from "../../actions";
+import { toast } from "react-toastify";
 
 function Login() {
   const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
@@ -57,7 +58,9 @@ function Login() {
       .catch((err) => {
         setIsFormDisabled(false);
         if (err.response.data.error) {
-          alert(err.response.data.error);
+          toast.error(err.response.data.error, {
+            toastId: "toast error",
+          });
         } else {
           console.log(err);
         }

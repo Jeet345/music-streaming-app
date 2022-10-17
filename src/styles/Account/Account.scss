@@ -1,5 +1,5 @@
 $primary: #689f38;
-$black: #23232c;
+$background: #23232c;
 $danger: rgb(223, 2, 2);
 
 .register-page,
@@ -23,7 +23,7 @@ $danger: rgb(223, 2, 2);
         border-radius: 5px;
         width: 450px;
         margin-top: 50px;
-        background-color: $black;
+        background-color: $background;
         padding: 40px;
         .title {
             color: #f1f1f1;
@@ -80,6 +80,148 @@ $danger: rgb(223, 2, 2);
 
             &:hover {
                 text-decoration: underline;
+            }
+        }
+    }
+}
+
+.account-setting-page {
+    width: 100%;
+    background-color: #1e1e26;
+    padding: 35px 25px;
+    overflow-y: auto;
+    .main-heading {
+        h1 {
+            color: white;
+            font-weight: normal;
+            font-size: 2.2rem;
+        }
+        p {
+            color: #c2c2c2;
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+    }
+    .detail-container {
+        width: 100%;
+        background: $background;
+        border-radius: 5px;
+        border: 1px solid #3b3b3b;
+        padding: 15px;
+        margin-top: 40px;
+        .title {
+            border-bottom: 1px solid #3b3b3b;
+            padding-bottom: 13px;
+            h3 {
+                color: #f1f1f1;
+                font-weight: normal;
+                font-size: 1.1rem;
+            }
+        }
+        .input-form {
+            .input-filed {
+                margin-top: 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h5 {
+                    color: #bababa;
+                    font-weight: normal;
+                    font-size: 0.95rem;
+                }
+                .input {
+                    width: 72%;
+                    input {
+                        width: 100%;
+                        padding: 13px 15px;
+                        font-size: 0.95rem;
+                        &::placeholder {
+                            color: #bababa;
+                        }
+                    }
+                    :not(.Mui-focused) {
+                        fieldset {
+                            border-color: #3b3b3b;
+                        }
+                    }
+                }
+            }
+        }
+        .delete-button {
+            margin-top: 25px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .footer {
+            margin-top: 40px;
+            border-top: 1px solid #3b3b3b;
+            padding-top: 13px;
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: flex-end;
+            button {
+                text-transform: capitalize;
+                font-weight: 600;
+            }
+        }
+    }
+    .user-info-container {
+        .input-form {
+            .input-filed {
+                margin-top: 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h5 {
+                    color: #bababa;
+                    font-weight: normal;
+                    font-size: 0.95rem;
+                }
+                .input {
+                    width: 72%;
+                    input {
+                        width: 100%;
+                        padding: 13px 15px;
+                        font-size: 0.95rem;
+                        &::placeholder {
+                            color: #bababa;
+                        }
+                    }
+                    :not(.Mui-focused) {
+                        fieldset {
+                            border-color: #3b3b3b;
+                        }
+                    }
+                }
+                .input-img {
+                    display: flex;
+                    grid-gap: 15px;
+                    width: 72%;
+                    .img {
+                        width: 90px;
+                        height: 90px;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            aspect-ratio: 1 / 1;
+                        }
+                    }
+                    .desc {
+                        p {
+                            color: #bababa;
+                            font-size: 0.75rem;
+                            width: 140px;
+                        }
+                        .button {
+                            text-transform: capitalize;
+                            display: block;
+                            margin-top: 10px;
+                        }
+                        .upBtn {
+                            display: table;
+                        }
+                    }
+                }
             }
         }
     }

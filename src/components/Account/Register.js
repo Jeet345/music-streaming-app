@@ -8,6 +8,7 @@ import moment from "moment";
 import { Button, InputLabel, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Register() {
   let schema = yup.object().shape({
@@ -71,7 +72,7 @@ function Register() {
         })
           .then((res) => {
             if (res.data === 1) {
-              alert("Registed..");
+              toast.success("Account Register Successfully...");
               navigate("/login");
             } else {
               console.log(res);

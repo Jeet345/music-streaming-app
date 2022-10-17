@@ -37,7 +37,7 @@ function TracksByArtist() {
     totalDuration = totalDuration + song.duration;
   });
 
-  useEffect(() => {
+  const getArtistData = () => {
     axios({
       url: "http://localhost:4000/artists/getArtistById",
       method: "post",
@@ -52,7 +52,11 @@ function TracksByArtist() {
         console.log(err);
         alert(err);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    getArtistData();
+  }, [artistId]);
 
   useEffect(() => {
     axios({
@@ -69,7 +73,7 @@ function TracksByArtist() {
         console.log(err);
         alert(err);
       });
-  }, []);
+  }, [artistId]);
 
   useEffect(() => {
     axios({
@@ -86,7 +90,7 @@ function TracksByArtist() {
         console.log(err);
         alert(err);
       });
-  }, []);
+  }, [artistId]);
 
   // formate seconds in form of (00:00)
   const calculateTime = (sesc) => {

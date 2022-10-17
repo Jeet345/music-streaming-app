@@ -242,6 +242,11 @@ $backgroundColor: #1e1e26;
                         }
                     }
                 }
+                // &:hover {
+                //     .hover-box {
+                //         display: block;
+                //     }
+                // }
             }
             .desc-box {
                 display: flex;
@@ -353,14 +358,46 @@ $backgroundColor: #1e1e26;
                         display: block;
                         border-radius: 5px;
                         overflow: hidden;
+                        position: relative;
                         img {
                             object-fit: contain;
                             object-position: center;
                             width: 100%;
                             aspect-ratio: 1 / 1;
                         }
+                        .hover-box {
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0.6);
+                            color: white;
+                            left: 0px;
+                            top: 0px;
+                            display: none;
+                            cursor: pointer;
+                            place-items: center;
+                            transition: 0.3s;
+                            .icon {
+                                width: 70%;
+                                height: 70%;
+                                border-radius: 100%;
+                                border: 1px solid #bababa;
+                                display: grid;
+                                place-items: center;
+                                transition: 0.3s;
+                                &:hover {
+                                    transform: scale(110%);
+                                }
+                            }
+                        }
+                        &:hover {
+                            .hover-box {
+                                display: grid;
+                            }
+                        }
                     }
                     .desc {
+                        overflow: hidden;
                         a {
                             display: block;
                             text-decoration: none;
@@ -371,10 +408,22 @@ $backgroundColor: #1e1e26;
                         }
                         .main {
                             color: white;
+                            font-size: 0.9rem;
+                            cursor: pointer;
+                            &:hover {
+                                text-decoration: underline;
+                            }
                         }
                         .sub {
                             margin-top: 4px;
+                            font-size: 0.9rem;
+                            display: flex;
+                            grid-gap: 5px;
+                            align-items: center;
                             color: rgb(192, 192, 192);
+                            a {
+                                color: rgb(192, 192, 192);
+                            }
                         }
                     }
                 }
@@ -386,6 +435,8 @@ $backgroundColor: #1e1e26;
                 padding: 7px;
                 border: 1px solid rgba(255, 255, 255, 0.06);
                 background-color: #2a2a35;
+                transition: 0.3s;
+
                 &:hover {
                     background-color: #353543;
                 }

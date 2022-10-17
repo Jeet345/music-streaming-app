@@ -50,20 +50,21 @@ export default function SongDataTable(props) {
   // if search is avilable then
   if (searchValue) {
     const newSongData = songData?.filter((song) => {
-      console.log("song", song);
       if (searchValue.length) {
-        return song.title.toLowerCase().startsWith(searchValue.toLowerCase()) ||
+        return (
+          song.title.toLowerCase().startsWith(searchValue.toLowerCase()) ||
           song.artist_names[0].name
             .toLowerCase()
             .startsWith(searchValue.toLowerCase()) ||
-          song.album_name.length
-          ? song.album_name[0].name
-              .toLowerCase()
-              .startsWith(searchValue.toLowerCase())
-          : null;
+          song.album_name[0]?.name
+            .toLowerCase()
+            .startsWith(searchValue.toLowerCase())
+        );
       }
     });
+
     if (newSongData.length) {
+      console.log("newSongData", newSongData);
       songData = newSongData;
     } else {
       if (searchValue.length == 0) {

@@ -136,21 +136,21 @@ function Songs() {
       width: 100,
       headerName: "Title",
     },
-    {
-      field: "trackFileName",
-      width: 300,
-      headerName: "Track",
-      renderCell: (param) => {
-        return (
-          <audio controls style={{ height: "40px" }}>
-            <source
-              src={`http://localhost:4000/getAudio/${param.value}`}
-              type="audio/mp3"
-            />
-          </audio>
-        );
-      },
-    },
+    // {
+    //   field: "trackFileName",
+    //   width: 300,
+    //   headerName: "Track",
+    //   renderCell: (param) => {
+    //     return (
+    //       <audio controls style={{ height: "40px" }}>
+    //         <source
+    //           src={`http://localhost:4000/getAudio/${param.value}`}
+    //           type="audio/mp3"
+    //         />
+    //       </audio>
+    //     );
+    //   },
+    // },
     {
       field: "album_name",
       width: 130,

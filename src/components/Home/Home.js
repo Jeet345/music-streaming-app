@@ -62,8 +62,6 @@ function Home() {
 
   return (
     <div className="home-page">
-      <pre style={{ color: "red" }}>{currPlayingSongData}</pre>
-
       <div className="popular-albums-container">
         <Link className="heading" to="/popularAlbums">
           Popular Albums <BiChevronRight />
