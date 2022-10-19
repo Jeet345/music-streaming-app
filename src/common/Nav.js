@@ -9,6 +9,7 @@ import {
   MdMicNone,
   MdOutlineAlbum,
   MdOutlineAudiotrack,
+  MdOutlineDashboard,
   MdOutlineNewReleases,
   MdPlaylistAdd,
 } from "react-icons/md";
@@ -231,6 +232,18 @@ function Nav() {
               "aria-labelledby": "basic-button",
             }}
           >
+            {userData && userData.groupName == "admin" ? (
+              <MenuItem
+                onClick={() => {
+                  setSettingMenuAnchorEl(null);
+                  navigate("/admin/dashboard");
+                }}
+              >
+                <MdOutlineDashboard size={20} />
+                Admin Area
+              </MenuItem>
+            ) : null}
+
             <MenuItem
               onClick={() => {
                 setSettingMenuAnchorEl(null);

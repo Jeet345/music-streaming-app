@@ -12,6 +12,7 @@ import {
 } from "../../actions";
 import { MdQueueMusic, MdRepeat, MdShuffle } from "react-icons/md";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Player() {
   const audioPlayer = useRef();
@@ -37,6 +38,30 @@ function Player() {
   const currPlayingSong = JSON.parse(
     useSelector((state) => state.changeCurrPlayingSong)
   );
+
+  useEffect(() => {
+    if (
+      isLoaded &&
+      `http://localhost:4000/getAudio/${songData.trackFileName}` !=
+        audioPlayer.current.currentSrc
+    ) {
+      axios({
+        url: "http://localhost:4000/songs/updatePlays",
+        method: "post",
+        data: {
+          id: songData._id,
+        },
+      })
+        .then((res) => {
+          console.log("plays incress");
+        })
+        .catch((err) => {
+          console.log("Something Wan't Wrong");
+        });
+
+      // console.log("song change");
+    }
+  }, [songData]);
 
   useEffect(() => {
     const currentSec = audioPlayer.current.currentTime;

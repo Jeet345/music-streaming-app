@@ -96,9 +96,7 @@ function Register() {
           <h3 className="title">Create New Account</h3>
 
           <div className="input-filed">
-            <label className="label" htmlFor="Email">
-              username
-            </label>
+            <label className="label">username</label>
             <TextField
               id="username"
               className="input"
@@ -112,9 +110,7 @@ function Register() {
           </div>
 
           <div className="input-filed">
-            <label className="label" htmlFor="Email">
-              email
-            </label>
+            <label className="label">email</label>
             <TextField
               id="email"
               className="input"
@@ -128,9 +124,7 @@ function Register() {
           </div>
 
           <div className="input-filed">
-            <label className="label" htmlFor="password">
-              Password
-            </label>
+            <label className="label">Password</label>
             <TextField
               hintText="Password"
               type="password"
@@ -146,9 +140,7 @@ function Register() {
           </div>
 
           <div className="input-filed">
-            <label className="label" htmlFor="conPassword">
-              Confirm Password
-            </label>
+            <label className="label">Confirm Password</label>
             <TextField
               type="password"
               id="conPassword"

@@ -27,6 +27,7 @@ function Login() {
   });
 
   const [isFormDisabled, setIsFormDisabled] = useState(false);
+  const [isForgotDisabled, setIsForgotDisabled] = useState(false);
 
   const {
     register,
@@ -67,6 +68,40 @@ function Login() {
       });
   };
 
+  const handleForgotLinkClick = (e) => {
+    let email = watch("email");
+
+    if (!email || errors.email) {
+      toast.error("Please enter valid email", {
+        toastId: "email valid",
+      });
+    } else {
+      setIsForgotDisabled(true);
+      axios({
+        url: "http://localhost:4000/forgotPasswordMailSend",
+        method: "post",
+        data: { email: email },
+      })
+        .then((res) => {
+          setIsForgotDisabled(false);
+          if (res.data == 1) {
+            toast.success(`We have send password reset link on ${email}.`, {
+              toastId: "success link",
+            });
+          } else if (res.data.error) {
+            toast.error(res.data.error, {
+              toastId: "not found",
+            });
+          } else {
+            console.log("Something wan't wrong !!");
+          }
+        })
+        .catch((err) => {
+          console.log("Something Wan't Wrong!!");
+        });
+    }
+  };
+
   return (
     <div className="login-page">
       <form method="post" onSubmit={handleSubmit(formSubmit)}>
@@ -92,9 +127,15 @@ function Login() {
           <div className="input-filed">
             <label className="label" htmlFor="password">
               Password
-              <Link className="forgot-link" to="/">
+              <Button
+                variant="text"
+                disabled={isForgotDisabled}
+                className="forgot-link"
+                onClick={handleForgotLinkClick}
+                to="/"
+              >
                 Forgot your password?
-              </Link>
+              </Button>
             </label>
             <TextField
               hinttext="Password"

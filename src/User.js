@@ -22,6 +22,7 @@ import NewReleases from "./components/Tracks/NewReleases.js";
 import Playlist from "./components/your_music/Playlist.js";
 import SearchContainer from "./common/SearchContainer.js";
 import Settings from "./components/Account/Settings.js";
+import ForgotPassword from "./components/Account/ForgotPassword.js";
 
 function User() {
   const userCookie = useSelector((state) => state.changeUserCookie);
@@ -41,6 +42,10 @@ function User() {
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route
+                path="/forgotPassword/:token"
+                element={<ForgotPassword />}
+              />
             </>
           ) : null}
           <Route path="/logout" element={<Logout />} />

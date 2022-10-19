@@ -87,7 +87,7 @@ function SideQueueBox() {
                 <h4 className="title">{data.title.slice(0, 19) + "..."}</h4>
                 <div className="link-box">
                   {data.artist_names.map((artist, elem) => (
-                    <Link to="/about" key={elem}>
+                    <Link to={`/tracksByArtist/${artist._id}`} key={elem}>
                       {artist.name},&nbsp;
                     </Link>
                   ))}

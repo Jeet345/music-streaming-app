@@ -42,7 +42,6 @@ function TracksByAlbum() {
       },
     })
       .then((res) => {
-        console.log("album", res.data[0]);
         setAlbumData(res.data[0]);
       })
       .catch((err) => {
@@ -64,7 +63,6 @@ function TracksByAlbum() {
       },
     })
       .then((res) => {
-        console.log("tracks", res.data);
         setSongData(res.data);
       })
       .catch((err) => {
@@ -84,7 +82,6 @@ function TracksByAlbum() {
         },
       })
         .then((res) => {
-          console.log("fav data", res.data.favorite_albums);
           if (res.data.favorite_albums.includes(albumId)) {
             setIsFavourite(true);
           } else {
@@ -116,6 +113,21 @@ function TracksByAlbum() {
     if (queueData != JSON.stringify(songData)) {
       dispatch(setQueue(JSON.stringify(songData)));
       dispatch(setCurrPlayingSong(JSON.stringify(songData[0])));
+
+      // incress plays in db
+      axios({
+        url: "http://localhost:4000/albums/updatePlays",
+        method: "post",
+        data: {
+          id: albumData._id,
+        },
+      })
+        .then((res) => {
+          console.log("album plays incress");
+        })
+        .catch((err) => {
+          console.log("Something wan't wrong !!");
+        });
     }
   };
 

@@ -89,15 +89,27 @@ export default function AlbumContainer(prop) {
                       handleAlbumClick(album);
                     }}
                   >
-                    <div
-                      className="icon"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handlePlayBtnClick(album);
-                      }}
-                    >
-                      <BsFillPlayFill />
-                    </div>
+                    {isPlaying && false ? (
+                      <div
+                        className="icon"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // handlePauseBtnClick(album);
+                        }}
+                      >
+                        <BsFillPauseFill />
+                      </div>
+                    ) : (
+                      <div
+                        className="icon"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePlayBtnClick(album);
+                        }}
+                      >
+                        <BsFillPlayFill />
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="desc">

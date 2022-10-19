@@ -3,6 +3,7 @@ $background: #23232c;
 $danger: rgb(223, 2, 2);
 
 .register-page,
+.forgot-password-page,
 .login-page {
     display: flex;
     align-items: center;
@@ -42,9 +43,13 @@ $danger: rgb(223, 2, 2);
                 justify-content: space-between;
                 align-items: center;
                 .forgot-link {
+                    background: none;
+                    letter-spacing: normal;
+                    text-transform: capitalize;
                     font-weight: normal;
                     font-size: 0.9rem;
                     display: table;
+                    cursor: pointer;
                     text-decoration: none;
                     color: #dbdbdb;
                     &:hover {

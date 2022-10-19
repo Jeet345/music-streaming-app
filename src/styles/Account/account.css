@@ -1,4 +1,5 @@
 .register-page,
+.forgot-password-page,
 .login-page {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -19,6 +20,7 @@
 }
 
 .register-page .logo,
+.forgot-password-page .logo,
 .login-page .logo {
   text-align: center;
   color: white;
@@ -27,6 +29,8 @@
 
 .register-page .register-box,
 .register-page .login-box,
+.forgot-password-page .register-box,
+.forgot-password-page .login-box,
 .login-page .register-box,
 .login-page .login-box {
   border-radius: 5px;
@@ -38,6 +42,8 @@
 
 .register-page .register-box .title,
 .register-page .login-box .title,
+.forgot-password-page .register-box .title,
+.forgot-password-page .login-box .title,
 .login-page .register-box .title,
 .login-page .login-box .title {
   color: #f1f1f1;
@@ -47,6 +53,8 @@
 
 .register-page .register-box .input-filed,
 .register-page .login-box .input-filed,
+.forgot-password-page .register-box .input-filed,
+.forgot-password-page .login-box .input-filed,
 .login-page .register-box .input-filed,
 .login-page .login-box .input-filed {
   margin-top: 30px;
@@ -54,6 +62,8 @@
 
 .register-page .register-box .input-filed .label,
 .register-page .login-box .input-filed .label,
+.forgot-password-page .register-box .input-filed .label,
+.forgot-password-page .login-box .input-filed .label,
 .login-page .register-box .input-filed .label,
 .login-page .login-box .input-filed .label {
   color: #f1f1f1;
@@ -74,17 +84,25 @@
 
 .register-page .register-box .input-filed .label .forgot-link,
 .register-page .login-box .input-filed .label .forgot-link,
+.forgot-password-page .register-box .input-filed .label .forgot-link,
+.forgot-password-page .login-box .input-filed .label .forgot-link,
 .login-page .register-box .input-filed .label .forgot-link,
 .login-page .login-box .input-filed .label .forgot-link {
+  background: none;
+  letter-spacing: normal;
+  text-transform: capitalize;
   font-weight: normal;
   font-size: 0.9rem;
   display: table;
+  cursor: pointer;
   text-decoration: none;
   color: #dbdbdb;
 }
 
 .register-page .register-box .input-filed .label .forgot-link:hover,
 .register-page .login-box .input-filed .label .forgot-link:hover,
+.forgot-password-page .register-box .input-filed .label .forgot-link:hover,
+.forgot-password-page .login-box .input-filed .label .forgot-link:hover,
 .login-page .register-box .input-filed .label .forgot-link:hover,
 .login-page .login-box .input-filed .label .forgot-link:hover {
   color: white;
@@ -93,6 +111,8 @@
 
 .register-page .register-box .input-filed input,
 .register-page .login-box .input-filed input,
+.forgot-password-page .register-box .input-filed input,
+.forgot-password-page .login-box .input-filed input,
 .login-page .register-box .input-filed input,
 .login-page .login-box .input-filed input {
   padding: 13px 15px;
@@ -100,6 +120,8 @@
 
 .register-page .register-box .submit-btn,
 .register-page .login-box .submit-btn,
+.forgot-password-page .register-box .submit-btn,
+.forgot-password-page .login-box .submit-btn,
 .login-page .register-box .submit-btn,
 .login-page .login-box .submit-btn {
   width: 100%;
@@ -112,6 +134,7 @@
 }
 
 .register-page .bottom-link,
+.forgot-password-page .bottom-link,
 .login-page .bottom-link {
   text-align: center;
   color: #f1f1f1;
@@ -122,12 +145,14 @@
 }
 
 .register-page .bottom-link a,
+.forgot-password-page .bottom-link a,
 .login-page .bottom-link a {
   margin-left: 5px;
   color: #689f38;
 }
 
 .register-page .bottom-link a:hover,
+.forgot-password-page .bottom-link a:hover,
 .login-page .bottom-link a:hover {
   text-decoration: underline;
 }
