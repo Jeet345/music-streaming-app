@@ -18,7 +18,7 @@ function Artists() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/library/getDetailFollowingArtistsUserId",
+      url: `${process.env.REACT_APP_API}library/getDetailFollowingArtistsUserId`,
       method: "post",
       data: {
         userId: userCookie,

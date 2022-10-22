@@ -15,7 +15,7 @@ function Albums() {
   const getFavAlbumData = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/getDetailFavoriteAlbumByUserId",
+        url: `${process.env.REACT_APP_API}library/getDetailFavoriteAlbumByUserId`,
         method: "post",
         data: {
           userId: userCookie,

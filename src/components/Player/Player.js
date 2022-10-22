@@ -42,11 +42,11 @@ function Player() {
   useEffect(() => {
     if (
       isLoaded &&
-      `http://localhost:4000/getAudio/${songData.trackFileName}` !=
+      `${process.env.REACT_APP_API}getAudio/${songData.trackFileName}` !=
         audioPlayer.current.currentSrc
     ) {
       axios({
-        url: "http://localhost:4000/songs/updatePlays",
+        url: `${process.env.REACT_APP_API}songs/updatePlays`,
         method: "post",
         data: {
           id: songData._id,
@@ -148,7 +148,7 @@ function Player() {
         onLoadedMetadata={onLoadedMetadata}
       >
         <source
-          src={`http://localhost:4000/getAudio/${songData.trackFileName}`}
+          src={`${process.env.REACT_APP_API}getAudio/${songData.trackFileName}`}
           type="audio/mp3"
         />
       </audio>

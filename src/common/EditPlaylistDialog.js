@@ -83,7 +83,7 @@ function EditPlaylistDialog(prop) {
     console.log("formdata : ----------------");
 
     axios({
-      url: "http://localhost:4000/playlists/updatePlaylist",
+      url: `${process.env.REACT_APP_API}playlists/updatePlaylist`,
       method: "post",
       data: form_data,
       // onUploadProgress: uploadProgress,
@@ -108,7 +108,7 @@ function EditPlaylistDialog(prop) {
   const getPlaylistData = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/playlists/getPlaylistsByUserId",
+        url: `${process.env.REACT_APP_API}playlists/getPlaylistsByUserId`,
         method: "post",
         data: {
           userId: userCookie,
@@ -171,7 +171,7 @@ function EditPlaylistDialog(prop) {
                     <img
                       src={
                         editPlaylistData.coverImg
-                          ? `http://localhost:4000/getImg/${editPlaylistData.coverImg}`
+                          ? `${process.env.REACT_APP_API}getImg/${editPlaylistData.coverImg}`
                           : require("../assets/album.jpg")
                       }
                     />

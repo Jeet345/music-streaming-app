@@ -34,7 +34,7 @@ function Songs() {
 
   const getDataRequest = () => {
     axios({
-      url: "http://localhost:4000/admin/songs/getAllTracks",
+      url: `${process.env.REACT_APP_API}admin/songs/getAllTracks`,
       method: "get",
     })
       .then((res) => {
@@ -59,7 +59,7 @@ function Songs() {
 
   const handleDeleteClick = () => {
     axios({
-      url: "http://localhost:4000/admin/songs/deleteTracks",
+      url: `${process.env.REACT_APP_API}admin/songs/deleteTracks`,
       method: "delete",
       data: selectedRowsId,
     })
@@ -126,7 +126,7 @@ function Songs() {
             width="35px"
             loading="lazy"
             height="35px"
-            src={`http://localhost:4000/getImg/${param.value}`}
+            src={`${process.env.REACT_APP_API}getImg/${param.value}`}
           />
         );
       },
@@ -144,7 +144,7 @@ function Songs() {
     //     return (
     //       <audio controls style={{ height: "40px" }}>
     //         <source
-    //           src={`http://localhost:4000/getAudio/${param.value}`}
+    //           src={`${process.env.REACT_APP_API}getAudio/${param.value}`}
     //           type="audio/mp3"
     //         />
     //       </audio>

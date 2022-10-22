@@ -37,7 +37,7 @@ function ForgotPassword() {
 
   const formSubmit = async (data, e) => {
     axios({
-      url: "http://localhost:4000/forgotPassword",
+      url: `${process.env.REACT_APP_API}forgotPassword`,
       method: "post",
       data: {
         password: data.password,

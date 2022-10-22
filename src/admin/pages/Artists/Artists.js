@@ -33,7 +33,7 @@ function Artists() {
 
   const getDataRequest = () => {
     axios({
-      url: "http://localhost:4000/admin/artists/getAllArtists",
+      url: `${process.env.REACT_APP_API}admin/artists/getAllArtists`,
       method: "get",
     })
       .then((res) => {
@@ -49,7 +49,7 @@ function Artists() {
 
   const handleDeleteClick = () => {
     axios({
-      url: "http://localhost:4000/admin/artists/deleteArtists",
+      url: `${process.env.REACT_APP_API}admin/artists/deleteArtists`,
       method: "delete",
       data: selectedRowsId,
     })
@@ -94,7 +94,7 @@ function Artists() {
             width="35px"
             loading="lazy"
             height="35px"
-            src={`http://localhost:4000/getImg/${param.value}`}
+            src={`${process.env.REACT_APP_API}getImg/${param.value}`}
           />
         );
       },

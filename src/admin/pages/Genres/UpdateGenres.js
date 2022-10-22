@@ -38,7 +38,7 @@ function UpdateGenres() {
     setIsFormDisabled(true);
 
     axios({
-      url: "http://localhost:4000/admin/genres/updateGenres",
+      url: `${process.env.REACT_APP_API}admin/genres/updateGenres`,
       method: "post",
       data: {
         id: data.id,

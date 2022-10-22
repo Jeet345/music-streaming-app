@@ -30,7 +30,7 @@ function Genres() {
 
   const getDataRequest = () => {
     axios({
-      url: "http://localhost:4000/admin/genres/getAllGenres",
+      url: `${process.env.REACT_APP_API}admin/genres/getAllGenres`,
       method: "get",
     })
       .then((res) => {
@@ -46,7 +46,7 @@ function Genres() {
 
   const handleDeleteClick = () => {
     axios({
-      url: "http://localhost:4000/admin/genres/deleteGenres",
+      url: `${process.env.REACT_APP_API}admin/genres/deleteGenres`,
       method: "delete",
       data: selectedRowsId,
     })

@@ -55,7 +55,7 @@ function AddAlbum() {
   useEffect(() => {
     // getting artist data from api
     axios({
-      url: "http://localhost:4000/admin/artists/getAllActiveArtists",
+      url: `${process.env.REACT_APP_API}admin/artists/getAllActiveArtists`,
       method: "get",
     })
       .then((res) => {
@@ -123,7 +123,7 @@ function AddAlbum() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/albums/addAlbum",
+      url: `${process.env.REACT_APP_API}admin/albums/addAlbum`,
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,

@@ -30,7 +30,7 @@ function Albums() {
 
   const getDataRequest = () => {
     axios({
-      url: "http://localhost:4000/admin/albums/getAllAlbums",
+      url: `${process.env.REACT_APP_API}admin/albums/getAllAlbums`,
       method: "get",
     })
       .then((res) => {
@@ -46,7 +46,7 @@ function Albums() {
 
   const handleDeleteClick = () => {
     axios({
-      url: "http://localhost:4000/admin/albums/deleteAlbums",
+      url: `${process.env.REACT_APP_API}admin/albums/deleteAlbums`,
       method: "delete",
       data: selectedRowsId,
     })
@@ -91,7 +91,7 @@ function Albums() {
             width="35px"
             loading="lazy"
             height="35px"
-            src={`http://localhost:4000/getImg/${param.value}`}
+            src={`${process.env.REACT_APP_API}getImg/${param.value}`}
           />
         );
       },

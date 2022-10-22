@@ -45,7 +45,7 @@ function Settings() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/users/findUserById",
+      url: `${process.env.REACT_APP_API}users/findUserById`,
       method: "post",
       data: {
         id: userCookie,
@@ -57,7 +57,7 @@ function Settings() {
         setLastName(res.data.lastName);
         if (res.data.profileImage) {
           setCoverImagePath(
-            `http://localhost:4000/getImg/${res.data.profileImage}`
+            `${process.env.REACT_APP_API}getImg/${res.data.profileImage}`
           );
         }
       })
@@ -100,7 +100,7 @@ function Settings() {
     console.log("form", ...form_data);
 
     axios({
-      url: "http://localhost:4000/users/updateUserInfo",
+      url: `${process.env.REACT_APP_API}users/updateUserInfo`,
       method: "post",
       data: form_data,
       headers: {
@@ -127,7 +127,7 @@ function Settings() {
     console.log(data);
 
     axios({
-      url: "http://localhost:4000/users/updatePassword",
+      url: `${process.env.REACT_APP_API}users/updatePassword`,
       method: "post",
       data: {
         id: userCookie,

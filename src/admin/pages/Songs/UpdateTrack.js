@@ -80,7 +80,7 @@ function UpdateTrack() {
   useEffect(() => {
     // getting artist data from api
     axios({
-      url: "http://localhost:4000/admin/artists/getAllActiveArtists",
+      url: `${process.env.REACT_APP_API}admin/artists/getAllActiveArtists`,
       method: "get",
     })
       .then((res) => {
@@ -92,7 +92,7 @@ function UpdateTrack() {
 
     // getting album data from api
     axios({
-      url: "http://localhost:4000/admin/albums/getAllActiveAlbums",
+      url: `${process.env.REACT_APP_API}admin/albums/getAllActiveAlbums`,
       method: "get",
     })
       .then((res) => {
@@ -104,7 +104,7 @@ function UpdateTrack() {
 
     // getting genres data from api
     axios({
-      url: "http://localhost:4000/admin/genres/getAllActiveGenres",
+      url: `${process.env.REACT_APP_API}admin/genres/getAllActiveGenres`,
       method: "get",
     })
       .then((res) => {
@@ -170,7 +170,7 @@ function UpdateTrack() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/songs/updateTrack",
+      url: `${process.env.REACT_APP_API}admin/songs/updateTrack`,
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,

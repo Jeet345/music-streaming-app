@@ -67,7 +67,7 @@ function NewPlaylistDialog(prop) {
     console.log("formdata : ----------------");
 
     axios({
-      url: "http://localhost:4000/playlists/addPlaylist",
+      url: `${process.env.REACT_APP_API}/playlists/addPlaylist`,
       method: "post",
       data: form_data,
       // onUploadProgress: uploadProgress,

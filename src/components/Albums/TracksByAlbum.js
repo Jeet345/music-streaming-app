@@ -35,7 +35,7 @@ function TracksByAlbum() {
 
   const getAlbumData = () => {
     axios({
-      url: "http://localhost:4000/albums/getAlbumById",
+      url: `${process.env.REACT_APP_API}albums/getAlbumById`,
       method: "post",
       data: {
         id: albumId,
@@ -56,7 +56,7 @@ function TracksByAlbum() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/songs/getTracksByAlbumId",
+      url: `${process.env.REACT_APP_API}songs/getTracksByAlbumId`,
       method: "post",
       data: {
         id: albumId,
@@ -74,7 +74,7 @@ function TracksByAlbum() {
   const checkIsFavorite = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/getFavoriteAlbumByUserId",
+        url: `${process.env.REACT_APP_API}library/getFavoriteAlbumByUserId`,
         method: "post",
         data: {
           userId: userCookie,
@@ -116,7 +116,7 @@ function TracksByAlbum() {
 
       // incress plays in db
       axios({
-        url: "http://localhost:4000/albums/updatePlays",
+        url: `${process.env.REACT_APP_API}albums/updatePlays`,
         method: "post",
         data: {
           id: albumData._id,
@@ -138,7 +138,7 @@ function TracksByAlbum() {
   const handleAddFavBtnClick = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/addFavoriteAlbum",
+        url: `${process.env.REACT_APP_API}library/addFavoriteAlbum`,
         method: "post",
         data: {
           userId: userCookie,
@@ -162,7 +162,7 @@ function TracksByAlbum() {
   const handleRemoveFavBtnClick = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/removeFavoriteAlbum",
+        url: `${process.env.REACT_APP_API}library/removeFavoriteAlbum`,
         method: "delete",
         data: {
           userId: userCookie,
@@ -190,7 +190,7 @@ function TracksByAlbum() {
           <img
             src={
               albumData.coverImg
-                ? `http://localhost:4000/getImg/${albumData.coverImg}`
+                ? `${process.env.REACT_APP_API}getImg/${albumData.coverImg}`
                 : null
             }
             alt=""
@@ -203,7 +203,7 @@ function TracksByAlbum() {
               return (
                 <Link to={`/tracksByArtist/${artist._id}`} key={elem}>
                   <img
-                    src={`http://localhost:4000/getImg/${artist.coverImg}`}
+                    src={`${process.env.REACT_APP_API}getImg/${artist.coverImg}`}
                     alt=""
                   />
                   {artist.name}

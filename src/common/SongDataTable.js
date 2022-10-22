@@ -92,7 +92,7 @@ export default function SongDataTable(props) {
   const getFavoriteSongData = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/getFavoriteSongByUserId",
+        url: `${process.env.REACT_APP_API}library/getFavoriteSongByUserId`,
         method: "post",
         data: {
           userId: userCookie,
@@ -117,7 +117,7 @@ export default function SongDataTable(props) {
       let userId = userCookie;
       let songId = row._id;
       axios({
-        url: "http://localhost:4000/library/addFavoriteSong",
+        url: `${process.env.REACT_APP_API}library/addFavoriteSong`,
         method: "post",
         data: {
           userId,
@@ -145,7 +145,7 @@ export default function SongDataTable(props) {
       let userId = userCookie;
       let songId = row._id;
       axios({
-        url: "http://localhost:4000/library/removeFavoriteSong",
+        url: `${process.env.REACT_APP_API}library/removeFavoriteSong`,
         method: "delete",
         data: {
           userId,
@@ -185,7 +185,7 @@ export default function SongDataTable(props) {
 
   const handlePlaylistSelected = (e, playlist) => {
     axios({
-      url: "http://localhost:4000/playlists/addSongInPlaylist",
+      url: `${process.env.REACT_APP_API}playlists/addSongInPlaylist`,
       method: "post",
       data: {
         id: playlist._id,
@@ -216,7 +216,7 @@ export default function SongDataTable(props) {
     setMenuAnchorEl(null);
 
     axios({
-      url: "http://localhost:4000/playlists/removeSongInPlaylist",
+      url: `${process.env.REACT_APP_API}playlists/removeSongInPlaylist`,
       method: "post",
       data: {
         songId: menuRowData._id,
@@ -258,7 +258,7 @@ export default function SongDataTable(props) {
       >
         <div className="menu-header">
           <img
-            src={`http://localhost:4000/getImg/${menuRowData.imageFileName}`}
+            src={`${process.env.REACT_APP_API}getImg/${menuRowData.imageFileName}`}
             alt=""
           />
           <div className="desc">
@@ -459,7 +459,9 @@ export default function SongDataTable(props) {
 
                 <td className="song-image">
                   <img
-                    src={"http://localhost:4000/getImg/" + row.imageFileName}
+                    src={
+                      `${process.env.REACT_APP_API}getImg/` + row.imageFileName
+                    }
                     width="35px"
                   />
                 </td>

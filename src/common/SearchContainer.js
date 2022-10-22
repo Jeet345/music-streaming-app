@@ -42,7 +42,7 @@ function SearchContainer() {
       setIsVisible(true);
 
       axios({
-        url: "http://localhost:4000/search",
+        url: `${process.env.REACT_APP_API}search`,
         method: "post",
         data: {
           query: searchQuery,
@@ -97,7 +97,7 @@ function SearchContainer() {
                       >
                         <img
                           alt=""
-                          src={`http://localhost:4000/getImg/${artist.coverImg}`}
+                          src={`${process.env.REACT_APP_API}getImg/${artist.coverImg}`}
                         />
                       </Link>
                       <div className="desc">
@@ -128,7 +128,7 @@ function SearchContainer() {
                       <div to={"/"} className="img">
                         <img
                           alt=""
-                          src={`http://localhost:4000/getImg/${track.imageFileName}`}
+                          src={`${process.env.REACT_APP_API}getImg/${track.imageFileName}`}
                         />
                         {isPlaying && currPlayingSong._id == track._id ? (
                           <div
@@ -193,7 +193,7 @@ function SearchContainer() {
                       <Link to={`/tracksByAlbum/${album._id}`} className="img">
                         <img
                           alt=""
-                          src={`http://localhost:4000/getImg/${album.coverImg}`}
+                          src={`${process.env.REACT_APP_API}getImg/${album.coverImg}`}
                         />
                       </Link>
                       <div className="desc">
@@ -237,7 +237,7 @@ function SearchContainer() {
                           alt=""
                           src={
                             playlist.coverImg
-                              ? `http://localhost:4000/getImg/${playlist.coverImg}`
+                              ? `${process.env.REACT_APP_API}getImg/${playlist.coverImg}`
                               : albumImg
                           }
                         />

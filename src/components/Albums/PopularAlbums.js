@@ -7,7 +7,7 @@ export default function PopularAlbums() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/albums/getPopularAlbums",
+      url: `${process.env.REACT_APP_API}albums/getPopularAlbums`,
       method: "get",
     })
       .then((res) => {

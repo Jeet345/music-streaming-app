@@ -101,7 +101,7 @@ function AddArtist() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/artists/addArtist",
+      url: `${process.env.REACT_APP_API}admin/artists/addArtist`,
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,

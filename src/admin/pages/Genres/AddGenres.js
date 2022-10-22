@@ -30,7 +30,7 @@ function AddGenres() {
     setIsFormDisabled(true);
 
     axios({
-      url: "http://localhost:4000/admin/genres/addGenres",
+      url: `${process.env.REACT_APP_API}admin/genres/addGenres`,
       method: "post",
       data: {
         name: data.name,

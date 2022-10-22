@@ -23,7 +23,7 @@ function Home() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/songs/get10PopularTracks",
+      url: `${process.env.REACT_APP_API}songs/get10PopularTracks`,
       method: "get",
     })
       .then((res) => {
@@ -36,7 +36,7 @@ function Home() {
       });
 
     axios({
-      url: "http://localhost:4000/genres/get10ActiveGenres",
+      url: `${process.env.REACT_APP_API}genres/get10ActiveGenres`,
       method: "get",
     })
       .then((res) => {
@@ -48,7 +48,7 @@ function Home() {
       });
 
     axios({
-      url: "http://localhost:4000/albums/get10PopularAlbums",
+      url: `${process.env.REACT_APP_API}albums/get10PopularAlbums`,
       method: "get",
     })
       .then((res) => {

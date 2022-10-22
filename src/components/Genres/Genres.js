@@ -9,7 +9,7 @@ function Genres() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/genres/getActiveGenres",
+      url: `${process.env.REACT_APP_API}genres/getActiveGenres`,
       method: "get",
     })
       .then((genres) => {

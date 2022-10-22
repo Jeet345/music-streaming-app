@@ -62,7 +62,7 @@ function AddTrack() {
   useEffect(() => {
     // getting artist data from api
     axios({
-      url: "http://localhost:4000/admin/artists/getAllActiveArtists",
+      url: `${process.env.REACT_APP_API}admin/artists/getAllActiveArtists`,
       method: "get",
     })
       .then((res) => {
@@ -74,7 +74,7 @@ function AddTrack() {
 
     // getting album data from api
     axios({
-      url: "http://localhost:4000/admin/albums/getAllActiveAlbums",
+      url: `${process.env.REACT_APP_API}admin/albums/getAllActiveAlbums`,
       method: "get",
     })
       .then((res) => {
@@ -86,7 +86,7 @@ function AddTrack() {
 
     // getting genres data from api
     axios({
-      url: "http://localhost:4000/admin/genres/getAllActiveGenres",
+      url: `${process.env.REACT_APP_API}admin/genres/getAllActiveGenres`,
       method: "get",
     })
       .then((res) => {
@@ -159,7 +159,7 @@ function AddTrack() {
       form_data.append("duration", Math.floor(audio.duration));
 
       axios({
-        url: "http://localhost:4000/admin/songs/addtrack",
+        url: `${process.env.REACT_APP_API}admin/songs/addtrack`,
         method: "post",
         data: form_data,
         onUploadProgress: uploadProgress,

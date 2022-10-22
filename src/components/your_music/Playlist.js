@@ -36,7 +36,7 @@ function Playlist() {
 
   const getPlaylistDataById = () => {
     axios({
-      url: "http://localhost:4000/playlists/getPlaylistById",
+      url: `${process.env.REACT_APP_API}playlists/getPlaylistById`,
       method: "post",
       data: {
         id: playlistId,
@@ -92,7 +92,7 @@ function Playlist() {
             <img
               src={
                 playlistData.coverImg
-                  ? `http://localhost:4000/getImg/${playlistData.coverImg}`
+                  ? `${process.env.REACT_APP_API}getImg/${playlistData.coverImg}`
                   : albumImg
               }
               alt=""

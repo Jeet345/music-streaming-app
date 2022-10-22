@@ -9,7 +9,7 @@ export default function NewReleases() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/songs/getPopularTracks",
+      url: `${process.env.REACT_APP_API}songs/getPopularTracks`,
       method: "get",
     })
       .then((res) => {

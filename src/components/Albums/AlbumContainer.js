@@ -47,7 +47,7 @@ export default function AlbumContainer(prop) {
 
   const handlePlayBtnClick = (album) => {
     axios({
-      url: "http://localhost:4000/songs/getTracksByAlbumId",
+      url: "${process.env.REACT_APP_API}songs/getTracksByAlbumId",
       method: "post",
       data: {
         id: album._id,
@@ -80,7 +80,7 @@ export default function AlbumContainer(prop) {
               <div className="album-card" key={elem}>
                 <div className="img">
                   <img
-                    src={`http://localhost:4000/getImg/${album.coverImg}`}
+                    src={`${process.env.REACT_APP_API}getImg/${album.coverImg}`}
                     alt=""
                   />
                   <div

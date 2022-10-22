@@ -106,7 +106,7 @@ function UpdateArtist() {
     };
 
     axios({
-      url: "http://localhost:4000/admin/artists/updateArtist",
+      url: `${process.env.REACT_APP_API}admin/artists/updateArtist`,
       method: "post",
       data: form_data,
       onUploadProgress: uploadProgress,

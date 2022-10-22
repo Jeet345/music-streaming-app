@@ -55,7 +55,7 @@ function Nav() {
   useEffect(() => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/users/findUserById",
+        url: `${process.env.REACT_APP_API}users/findUserById"`,
         method: "post",
         data: {
           id: userCookie,
@@ -77,7 +77,7 @@ function Nav() {
   const getPlaylistData = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/playlists/getPlaylistsByUserId",
+        url: `${process.env.REACT_APP_API}playlists/getPlaylistsByUserId"`,
         method: "post",
         data: {
           userId: userCookie,
@@ -210,7 +210,7 @@ function Nav() {
           <img
             src={
               userData?.profileImage
-                ? `http://localhost:4000/getImg/${userData.profileImage}`
+                ? `${process.env.REACT_APP_API}getImg/${userData.profileImage}`
                 : require("../../src/assets/profile.png")
             }
             alt=""

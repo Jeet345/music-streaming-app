@@ -80,7 +80,7 @@ function SideQueueBox() {
                 </div>
 
                 <img
-                  src={`http://localhost:4000/getImg/${data.imageFileName}`}
+                  src={`${process.env.REACT_APP_API}getImg/${data.imageFileName}`}
                 />
               </div>
               <div className="desc-box">

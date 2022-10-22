@@ -43,7 +43,7 @@ function Register() {
 
   const checkIfEmailExist = async (email) => {
     const res = await axios({
-      url: "http://localhost:4000/users/findUserByEmail",
+      url: `${process.env.REACT_APP_API}users/findUserByEmail`,
       method: "post",
       data: {
         email,
@@ -66,7 +66,7 @@ function Register() {
     await checkIfEmailExist(data.email).then((res) => {
       if (res.data == "") {
         axios({
-          url: "http://localhost:4000/register",
+          url: `${process.env.REACT_APP_API}register`,
           method: "post",
           data,
         })

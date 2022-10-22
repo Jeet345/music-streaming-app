@@ -39,7 +39,7 @@ function ArtistContainer(props) {
 
   const handlePlayBtnClick = (artist) => {
     axios({
-      url: "http://localhost:4000/songs/getTracksByArtistId",
+      url: `${process.env.REACT_APP_API}songs/getTracksByArtistId`,
       method: "post",
       data: {
         id: artist._id,
@@ -72,7 +72,7 @@ function ArtistContainer(props) {
               <div className="album-card" key={elem}>
                 <div className="img">
                   <img
-                    src={`http://localhost:4000/getImg/${artist.coverImg}`}
+                    src={`${process.env.REACT_APP_API}getImg/${artist.coverImg}`}
                     alt=""
                   />
                   <div

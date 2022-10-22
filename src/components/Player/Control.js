@@ -64,7 +64,7 @@ function Control(prop) {
   useEffect(() => {
     if (
       audioPlayer.current.currentSrc !=
-      `http://localhost:4000/getAudio/${prop.songData.trackFileName}`
+      `${process.env.REACT_APP_API}getAudio/${prop.songData.trackFileName}`
     ) {
       changeAudio();
       prop.setIsLoaded(false);

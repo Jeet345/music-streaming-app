@@ -39,7 +39,7 @@ function TracksByArtist() {
 
   const getArtistData = () => {
     axios({
-      url: "http://localhost:4000/artists/getArtistById",
+      url: `${process.env.REACT_APP_API}artists/getArtistById`,
       method: "post",
       data: {
         id: artistId,
@@ -60,7 +60,7 @@ function TracksByArtist() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/songs/getTracksByArtistId",
+      url: `${process.env.REACT_APP_API}songs/getTracksByArtistId`,
       method: "post",
       data: {
         id: artistId,
@@ -77,7 +77,7 @@ function TracksByArtist() {
 
   useEffect(() => {
     axios({
-      url: "http://localhost:4000/albums/getAlbumByArtistId",
+      url: `${process.env.REACT_APP_API}albums/getAlbumByArtistId`,
       method: "post",
       data: {
         id: artistId,
@@ -120,7 +120,7 @@ function TracksByArtist() {
   const checkIsFollowing = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/getFollowingArtistsByUserId",
+        url: `${process.env.REACT_APP_API}library/getFollowingArtistsByUserId`,
         method: "post",
         data: {
           userId: userCookie,
@@ -148,7 +148,7 @@ function TracksByArtist() {
   const handleFollowBtnClick = () => {
     if (userCookie) {
       axios({
-        url: "http://localhost:4000/library/addFollowingArtists",
+        url: `${process.env.REACT_APP_API}library/addFollowingArtists`,
         method: "post",
         data: {
           userId: userCookie,
@@ -170,7 +170,7 @@ function TracksByArtist() {
 
   const handleFollowingBtnClick = () => {
     axios({
-      url: "http://localhost:4000/library/removeFollowingArtists",
+      url: `${process.env.REACT_APP_API}library/removeFollowingArtists`,
       method: "delete",
       data: {
         userId: userCookie,
@@ -192,7 +192,7 @@ function TracksByArtist() {
           <img
             src={
               artistData.coverImg
-                ? `http://localhost:4000/getImg/${artistData.coverImg}`
+                ? `${process.env.REACT_APP_API}getImg/${artistData.coverImg}`
                 : null
             }
             alt=""

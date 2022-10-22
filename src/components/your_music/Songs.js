@@ -33,7 +33,7 @@ function Songs() {
 
   const getDetailFavoriteSongByUserId = async () => {
     axios({
-      url: "http://localhost:4000/library/getDetailFavoriteSongByUserId",
+      url: `${process.env.REACT_APP_API}library/getDetailFavoriteSongByUserId`,
       method: "post",
       data: {
         userId: userCookie,

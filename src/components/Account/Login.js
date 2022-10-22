@@ -42,7 +42,7 @@ function Login() {
   const formSubmit = async (data) => {
     setIsFormDisabled(true);
     axios({
-      url: "http://localhost:4000/login",
+      url: `${process.env.REACT_APP_API}login`,
       method: "post",
       data,
     })
@@ -78,7 +78,7 @@ function Login() {
     } else {
       setIsForgotDisabled(true);
       axios({
-        url: "http://localhost:4000/forgotPasswordMailSend",
+        url: `${process.env.REACT_APP_API}forgotPasswordMailSend`,
         method: "post",
         data: { email: email },
       })

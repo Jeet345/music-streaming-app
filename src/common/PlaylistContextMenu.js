@@ -28,7 +28,7 @@ function PlaylistContextMenu(prop) {
   const handleDialogApprove = () => {
     handleConfirmDialogClose();
     axios({
-      url: "http://localhost:4000/playlists/deletePlaylistsById",
+      url: `${process.env.REACT_APP_API}playlists/deletePlaylistsById`,
       method: "delete",
       data: {
         id: playlistMenuRowData._id,
@@ -52,7 +52,7 @@ function PlaylistContextMenu(prop) {
   const handlePlaylistStatusChange = (status) => {
     prop.setPlaylistMenuAnchorEl(null);
     axios({
-      url: "http://localhost:4000/playlists/updatePlaylistsStatusById",
+      url: `${process.env.REACT_APP_API}playlists/updatePlaylistsStatusById`,
       method: "post",
       data: {
         id: playlistMenuRowData._id,
