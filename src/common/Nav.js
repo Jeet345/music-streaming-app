@@ -55,7 +55,7 @@ function Nav() {
   useEffect(() => {
     if (userCookie) {
       axios({
-        url: `${process.env.REACT_APP_API}users/findUserById"`,
+        url: `${process.env.REACT_APP_API}users/findUserById`,
         method: "post",
         data: {
           id: userCookie,
@@ -77,7 +77,7 @@ function Nav() {
   const getPlaylistData = () => {
     if (userCookie) {
       axios({
-        url: `${process.env.REACT_APP_API}playlists/getPlaylistsByUserId"`,
+        url: `${process.env.REACT_APP_API}playlists/getPlaylistsByUserId`,
         method: "post",
         data: {
           userId: userCookie,
