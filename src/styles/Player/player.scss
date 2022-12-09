@@ -121,6 +121,12 @@ $primary: #689f38;
         .active {
             color: $primary !important;
         }
+        .lyrics-btn {
+            font-size: 0.8rem;
+            letter-spacing: 0.6px;
+            text-transform: capitalize;
+            margin-right: 10px;
+        }
     }
     .music-controls {
         display: flex;
@@ -176,5 +182,18 @@ $primary: #689f38;
                 border-bottom-right-radius: 0px;
             }
         }
+    }
+}
+
+.lyrics-dialog {
+    .MuiPaper-root {
+        min-width: 50%;
+    }
+    .lyrics-content {
+        text-align: center;
+        padding: 10px 0px;
+        font-size: 1.25rem;
+        font-weight: 300;
+        margin-top: 10px;
     }
 }

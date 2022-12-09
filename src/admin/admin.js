@@ -16,6 +16,10 @@ import AddGenres from "./pages/Genres/AddGenres.js";
 import UpdateGenres from "./pages/Genres/UpdateGenres.js";
 import UpdateAlbum from "./pages/Albums/UpdateAlbum.js";
 import UpdateTrack from "./pages/Songs/UpdateTrack.js";
+import Playlists from "./pages/Playlists/Playlists.js";
+import Users from "./pages/Users/Users.js";
+import AddUser from "./pages/Users/AddUser.js";
+import UpdateUser from "./pages/Users/UpdateUser.js";
 
 function admin() {
   return (
@@ -39,6 +43,12 @@ function admin() {
             <Route path="/genres" element={<Genres />} />
             <Route path="/genres/addGenres" element={<AddGenres />} />
             <Route path="/genres/updateGenres" element={<UpdateGenres />} />
+
+            <Route path="/playlists" element={<Playlists />} />
+
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/addUser" element={<AddUser />} />
+            <Route path="/users/updateUser" element={<UpdateUser />} />
           </Routes>
         </div>
       </div>

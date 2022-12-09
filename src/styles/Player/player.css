@@ -180,6 +180,13 @@
   color: #689f38 !important;
 }
 
+.player-container .right-controls .lyrics-btn {
+  font-size: 0.8rem;
+  letter-spacing: 0.6px;
+  text-transform: capitalize;
+  margin-right: 10px;
+}
+
 .player-container .music-controls {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -244,5 +251,17 @@
   border-radius: 10px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+
+.lyrics-dialog .MuiPaper-root {
+  min-width: 50%;
+}
+
+.lyrics-dialog .lyrics-content {
+  text-align: center;
+  padding: 10px 0px;
+  font-size: 1.25rem;
+  font-weight: 300;
+  margin-top: 10px;
 }
 /*# sourceMappingURL=player.css.map */

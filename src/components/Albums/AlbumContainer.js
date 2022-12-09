@@ -47,7 +47,7 @@ export default function AlbumContainer(prop) {
 
   const handlePlayBtnClick = (album) => {
     axios({
-      url: "${process.env.REACT_APP_API}songs/getTracksByAlbumId",
+      url: `${process.env.REACT_APP_API}songs/getTracksByAlbumId`,
       method: "post",
       data: {
         id: album._id,

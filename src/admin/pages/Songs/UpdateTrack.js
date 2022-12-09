@@ -23,7 +23,7 @@ function UpdateTrack() {
     lyrics: yup.string(),
     artists: yup.array().min(1, "Artists is a required field"),
     album: yup.string(),
-    genres: yup.array().min(1, "Genred is a required field"),
+    genres: yup.array().min(1, "Genres is a required field"),
     tags: yup.array().min(1, "Tags is a requird field"),
   });
 
@@ -423,7 +423,7 @@ function UpdateTrack() {
 
           <div className="button-group">
             <Button variant="contained" type="submit" disabled={isFormDisabled}>
-              Save
+              Update
             </Button>
             <Button
               className="reset-btn"

@@ -13,6 +13,8 @@ import {
 import { MdQueueMusic, MdRepeat, MdShuffle } from "react-icons/md";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Button } from "@mui/material";
+import LyricsDialogBox from "../../common/LyricsDialogBox";
 
 function Player() {
   const audioPlayer = useRef();
@@ -23,6 +25,7 @@ function Player() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [lyricsDialogIsOpen, setlyricsDialogIsOpen] = useState(false);
 
   const songData = JSON.parse(
     useSelector((state) => state.changeCurrPlayingSong)
@@ -93,6 +96,10 @@ function Player() {
     }
   }, [currentTime]);
 
+  const handleLyricsDialogClose = () => {
+    setlyricsDialogIsOpen(false);
+  };
+
   // when load data of audio file
   const onLoadedMetadata = () => {
     const seconds = audioPlayer.current.duration;
@@ -140,69 +147,95 @@ function Player() {
   };
 
   return (
-    <div className="player-container">
-      <audio
-        controls
-        style={{ display: "none" }}
-        ref={audioPlayer}
-        onLoadedMetadata={onLoadedMetadata}
-      >
-        <source
-          src={`${process.env.REACT_APP_API}getAudio/${songData.trackFileName}`}
-          type="audio/mp3"
-        />
-      </audio>
-
-      <Control
-        audioPlayer={audioPlayer}
-        isLoaded={isLoaded}
-        setIsLoaded={setIsLoaded}
-        songData={songData}
-        whilePlaying={whilePlaying}
-        animationRef={animationRef}
-      />
-
-      <div className="progress-box">
-        <h5 className="elapsed-time">{calculateTime(currentTime)}</h5>
-        <div className="progress-bar">
-          <input
-            type="range"
-            className="progress-range"
-            defaultValue={0}
-            ref={progressBar}
-            onChange={changeRange}
+    <>
+      <div className="player-container">
+        <audio
+          controls
+          style={{ display: "none" }}
+          ref={audioPlayer}
+          onLoadedMetadata={onLoadedMetadata}
+        >
+          <source
+            src={`${process.env.REACT_APP_API}getAudio/${songData.trackFileName}`}
+            type="audio/mp3"
           />
-          <div ref={progressFill} className="range-fill"></div>
+        </audio>
+
+        <Control
+          audioPlayer={audioPlayer}
+          isLoaded={isLoaded}
+          setIsLoaded={setIsLoaded}
+          songData={songData}
+          whilePlaying={whilePlaying}
+          animationRef={animationRef}
+        />
+
+        <div className="progress-box">
+          <h5 className="elapsed-time">{calculateTime(currentTime)}</h5>
+          <div className="progress-bar">
+            <input
+              type="range"
+              className="progress-range"
+              defaultValue={0}
+              ref={progressBar}
+              onChange={changeRange}
+            />
+            <div ref={progressFill} className="range-fill"></div>
+          </div>
+          <h5 className="track-time">
+            {duration && !isNaN(duration) ? calculateTime(duration) : "00:00"}
+          </h5>
         </div>
-        <h5 className="track-time">
-          {duration && !isNaN(duration) ? calculateTime(duration) : "00:00"}
-        </h5>
+
+        <div className="right-controls">
+          <Button
+            className="lyrics-btn"
+            onClick={() => {
+              if (songData.lyrics) {
+                setlyricsDialogIsOpen(true);
+              } else {
+                toast.info("Could not find lyrics for this song.", {
+                  toastId: "not found",
+                });
+              }
+            }}
+            // disabled={!songData.lyrics}
+            variant="text"
+          >
+            Lyrics
+          </Button>
+          <button
+            className={queueIsVisible ? "active" : ""}
+            onClick={handleSongQueueClick}
+            title="Toggle Queue"
+          >
+            <MdQueueMusic />
+          </button>
+          <button title="Toggle Shuffle">
+            <MdShuffle />
+          </button>
+          <button
+            title="Repeat"
+            className={isLoop ? "active" : ""}
+            onClick={() => {
+              dispatch(setSongIsRepeat(!isLoop));
+            }}
+          >
+            <MdRepeat />
+          </button>
+        </div>
+
+        <Volume audioPlayer={audioPlayer} />
       </div>
 
-      <div className="right-controls">
-        <button
-          className={queueIsVisible ? "active" : ""}
-          onClick={handleSongQueueClick}
-          title="Toggle Queue"
-        >
-          <MdQueueMusic />
-        </button>
-        <button title="Toggle Shuffle">
-          <MdShuffle />
-        </button>
-        <button
-          title="Repeat"
-          className={isLoop ? "active" : ""}
-          onClick={() => {
-            dispatch(setSongIsRepeat(!isLoop));
-          }}
-        >
-          <MdRepeat />
-        </button>
-      </div>
-
-      <Volume audioPlayer={audioPlayer} />
-    </div>
+      {songData.lyrics ? (
+        <LyricsDialogBox
+          currentTime={currentTime}
+          isOpen={lyricsDialogIsOpen}
+          handleClose={handleLyricsDialogClose}
+        />
+      ) : null}
+    </>
   );
 }
 
