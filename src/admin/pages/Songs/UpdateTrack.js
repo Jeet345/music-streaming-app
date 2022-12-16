@@ -44,6 +44,8 @@ function UpdateTrack() {
   const navigate = useNavigate();
   const rowData = location.state;
 
+  console.log("rowData", rowData);
+
   const [selectedTags, setSelectedTags] = useState(rowData.tags);
   const [inputTag, setInputTag] = useState();
   const [progressValue, setProgressValue] = useState(0);
@@ -73,7 +75,9 @@ function UpdateTrack() {
     });
 
     setValue("artists", arrayOfArtistId);
-    setValue("album", rowData.album_name[0]._id);
+    if (rowData.album_name.length > 0) {
+      setValue("album", rowData.album_name[0]._id);
+    }
     setValue("genres", arrayOfGenresId);
   }, []);
 

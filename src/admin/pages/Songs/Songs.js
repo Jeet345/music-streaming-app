@@ -83,7 +83,7 @@ function Songs() {
         return (rowData[c.field] = params.getValue(params.id, c.field));
       });
 
-    navigate("/admin/songs/updateTrack", { state: rowData });
+    navigate("/Admin/Songs/UpdateTrack", { state: rowData });
   };
 
   const handleMenuClose = () => {
