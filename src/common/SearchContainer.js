@@ -265,7 +265,7 @@ function SearchContainer() {
             </div>
           ) : null}
 
-          <div className="result-box">
+          {/* <div className="result-box">
             <h5 className="heading">People</h5>
             <ul>
               <li>
@@ -317,7 +317,7 @@ function SearchContainer() {
                 </div>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       ) : null}
     </div>

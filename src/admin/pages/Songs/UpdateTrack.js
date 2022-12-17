@@ -73,7 +73,7 @@ function UpdateTrack() {
     rowData.genres.map((val, ele) => {
       arrayOfGenresId.push(val._id);
     });
-
+ 
     setValue("artists", arrayOfArtistId);
     if (rowData.album_name.length > 0) {
       setValue("album", rowData.album_name[0]._id);

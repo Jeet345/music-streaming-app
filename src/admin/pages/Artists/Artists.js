@@ -217,8 +217,21 @@ function Artists() {
 
   return (
     <div className="song-page-container">
-      <h1 className="title">Artists</h1>
-      <div className="search-filed">
+      <div className="page-header">
+        <h1 className="title">Artists</h1>
+        <div>
+          <Button
+            variant="contained"
+            size="small"
+            className="button-input"
+            startIcon={<HiPlusSm />}
+            onClick={newTrackBtnClick}
+          >
+            New Artist
+          </Button>
+        </div>
+      </div>
+      {/* <div className="search-filed">
         <TextField
           style={{ width: "100%" }}
           id="input-with-icon-textfield"
@@ -243,7 +256,7 @@ function Artists() {
             New Artist
           </Button>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="data-table"

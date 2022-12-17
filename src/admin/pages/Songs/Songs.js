@@ -272,8 +272,41 @@ function Songs() {
 
   return (
     <div className="song-page-container">
-      <h1 className="title">Songs</h1>
-      <div className="search-filed">
+      <div className="page-header">
+        <h1 className="title">Songs</h1>
+        <div>
+          <Button
+            variant="contained"
+            size="small"
+            className="button-input"
+            aria-controls={menuOpen ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={menuOpen ? "true" : undefined}
+            startIcon={<HiPlusSm />}
+            onClick={newTrackBtnClick}
+          >
+            New Track
+          </Button>
+          <Menu
+            className="basic-menu"
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={menuOpen}
+            onClose={handleMenuClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={() => navigate("/Admin/Songs/CreateTrack")}>
+              Create Track
+            </MenuItem>
+            <MenuItem>Upload Track</MenuItem>
+            <MenuItem>Import Track</MenuItem>
+          </Menu>
+        </div>
+      </div>
+
+      {/* <div className="search-filed">
         <TextField
           style={{ width: "100%" }}
           id="input-with-icon-textfield"
@@ -317,7 +350,7 @@ function Songs() {
             <MenuItem>Import Track</MenuItem>
           </Menu>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="data-table"

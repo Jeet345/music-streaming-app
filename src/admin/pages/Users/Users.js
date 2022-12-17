@@ -258,8 +258,22 @@ function Users() {
   return (
     <>
       <div className="song-page-container">
-        <h1 className="title">Playlists</h1>
-        <div className="search-filed">
+        <div className="page-header">
+          <h1 className="title">Playlists</h1>
+          <div>
+            <Button
+              variant="contained"
+              size="small"
+              className="button-input"
+              startIcon={<HiPlusSm />}
+              onClick={newUserBtnClick}
+            >
+              New User
+            </Button>
+          </div>
+        </div>
+
+        {/* <div className="search-filed">
           <TextField
             style={{ width: "100%" }}
             id="input-with-icon-textfield"
@@ -284,7 +298,7 @@ function Users() {
               New User
             </Button>
           </div>
-        </div>
+        </div> */}
 
         <div
           className="data-table"

@@ -244,14 +244,14 @@ function Nav() {
               </MenuItem>
             ) : null}
 
-            <MenuItem
+            {/* <MenuItem
               onClick={() => {
                 setSettingMenuAnchorEl(null);
               }}
             >
               <FiBell size={20} />
               Notifications
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
               onClick={() => {
                 setSettingMenuAnchorEl(null);

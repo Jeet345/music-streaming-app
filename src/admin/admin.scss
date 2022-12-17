@@ -122,10 +122,28 @@ $border: #3e3e46;
 $background: #23232c;
 
 .song-page-container {
-    .title {
-        font-weight: 300;
-        color: white;
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        .title {
+            font-weight: 300;
+            color: white;
+        }
+        .button-input {
+            width: 170px;
+            height: 45px;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+        .MuiButton-startIcon {
+            * {
+                font-size: 28px;
+            }
+        }
     }
+
     .search-filed {
         display: flex;
         align-items: center;
@@ -138,18 +156,6 @@ $background: #23232c;
             input {
                 padding: 13px 0px;
                 padding-right: 13px;
-            }
-        }
-        .button-input {
-            width: 170px;
-            height: 45px;
-            font-size: 15px;
-            font-weight: 600;
-            text-transform: capitalize;
-        }
-        .MuiButton-startIcon {
-            * {
-                font-size: 28px;
             }
         }
     }
@@ -240,6 +246,33 @@ $background: #23232c;
                     color: white;
                 }
             }
+        }
+    }
+}
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 35px;
+    .box {
+        background-color: #1e1e26;
+        padding: 35px;
+        padding-right: 50px;
+        border-radius: 5px;
+        border: 1px solid $border;
+        display: inline-flex;
+        align-items: center;
+        grid-gap: 18px;
+    }
+    .desc {
+        line-height: 1.5;
+        .title {
+            color: #bababa;
+            font-size: 0.9rem;
+        }
+        .count {
+            color: white;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
         }
     }
 }

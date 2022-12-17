@@ -155,9 +155,33 @@
   display: none !important;
 }
 
-.song-page-container .title {
+.song-page-container .page-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.song-page-container .page-header .title {
   font-weight: 300;
   color: white;
+}
+
+.song-page-container .page-header .button-input {
+  width: 170px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.song-page-container .page-header .MuiButton-startIcon * {
+  font-size: 28px;
 }
 
 .song-page-container .search-filed {
@@ -179,18 +203,6 @@
 .song-page-container .search-filed .search-input input {
   padding: 13px 0px;
   padding-right: 13px;
-}
-
-.song-page-container .search-filed .button-input {
-  width: 170px;
-  height: 45px;
-  font-size: 15px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.song-page-container .search-filed .MuiButton-startIcon * {
-  font-size: 28px;
 }
 
 .MuiList-root {
@@ -304,5 +316,43 @@
 
 .add-track-container form .right-side-box .button-group .reset-btn {
   color: white;
+}
+
+.dashboard-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-gap: 35px;
+}
+
+.dashboard-container .box {
+  background-color: #1e1e26;
+  padding: 35px;
+  padding-right: 50px;
+  border-radius: 5px;
+  border: 1px solid #3e3e46;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  grid-gap: 18px;
+}
+
+.dashboard-container .desc {
+  line-height: 1.5;
+}
+
+.dashboard-container .desc .title {
+  color: #bababa;
+  font-size: 0.9rem;
+}
+
+.dashboard-container .desc .count {
+  color: white;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
 }
 /*# sourceMappingURL=admin.css.map */

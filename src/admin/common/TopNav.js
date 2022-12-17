@@ -3,13 +3,13 @@ import { FaRegBell } from "react-icons/fa";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { IconButton, Tooltip } from "@mui/material";
 function TopNav() {
-   return (
-      <>
-         <header className="admin-top-nav">
-            <div className="logo">
-               <h1>MUSICK</h1>
-            </div>
-            <ul className="right-side">
+  return (
+    <>
+      <header className="admin-top-nav">
+        <div className="logo">
+          <h1>MUSICK</h1>
+        </div>
+        {/* <ul className="right-side">
                <li>
                   <Tooltip title="Notifications">
                      <IconButton aria-label="notifications" color="secondary">
@@ -27,10 +27,10 @@ function TopNav() {
                      <BsFillCaretDownFill />
                   </div>
                </li>
-            </ul>
-         </header>
-      </>
-   );
+            </ul> */}
+      </header>
+    </>
+  );
 }
 
 export default TopNav;
